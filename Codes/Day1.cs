@@ -6,8 +6,55 @@ namespace AdventOfCode.Codes
 {
     public class Day1
     {
-        
-        public static int Distance(string input)
+        public Location CurrentLocation { get; set; }
+        public Direction CurrentDirection { get; set; }
+
+        public int FirstVisitedDistance(string input)
+        {
+            HashSet<Location> visits = new HashSet<Location>();
+
+            var instructions = input.Split(',')
+                .Select(x =>
+                {
+                    var instruction = x.Trim();
+                    return new Vector
+                    {
+                        Direction = instruction.Substring(0, 1) == "R" ? 90 : -90,
+                        Magnitude = Convert.ToInt32(instruction.Substring(1))
+                    };
+                });
+
+            CurrentDirection = Direction.North;
+            CurrentLocation = new Location(0, 0);
+
+            foreach (var vector in instructions)
+            {
+                SetNewDirection(vector.Direction);
+                var found = UpdateLocationWithTracking(visits, vector.Magnitude);
+                if (found) break;
+            }
+
+            return Math.Abs(CurrentLocation.X) + Math.Abs(CurrentLocation.Y);
+        }
+
+        private bool UpdateLocationWithTracking(HashSet<Location> visits, int distanceTravelled)
+        {
+            var modifier = LocationModifiers[CurrentDirection];
+
+            while (distanceTravelled > 0)
+            {
+                CurrentLocation = CurrentLocation + modifier;
+                distanceTravelled--;
+                if (visits.Contains(CurrentLocation))
+                {
+                    return true;
+                }
+                visits.Add(CurrentLocation);
+            }
+            return false;
+        }
+
+        public int Distance(string input)
         {            
             var instructions = input.Split(',')
                 .Select(x =>
@@ -20,24 +67,21 @@ namespace AdventOfCode.Codes
                     };
                 });
 
-            Direction currentDirection = Direction.North;
-            Location currentLocation = new Location(0, 0);
-            
             foreach (var vector in instructions)
             {
-                currentDirection = GetNewDirection(currentDirection, vector.Direction);
-                currentLocation = UpdateLocation(currentDirection, currentLocation, vector.Magnitude);
+                SetNewDirection(vector.Direction);
+                UpdateLocation(vector.Magnitude);
             }
 
-            return Math.Abs(currentLocation.X) + Math.Abs(currentLocation.Y);
+            return Math.Abs(CurrentLocation.X) + Math.Abs(CurrentLocation.Y);
         }
 
-        public static Location UpdateLocation(Direction currentDirection, Location currentLocation, int distance)
+        public void UpdateLocation(int distance)
         {
-            var modifier = LocationModifiers[currentDirection];
+            var modifier = LocationModifiers[CurrentDirection];
 
             var distanceTravelled = modifier * distance;
-            return currentLocation + distanceTravelled;
+            CurrentLocation = CurrentLocation + distanceTravelled;
         }
 
         private static readonly Dictionary<Direction, Location> LocationModifiers = new Dictionary<Direction, Location>
@@ -48,11 +92,11 @@ namespace AdventOfCode.Codes
             {Direction.West, new Location(-1,0) }
         };
 
-        public static Direction GetNewDirection(Direction currentDirection, int turn)
+        public void SetNewDirection(int turn)
         {
-            var newBearing = (Convert.ToInt32(currentDirection) + turn);
+            var newBearing = (Convert.ToInt32(CurrentDirection) + turn);
             if (newBearing < 0) newBearing += 360;
-            return (Direction)(newBearing % 360);
+            CurrentDirection = (Direction)(newBearing % 360);
         }
     }
     
@@ -70,7 +114,7 @@ namespace AdventOfCode.Codes
         public int Magnitude;
     }
 
-    public struct Location
+    public class Location
     {
         public Location(int x, int y)
         {
@@ -88,6 +132,26 @@ namespace AdventOfCode.Codes
         public static Location operator *(Location loc, int magnitude)
         {
             return new Location(loc.X * magnitude, loc.Y * magnitude);
+        }
+        protected bool Equals(Location other)
+        {
+            return X == other.X && Y == other.Y;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Location) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return (X*397) ^ Y;
+            }
         }
     }
 }
