@@ -1,5 +1,7 @@
-﻿using AdventOfCode.Utilities;
+﻿using System;
+using AdventOfCode.Utilities;
 using System.Text;
+using static System.String;
 
 namespace AdventOfCode.Solutions
 {
@@ -26,7 +28,7 @@ namespace AdventOfCode.Solutions
                 ProcessLine(line);
                 result.Append(GetCurrentKeyPadNumber());
             }
-            return System.Convert.ToInt32(result.ToString());
+            return Convert.ToInt32(result.ToString());
         }
 
         public int ProcessLine(string input)
@@ -35,8 +37,9 @@ namespace AdventOfCode.Solutions
             foreach (var instruction in instructions)
             {
                 ProcessInstruction(instruction);
-                System.Console.WriteLine("Processed {0} now at {1},{2}", instruction, CurrentLocation.X, CurrentLocation.Y);
+                Console.WriteLine("Processed {0} now at {1},{2}, {3}", instruction, CurrentLocation.X, CurrentLocation.Y,GetCurrentKeyOnRealPad());
             }
+            Console.WriteLine("---end of line---");
             return GetCurrentKeyPadNumber();
         }
 
@@ -62,6 +65,64 @@ namespace AdventOfCode.Solutions
             return _keys[CurrentLocation.Y, CurrentLocation.X];
         }
 
-        
+        //Part 2
+
+        private string[,] _actualKeys =
+        {
+            {null, null, "1", null, null},
+            {null, "2", "3", "4", null},
+            {"5", "6", "7", "8", "9"},
+            {null, "A", "B", "C", null},
+            {null, null, "D", null, null}
+        };
+
+        public string CalculateRealDoorCode(string input)
+        {
+            var lines = input.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            var result = new StringBuilder();
+            foreach (var line in lines)
+            {
+                result.Append(ProcessLineOnRealPad(line));
+            }
+            return result.ToString();
+        }
+
+        public string GetCurrentKeyOnRealPad()
+        {
+            return _actualKeys[CurrentLocation.Y, CurrentLocation.X];
+        }
+
+        public string ProcessLineOnRealPad(string input)
+        {
+            var instructions = input.ToCharArray();
+            foreach (var instruction in instructions)
+            {
+                ProcessInstructionOnRealPad(instruction);
+            }
+            return GetCurrentKeyOnRealPad();
+        }
+
+        public void ProcessInstructionOnRealPad(char instruction)
+        {
+            var lastKnownGood = new Location(CurrentLocation.X, CurrentLocation.Y);
+
+            switch (instruction)
+            {
+                case 'U': CurrentLocation.Y--; break;
+                case 'D': CurrentLocation.Y++; break;
+                case 'L': CurrentLocation.X--; break;
+                case 'R': CurrentLocation.X++; break;
+            }
+
+            if (CurrentLocation.X < 0 || CurrentLocation.X > 4 || 
+                CurrentLocation.Y < 0 || CurrentLocation.Y > 4 || 
+                IsNullOrEmpty(GetCurrentKeyOnRealPad()))
+            {
+                //not a good place to be - head for open water!
+                CurrentLocation = lastKnownGood;
+            }
+        }
+
+
     }
 }
