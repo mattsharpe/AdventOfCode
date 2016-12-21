@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AdventOfCode.Utilities;
 
-namespace AdventOfCode.Codes
+namespace AdventOfCode.Solutions
 {
     public class Day1
     {
         public Location CurrentLocation { get; set; }
-        public Direction CurrentDirection { get; set; }
+        public CompassBearing CurrentCompassBearing { get; set; }
 
         public int FirstVisitedDistance(string input)
         {
@@ -24,7 +25,7 @@ namespace AdventOfCode.Codes
                     };
                 });
 
-            CurrentDirection = Direction.North;
+            CurrentCompassBearing = CompassBearing.North;
             CurrentLocation = new Location(0, 0);
 
             foreach (var vector in instructions)
@@ -39,7 +40,7 @@ namespace AdventOfCode.Codes
 
         private bool UpdateLocationWithTracking(HashSet<Location> visits, int distanceTravelled)
         {
-            var modifier = LocationModifiers[CurrentDirection];
+            var modifier = LocationModifiers[CurrentCompassBearing];
 
             while (distanceTravelled > 0)
             {
@@ -78,80 +79,26 @@ namespace AdventOfCode.Codes
 
         public void UpdateLocation(int distance)
         {
-            var modifier = LocationModifiers[CurrentDirection];
+            var modifier = LocationModifiers[CurrentCompassBearing];
 
             var distanceTravelled = modifier * distance;
             CurrentLocation = CurrentLocation + distanceTravelled;
         }
 
-        private static readonly Dictionary<Direction, Location> LocationModifiers = new Dictionary<Direction, Location>
+        private static readonly Dictionary<CompassBearing, Location> LocationModifiers = new Dictionary<CompassBearing, Location>
         {
-            {Direction.North, new Location(0,1) },
-            {Direction.East, new Location(1,0) },
-            {Direction.South, new Location(0,-1) },
-            {Direction.West, new Location(-1,0) }
+            {CompassBearing.North, new Location(0,1) },
+            {CompassBearing.East, new Location(1,0) },
+            {CompassBearing.South, new Location(0,-1) },
+            {CompassBearing.West, new Location(-1,0) }
         };
 
         public void SetNewDirection(int turn)
         {
-            var newBearing = (Convert.ToInt32(CurrentDirection) + turn);
+            var newBearing = (Convert.ToInt32(CurrentCompassBearing) + turn);
             if (newBearing < 0) newBearing += 360;
-            CurrentDirection = (Direction)(newBearing % 360);
+            CurrentCompassBearing = (CompassBearing)(newBearing % 360);
         }
     }
-    
-    public enum Direction
-    {
-        North = 0,
-        East = 90,
-        South = 180,
-        West = 270
-    }
 
-    public struct Vector
-    {
-        public int Direction;
-        public int Magnitude;
-    }
-
-    public class Location
-    {
-        public Location(int x, int y)
-        {
-            X = x;
-            Y = y;
-        }
-
-        public int X { get; set; }
-        public int Y { get; set; }
-
-        public static Location operator +(Location a, Location b)
-        {
-            return new Location(a.X + b.X, a.Y + b.Y);
-        }
-        public static Location operator *(Location loc, int magnitude)
-        {
-            return new Location(loc.X * magnitude, loc.Y * magnitude);
-        }
-        protected bool Equals(Location other)
-        {
-            return X == other.X && Y == other.Y;
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((Location) obj);
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                return (X*397) ^ Y;
-            }
-        }
-    }
 }

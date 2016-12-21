@@ -1,4 +1,5 @@
-﻿using AdventOfCode.Codes;
+﻿using AdventOfCode.Solutions;
+using AdventOfCode.Utilities;
 using NUnit.Framework;
 
 namespace AdventOfCode.Tests
@@ -11,7 +12,7 @@ namespace AdventOfCode.Tests
         [SetUp]
         public void Setup()
         {
-            _day1 = new Day1 {CurrentDirection = Direction.North, CurrentLocation = new Location(0,0)};
+            _day1 = new Day1 {CurrentCompassBearing = CompassBearing.North, CurrentLocation = new Location(0,0)};
         }
 
         [Test]
@@ -61,36 +62,36 @@ namespace AdventOfCode.Tests
         [Test]
         public void Clockwise_NewDirection()
         {
-            Assert.AreEqual(Direction.North, _day1.CurrentDirection);
+            Assert.AreEqual(CompassBearing.North, _day1.CurrentCompassBearing);
             _day1.SetNewDirection(90);
-            Assert.AreEqual(Direction.East,_day1.CurrentDirection);
+            Assert.AreEqual(CompassBearing.East,_day1.CurrentCompassBearing);
             _day1.SetNewDirection(90);
-            Assert.AreEqual(Direction.South, _day1.CurrentDirection);
+            Assert.AreEqual(CompassBearing.South, _day1.CurrentCompassBearing);
             _day1.SetNewDirection(90);
-            Assert.AreEqual(Direction.West, _day1.CurrentDirection);
+            Assert.AreEqual(CompassBearing.West, _day1.CurrentCompassBearing);
             _day1.SetNewDirection(90);
-            Assert.AreEqual(Direction.North, _day1.CurrentDirection);
+            Assert.AreEqual(CompassBearing.North, _day1.CurrentCompassBearing);
         }
 
         [Test]
         public void CounterClockwise_NewDirection()
         {
-            Assert.AreEqual(Direction.North, _day1.CurrentDirection);
+            Assert.AreEqual(CompassBearing.North, _day1.CurrentCompassBearing);
             _day1.SetNewDirection(-90);
-            Assert.AreEqual(Direction.West, _day1.CurrentDirection);
+            Assert.AreEqual(CompassBearing.West, _day1.CurrentCompassBearing);
             _day1.SetNewDirection(-90);
-            Assert.AreEqual(Direction.South, _day1.CurrentDirection);
+            Assert.AreEqual(CompassBearing.South, _day1.CurrentCompassBearing);
             _day1.SetNewDirection(-90);
-            Assert.AreEqual(Direction.East, _day1.CurrentDirection);
+            Assert.AreEqual(CompassBearing.East, _day1.CurrentCompassBearing);
             _day1.SetNewDirection(-90);
-            Assert.AreEqual(Direction.North, _day1.CurrentDirection);
+            Assert.AreEqual(CompassBearing.North, _day1.CurrentCompassBearing);
             
         }
 
         [Test]
         public void CalculateNewLocation_North()
         {
-            _day1.CurrentDirection = Direction.North;
+            _day1.CurrentCompassBearing = CompassBearing.North;
             _day1.UpdateLocation(3);
             Assert.AreEqual(3, _day1.CurrentLocation.Y);
             Assert.AreEqual(0, _day1.CurrentLocation.X);
@@ -99,7 +100,7 @@ namespace AdventOfCode.Tests
         [Test]
         public void CalculateNewLocation_East()
         {
-            _day1.CurrentDirection = Direction.East;
+            _day1.CurrentCompassBearing = CompassBearing.East;
             _day1.UpdateLocation(3);
             Assert.AreEqual(0, _day1.CurrentLocation.Y);
             Assert.AreEqual(3, _day1.CurrentLocation.X);
@@ -108,7 +109,7 @@ namespace AdventOfCode.Tests
         [Test]
         public void CalculateNewLocation_South()
         {
-            _day1.CurrentDirection = Direction.South;
+            _day1.CurrentCompassBearing = CompassBearing.South;
             _day1.UpdateLocation(3);
             Assert.AreEqual(-3, _day1.CurrentLocation.Y);
             Assert.AreEqual(0, _day1.CurrentLocation.X);
@@ -117,7 +118,7 @@ namespace AdventOfCode.Tests
         [Test]
         public void CalculateNewLocation_West()
         {
-            _day1.CurrentDirection = Direction.West;
+            _day1.CurrentCompassBearing = CompassBearing.West;
             _day1.UpdateLocation(3);
             Assert.AreEqual(0, _day1.CurrentLocation.Y);
             Assert.AreEqual(-3, _day1.CurrentLocation.X);
