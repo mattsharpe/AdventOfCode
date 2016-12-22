@@ -61,5 +61,22 @@ namespace AdventOfCode.Tests
             var result = _day4.Part1();
             Assert.AreEqual(137896, result);
         }
+
+        [Test]
+        public void ShiftCipher()
+        {
+            string input = "qzmt-zixmtkozy-ivhz";
+            int shift = 343;
+            string result = _day4.ShiftCipher(input, shift);
+
+            Assert.AreEqual("very encrypted name", result);
+        }
+
+        [Test]
+        public void Part2()
+        {
+            var result = _day4.Part2();
+            Assert.AreEqual(501,result);
+        }
     }
 }

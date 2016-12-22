@@ -20,7 +20,7 @@ totally-real-room-200[decoy]
             var room = new Room(input);
             Assert.AreEqual("abxyz", room.Checksum);
             Assert.AreEqual(123, room.Sector);
-            Assert.AreEqual("aaaaabbbzyx", room.EncryptedName);
+            Assert.AreEqual("aaaaa-bbb-z-y-x", room.EncryptedName);
         }
 
         [Test]
@@ -30,7 +30,7 @@ totally-real-room-200[decoy]
             var room = new Room(input);
             Assert.AreEqual("abcde", room.Checksum);
             Assert.AreEqual(987, room.Sector);
-            Assert.AreEqual("abcdefgh", room.EncryptedName);
+            Assert.AreEqual("a-b-c-d-e-f-g-h", room.EncryptedName);
         }
 
         [Test]
@@ -40,7 +40,7 @@ totally-real-room-200[decoy]
             var room = new Room(input);
             Assert.AreEqual("oarel", room.Checksum);
             Assert.AreEqual(404, room.Sector);
-            Assert.AreEqual("notarealroom", room.EncryptedName);
+            Assert.AreEqual("not-a-real-room", room.EncryptedName);
         }
 
         [Test]
@@ -50,7 +50,7 @@ totally-real-room-200[decoy]
             var room = new Room(input);
             Assert.AreEqual("decoy", room.Checksum);
             Assert.AreEqual(200, room.Sector);
-            Assert.AreEqual("totallyrealroom", room.EncryptedName);
+            Assert.AreEqual("totally-real-room", room.EncryptedName);
         }
     }
 }

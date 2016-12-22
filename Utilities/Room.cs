@@ -16,7 +16,7 @@ namespace AdventOfCode.Utilities
 
             Sector = Convert.ToInt32(checksum.Split('[')[0]);
             Checksum = checksum.Split('[')[1].Replace("]","");
-            EncryptedName = roomName.Remove(roomName.LastIndexOf('-')).Replace("-","");
+            EncryptedName = roomName.Remove(roomName.LastIndexOf('-'));
         }
     }
 }
