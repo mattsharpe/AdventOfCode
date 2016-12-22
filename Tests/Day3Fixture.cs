@@ -1,7 +1,5 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using AdventOfCode.Solutions;
-using AdventOfCode.Utilities;
 using NUnit.Framework;
 
 namespace AdventOfCode.Tests

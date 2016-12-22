@@ -45,13 +45,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Solutions\Day3.cs" />
+    <Compile Include="Solutions\Day4.cs" />
     <Compile Include="Tests\Day3Fixture.cs" />
+    <Compile Include="Tests\Day4Fixture.cs" />
+    <Compile Include="Tests\RoomFixture.cs" />
     <Compile Include="Tests\TriangleFixture.cs" />
     <Compile Include="Utilities\CompassBearing.cs" />
     <Compile Include="Solutions\Day1.cs" />
     <Compile Include="Solutions\Day2.cs" />
     <Compile Include="Utilities\FileReader.cs" />
     <Compile Include="Utilities\Location.cs" />
+    <Compile Include="Utilities\Room.cs" />
     <Compile Include="Utilities\Triangle.cs" />
     <Compile Include="Utilities\Vector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -62,7 +66,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="TestData\day3.txt" />
+    <EmbeddedResource Include="TestData\day3 triangles.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TestData\day4 room codes.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

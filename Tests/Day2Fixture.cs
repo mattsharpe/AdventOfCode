@@ -70,7 +70,7 @@ UDUULLRLUDLLUULRURRUUDDLLLDUURRURURDDRDLRRURLLRURLDDDRRDDUDRLLDRRUDRDRDDRURLULDD
 
             var result = _day2.CalculateRealDoorCode(input);
 
-            Assert.AreEqual("Badger", result);
+            Assert.AreEqual("74CD2", result);
         }
 
         [Test]
