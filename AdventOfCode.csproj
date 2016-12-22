@@ -46,8 +46,10 @@
   <ItemGroup>
     <Compile Include="Solutions\Day3.cs" />
     <Compile Include="Solutions\Day4.cs" />
+    <Compile Include="Solutions\Day5.cs" />
     <Compile Include="Tests\Day3Fixture.cs" />
     <Compile Include="Tests\Day4Fixture.cs" />
+    <Compile Include="Tests\Day5Fixture.cs" />
     <Compile Include="Tests\RoomFixture.cs" />
     <Compile Include="Tests\TriangleFixture.cs" />
     <Compile Include="Utilities\CompassBearing.cs" />
