@@ -46,9 +46,11 @@
   <ItemGroup>
     <Compile Include="Solutions\Day3.cs" />
     <Compile Include="Tests\Day3Fixture.cs" />
+    <Compile Include="Tests\TriangleFixture.cs" />
     <Compile Include="Utilities\CompassBearing.cs" />
     <Compile Include="Solutions\Day1.cs" />
     <Compile Include="Solutions\Day2.cs" />
+    <Compile Include="Utilities\FileReader.cs" />
     <Compile Include="Utilities\Location.cs" />
     <Compile Include="Utilities\Triangle.cs" />
     <Compile Include="Utilities\Vector.cs" />
@@ -60,7 +62,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestData\day3.txt" />
+    <EmbeddedResource Include="TestData\day3.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
