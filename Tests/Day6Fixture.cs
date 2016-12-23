@@ -54,5 +54,12 @@ namespace AdventOfCode.Tests
             var result  = _day6.Challenge1();
             Assert.AreEqual("ursvoerv", result);
         }
+
+        [Test]
+        public void Task2()
+        {
+            var result  = _day6.Challenge2();
+            Assert.AreEqual("vomaypnn", result);
+        }
     }
 }
