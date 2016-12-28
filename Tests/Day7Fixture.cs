@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AdventOfCode.Solutions;
-using AdventOfCode.Utilities;
+﻿using AdventOfCode.Solutions;
 using NUnit.Framework;
 
 namespace AdventOfCode.Tests
@@ -51,6 +45,80 @@ namespace AdventOfCode.Tests
         {
             var result = _day7.Part1();
             Assert.AreEqual(105, result);
+        }
+
+        [Test]
+        public void SSL_Sample1()
+        {
+            var input = "aba[bab]xyz";
+            var result = _day7.SupportsSSL(input);
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void SSL_Sample2()
+        {
+            var input = "xyx[xyx]xyx";
+            var result = _day7.SupportsSSL(input);
+            Assert.False(result);
+        }
+
+        [Test]
+        public void SSL_Sample3()
+        {
+            var input = "aaa[kek]eke";
+            var result = _day7.SupportsSSL(input);
+            Assert.True(result);
+        }
+
+        [Test]
+        public void SSL_Sample4()
+        {
+            var input = "zazbz[bzb]cdb";
+            var result = _day7.SupportsSSL(input);
+            Assert.True(result);
+        }
+
+        [Test]
+        public void SSL_Sample5()
+        {
+            var input = "vjqhodfzrrqjshbhx[lezezbbswydnjnz]ejcflwytgzvyigz[hjdilpgdyzfkloa]mxtkrysovvotkuyekba";
+            var result = _day7.SupportsSSL(input);
+            Assert.False(result);
+        }
+
+        [Test]
+        public void SSL_Invalid()
+        {
+            var input = "rnqfzoisbqxbdlkgfh[lwlybvcsiupwnsyiljz]kmbgyaptjcsvwcltrdx[ntrpwgkrfeljpye]jxjdlgtntpljxaojufe";
+            var result = _day7.SupportsSSL(input);
+            Assert.False(result);
+        }
+
+        [Test]
+        public void SSL_Valid()
+        {
+            var input = "neakzsrjrhvixwp[ydbbvlckobfkgbandud]xdynfcpsooblftf[wzyquuvtwnjjrjbuhj]yxlpiloirianyrkzfqe";
+            var result = _day7.SupportsSSL(input);
+            Assert.True(result);
+        }
+
+        [Test]
+        public void Part2()
+        {
+            var result = _day7.Part2();
+            Assert.AreEqual(258, result);
+        }
+
+        [Test]
+        public void FindAbas()
+        {
+            string test = "cgjtaytywwwoclclru";
+            var result = _day7.FindAbas(test);
+            Assert.That(result.Contains("yty"));
+            Assert.That(!result.Contains("www"));
+            Assert.That(result.Contains("clc"));
+            Assert.That(result.Contains("lcl"));
         }
     }
 }
