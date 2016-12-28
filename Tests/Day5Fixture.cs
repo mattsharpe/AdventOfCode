@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using AdventOfCode.Solutions;
+﻿using AdventOfCode.Solutions;
 using NUnit.Framework;
 
 namespace AdventOfCode.Tests
@@ -44,7 +41,7 @@ namespace AdventOfCode.Tests
         public void Part2()
         {
             var password = _day5.CalculatePasswordWithOrder("ugkcyxxp");
-            Assert.AreEqual("ugkcyxxp", password);
+            Assert.AreEqual("f2c730e5", password);
         }
     }
 }
