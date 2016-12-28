@@ -48,10 +48,12 @@
     <Compile Include="Solutions\Day4.cs" />
     <Compile Include="Solutions\Day5.cs" />
     <Compile Include="Solutions\Day6.cs" />
+    <Compile Include="Solutions\Day7.cs" />
     <Compile Include="Tests\Day3Fixture.cs" />
     <Compile Include="Tests\Day4Fixture.cs" />
     <Compile Include="Tests\Day5Fixture.cs" />
     <Compile Include="Tests\Day6Fixture.cs" />
+    <Compile Include="Tests\Day7Fixture.cs" />
     <Compile Include="Tests\RoomFixture.cs" />
     <Compile Include="Tests\TriangleFixture.cs" />
     <Compile Include="Utilities\CompassBearing.cs" />
@@ -77,6 +79,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="TestData\day6 messages.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TestData\day7 ip addresses.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
