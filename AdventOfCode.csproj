@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{F575C1B7-2465-434F-B29A-B56B1573AC1B}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AdventOfCode</RootNamespace>
     <AssemblyName>AdventOfCode</AssemblyName>
@@ -29,6 +29,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="nunit.framework, Version=3.5.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.3.5.0\lib\net45\nunit.framework.dll</HintPath>
@@ -44,16 +47,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Program.cs" />
     <Compile Include="Solutions\Day3.cs" />
     <Compile Include="Solutions\Day4.cs" />
     <Compile Include="Solutions\Day5.cs" />
     <Compile Include="Solutions\Day6.cs" />
     <Compile Include="Solutions\Day7.cs" />
+    <Compile Include="Solutions\Day8.cs" />
     <Compile Include="Tests\Day3Fixture.cs" />
     <Compile Include="Tests\Day4Fixture.cs" />
     <Compile Include="Tests\Day5Fixture.cs" />
     <Compile Include="Tests\Day6Fixture.cs" />
     <Compile Include="Tests\Day7Fixture.cs" />
+    <Compile Include="Tests\Day8Fixture.cs" />
     <Compile Include="Tests\RoomFixture.cs" />
     <Compile Include="Tests\TriangleFixture.cs" />
     <Compile Include="Utilities\CompassBearing.cs" />
@@ -82,6 +88,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="TestData\day7 ip addresses.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TestData\day8 instructions.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
