@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Linq;
+using System.Text;
+using AdventOfCode.Utilities;
 
 namespace AdventOfCode.Solutions
 {
@@ -46,7 +49,7 @@ There seems to be an intermediate check of the voltage used by the display: afte
     class Day8
     {
         //50 pixels wide and 6 tall.
-        private bool[,] _display = new bool[6,50];
+        private bool[,] _display = new bool[50,6];
 
         public Day8()
         {
@@ -75,27 +78,56 @@ There seems to be an intermediate check of the voltage used by the display: afte
 
         public void Rectangle(string instruction)
         {
+            //rect 3x3
             var data = instruction.Substring(5).Split('x');
             var x = Convert.ToInt32(data[0]);
             var y = Convert.ToInt32(data[1]);
 
-            for (int i = 0; i < x; i++)
+            for (int xLocation= 0; xLocation < x; xLocation++)
             {
-                for (int j = 0; j < y; j++)
+                for (int yLocation = 0; yLocation < y; yLocation++)
                 {
-                    _display[i, j] = true;
+                    _display[xLocation, yLocation] = true;
                 }
             }
         }
 
         public void RotateRow(string instruction)
         {
-            
+            //rotate row y=0 by 36
+            var parts = instruction.Replace("rotate row y=", "").Replace(" by ", ",").Split(',');
+            var row = Convert.ToInt32(parts[0]);
+            var distance = Convert.ToInt32(parts[1]);
+
+            //first read the old data into a list
+            var unchanged = Enumerable.Range(0, _display.GetLength(0))
+                .Select(x => _display[x, row])
+                .ToList();
+
+            for (int x = 0; x < unchanged.Count; x++)
+            {
+                var targetColumn = (x + distance) % _display.GetLength(0);
+                _display[targetColumn, row] = unchanged[x];
+            }
         }
 
         public void RotateColumn(string instruction)
         {
+            //rotate column x=1 by 1
+            var parts = instruction.Replace("rotate column x=", "").Replace(" by ", ",").Split(',');
+            var column = Convert.ToInt32(parts[0]);
+            var distance = Convert.ToInt32(parts[1]);
+
+            //first read the old data into a list
+            var unchanged = Enumerable.Range(0, _display.GetLength(1))
+                .Select(x => _display[column, x])
+                .ToList();
             
+            for (int y = 0; y < unchanged.Count; y++)
+            {
+                var targetRow = (y + distance)%_display.GetLength(1);
+                _display[column, targetRow] = unchanged[y];
+            }
         }
 
         public int ActivePixels
@@ -116,14 +148,31 @@ There seems to be an intermediate check of the voltage used by the display: afte
 
         public void PrintArray()
         {
-            for (int i = 0; i < _display.GetLength(0); i++)
+            Console.WriteLine(ToString());
+        }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            for (int y = 0; y < _display.GetLength(1); y++)
             {
-                for (int j = 0; j < _display.GetLength(1); j++)
+                for (int x = 0; x < _display.GetLength(0); x++)
                 {
-                    Console.Write(_display[i, j] ? "1 " : "0 ");
+                    sb.Append(_display[x, y] ? "#" : ".");
                 }
-                Console.Write(Environment.NewLine + Environment.NewLine);
+                sb.AppendLine();
             }
+            return sb.ToString();
+        }
+
+        public void Part1()
+        {
+            var input = FileReader.ReadFile("day8 instructions.txt");
+            foreach (var instruction in input)
+            {
+                ProcessInstruction(instruction);
+            }
+            PrintArray();
         }
     }
 }
