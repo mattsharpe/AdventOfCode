@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using AdventOfCode.Utilities;
 
 namespace AdventOfCode.Solutions
@@ -165,14 +166,20 @@ There seems to be an intermediate check of the voltage used by the display: afte
             return sb.ToString();
         }
 
-        public void Part1()
+        public void Part1(bool animate = false)
         {
             var input = FileReader.ReadFile("day8 instructions.txt");
             foreach (var instruction in input)
             {
                 ProcessInstruction(instruction);
+                if (animate)
+                {
+                    Console.Clear();
+                    PrintArray();
+                    Thread.Sleep(50);
+                }
             }
-            PrintArray();
+            
         }
     }
 }
