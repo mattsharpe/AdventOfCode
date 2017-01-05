@@ -1,6 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using AdventOfCode.Utilities;
 
 namespace AdventOfCode.Solutions
@@ -10,7 +12,7 @@ namespace AdventOfCode.Solutions
 
 Wandering around a secure area, you come across a datalink port to a new part of the network. After briefly scanning it for interesting files, you find one file in particular that catches your attention. It's compressed with an experimental format, but fortunately, the documentation for the format is nearby.
 
-The format compresses a sequence of characters. Whitespace is ignored. To indicate that some sequence should be repeated, a marker is added to the file, like (10x2). To decompress this marker, take the subsequent 10 characters and repeat them 2 times. Then, continue reading the file after the repeated data. The marker itself is not included in the decompressed output.
+The format compresses a sequence of characters. Whitespace is ignored. To indicate that some sequence should be repeated, a marker is added to the file, like (10x2). To RecursiveDecompress this marker, take the subsequent 10 characters and repeat them 2 times. Then, continue reading the file after the repeated data. The marker itself is not included in the decompressed output.
 
 If parentheses or other characters appear within the data referenced by a marker, that's okay - treat it like normal data, not a marker, and then resume looking for markers after the decompressed section.
 
@@ -36,7 +38,7 @@ For example:
 X(8x2)(3x3)ABCY becomes XABCABCABCABCABCABCY, because the decompressed data from the (8x2) marker is then further decompressed, thus triggering the (3x3) marker twice for a total of six ABC sequences.
 (27x12)(20x12)(13x14)(7x10)(1x12)A decompresses into a string of A repeated 241920 times.
 (25x3)(3x3)ABC(2x3)XY(5x2)PQRSTX(18x9)(3x2)TWO(5x7)SEVEN becomes 445 characters long.
-Unfortunately, the computer you brought probably doesn't have enough memory to actually decompress the file; you'll have to come up with another way to get its decompressed length.
+Unfortunately, the computer you brought probably doesn't have enough memory to actually RecursiveDecompress the file; you'll have to come up with another way to get its decompressed length.
 
 What is the decompressed length of the file using this improved format?
 
@@ -44,10 +46,12 @@ What is the decompressed length of the file using this improved format?
 */
     public class Day9
     {
+        private readonly Regex _regex  = new Regex(@"\((\d+)x(\d+)\)", RegexOptions.Compiled);
+
         public string Decompress(string input)
         {
-            var result = new StringBuilder();
-
+            //var result = new StringBuilder();
+            var result2 = new StreamWriter("temp");
             for(int i = 0; i < input.Length; i++)
             {
                 if (input[i] == '(')
@@ -67,16 +71,18 @@ What is the decompressed length of the file using this improved format?
 
                     var repeated = string.Join("", Enumerable.Range(0, repetitions).Select(x => repeatString));
 
-                    result.Append(repeated);
+                    //result.Append(repeated);
+                    result2.Write(repeated);
                     i = j + charactersToRepeat;
                 }
                 else
                 {
-                    result.Append(input[i]);
+                    result2.Write(input[i]);
+                    //result.Append(input[i]);
                 }
             }
-
-            return result.ToString();
+            result2.Close();
+            return File.ReadAllText("temp");
         }
 
         public string Part1()
@@ -84,5 +90,38 @@ What is the decompressed length of the file using this improved format?
             var data = FileReader.ReadFile("day9 compressed file.txt");
             return Decompress(data.First());
         }
+
+        public long RecursiveDecompress(string input)
+        {
+            var remaining = input;
+            
+            long count = 0;
+            var match = _regex.Match(remaining);
+            if (!match.Success)
+            {
+                count += remaining.Length;
+                return count;
+            }
+
+            count += match.Index; //count everything up to the marker
+
+            var repetitions = Convert.ToInt32(match.Groups[2].Value);
+            var charactersToRepeat = Convert.ToInt32(match.Groups[1].Value);
+
+            var patternToRepeat = remaining.Substring(match.Index + match.Length, charactersToRepeat);
+
+            remaining = remaining.Substring(match.Index + match.Length + charactersToRepeat);
+            if (_regex.IsMatch(patternToRepeat))
+            {
+                count += repetitions * RecursiveDecompress(patternToRepeat);
+            }
+            else
+            {
+                count += charactersToRepeat * repetitions;
+            }
+
+            return count + RecursiveDecompress(remaining);
+        }
+        
     }
 }
