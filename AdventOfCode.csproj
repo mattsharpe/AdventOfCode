@@ -48,6 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
+    <Compile Include="Utilities\Bot.cs" />
+    <Compile Include="Solutions\Day10.cs" />
     <Compile Include="Solutions\Day3.cs" />
     <Compile Include="Solutions\Day4.cs" />
     <Compile Include="Solutions\Day5.cs" />
@@ -55,6 +57,7 @@
     <Compile Include="Solutions\Day7.cs" />
     <Compile Include="Solutions\Day8.cs" />
     <Compile Include="Solutions\Day9.cs" />
+    <Compile Include="Tests\Day10Fixture.cs" />
     <Compile Include="Tests\Day3Fixture.cs" />
     <Compile Include="Tests\Day4Fixture.cs" />
     <Compile Include="Tests\Day5Fixture.cs" />
@@ -96,6 +99,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="TestData\day9 compressed file.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TestData\day 10 instructions.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

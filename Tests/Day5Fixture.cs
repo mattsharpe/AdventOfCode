@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace AdventOfCode.Tests
 {
 
-    [TestFixture]
+    [TestFixture, Explicit]
     public class Day5Fixture
     {
         private Day5 _day5;
