@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
+    <Compile Include="Solutions\Day11.cs" />
     <Compile Include="Utilities\Bot.cs" />
     <Compile Include="Solutions\Day10.cs" />
     <Compile Include="Solutions\Day3.cs" />
@@ -70,6 +71,10 @@
     <Compile Include="Utilities\CompassBearing.cs" />
     <Compile Include="Solutions\Day1.cs" />
     <Compile Include="Solutions\Day2.cs" />
+    <Compile Include="Utilities\Day11\ElementType.cs" />
+    <Compile Include="Utilities\Day11\Item.cs" />
+    <Compile Include="Utilities\Day11\ItemPair.cs" />
+    <Compile Include="Utilities\Day11\State.cs" />
     <Compile Include="Utilities\FileReader.cs" />
     <Compile Include="Utilities\Location.cs" />
     <Compile Include="Utilities\Room.cs" />
@@ -103,6 +108,13 @@
   <ItemGroup>
     <EmbeddedResource Include="TestData\day 10 instructions.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TestData\day 11 input.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tests\Day11Fixture.cs" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
