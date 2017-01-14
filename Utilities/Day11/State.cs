@@ -41,15 +41,17 @@ namespace AdventOfCode.Utilities.Day11
             CurrentFloor = destFloor;
         }
 
-        public State Clone()
+        public State Clone(bool incrementDepth = true)
         {
             var clone = new State
             {
                 CurrentFloor = CurrentFloor,
                 ItemsOnFloor = new Dictionary<int, List<Item>>(),
-                Depth = Depth + 1
-
             };
+            if (incrementDepth)
+            {
+                clone.Depth = Depth + 1;
+            }
             foreach (var floor in ItemsOnFloor)
             {
                 clone.ItemsOnFloor[floor.Key] = new List<Item>(floor.Value);
@@ -75,6 +77,40 @@ namespace AdventOfCode.Utilities.Day11
                 }
                 Console.WriteLine();
             }
-        }        
+        }
+
+        protected bool Equals(State other)
+        {
+
+            var floorsSame = ItemsOnFloor.All(floor =>
+                floor.Value.Count == other.ItemsOnFloor[floor.Key].Count &&
+                new HashSet<Item>(floor.Value).SetEquals(other.ItemsOnFloor[floor.Key]));
+
+            return Depth == other.Depth 
+                && CurrentFloor == other.CurrentFloor 
+                && floorsSame; 
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((State) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = CurrentFloor * 7;
+            foreach (var floor in ItemsOnFloor)
+            {
+                foreach (var item in floor.Value)
+                {
+                    hashCode += item.GetHashCode() * 17;
+                }
+            }
+            return hashCode;
+
+        }
     }
 }

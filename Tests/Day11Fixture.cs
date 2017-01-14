@@ -35,7 +35,7 @@ namespace AdventOfCode.Tests
             Assert.AreNotEqual(a,b);
         }
 
-        private State SampleData => new State
+        public static State SampleData => new State
         {
             ItemsOnFloor =
             {
@@ -60,7 +60,7 @@ namespace AdventOfCode.Tests
         //The second floor contains a polonium-compatible microchip and a promethium-compatible microchip.
         //The third floor contains nothing relevant.
         //The fourth floor contains nothing relevant.
-        private State Part1StartState => new State
+        public static State Part1StartState => new State
         {
             ItemsOnFloor =
             {
