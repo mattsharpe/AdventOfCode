@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Solutions\Day11.cs" />
+    <Compile Include="Tests\Day11StateFixture.cs" />
     <Compile Include="Utilities\Bot.cs" />
     <Compile Include="Solutions\Day10.cs" />
     <Compile Include="Solutions\Day3.cs" />

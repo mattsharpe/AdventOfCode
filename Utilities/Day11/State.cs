@@ -6,34 +6,25 @@ namespace AdventOfCode.Utilities.Day11
 {
     public class State
     {
-        public bool Valid
-        {
-            get
-            {
-                //if any floor has a chip without a matching generator and also has an additional generator then shit went bang.
-                foreach (var floor in ItemsOnFloor)
-                {
-                    if (floor.Value.Exists(
-                        x =>
-                            x.ElementType == ElementType.MicroChip &&
-                            floor.Value.Exists(y => y.ElementType == ElementType.Generator && y.Name != x.Name) &&
-                            !floor.Value.Exists(y => y.ElementType == ElementType.Generator && y.Name == x.Name)))
-                    {
-                        //Console.WriteLine($"{floor.Key} is INVALID");
-                        return false;
-                    }
-                    //Console.WriteLine($"{floor.Key} is VALID");
-                }
-                return true;
-            }
-        }
+        public int Depth { private set; get; } = 0;
 
         public bool Complete => ItemsOnFloor[0].Count == 0 && ItemsOnFloor[1].Count == 0 && ItemsOnFloor[2].Count == 0;
 
         public int CurrentFloor { get; set; } = 0;
-        //dictionary keyeed on floor number, made of tuples, string name for element, bool for chip present, generator present
-        public Dictionary<int,List<Item>> ItemsOnFloor { get; set; } = new Dictionary<int, List<Item>>();
 
+        public Dictionary<int, List<Item>> ItemsOnFloor { get; set; } = new Dictionary<int, List<Item>>();
+        public bool Valid
+        {
+            get
+            {
+                //for all floors, there does not exists a MC with an unmatched generator
+                return ItemsOnFloor.All(floor => 
+                    !floor.Value.Exists(x => x.ElementType == ElementType.MicroChip 
+                    && floor.Value.Exists(y => y.ElementType == ElementType.Generator && y.Name != x.Name) 
+                    && !floor.Value.Exists(y => y.ElementType == ElementType.Generator && y.Name == x.Name)));
+            }
+        }
+        
         public void MoveToFloor(ItemPair items, int destFloor)
         {
             if (items.A != null)
@@ -55,7 +46,9 @@ namespace AdventOfCode.Utilities.Day11
             var clone = new State
             {
                 CurrentFloor = CurrentFloor,
-                ItemsOnFloor = new Dictionary<int, List<Item>>()
+                ItemsOnFloor = new Dictionary<int, List<Item>>(),
+                Depth = Depth + 1
+
             };
             foreach (var floor in ItemsOnFloor)
             {
@@ -82,17 +75,6 @@ namespace AdventOfCode.Utilities.Day11
                 }
                 Console.WriteLine();
             }
-        }
-
-        protected bool Equals(State other)
-        {
-            if (ItemsOnFloor.Any(floor => 
-                !new HashSet<Item>(floor.Value).SetEquals(new HashSet<Item>(other.ItemsOnFloor[floor.Key]))))
-            {
-                return false;
-            }
-            return CurrentFloor == other.CurrentFloor;
-        }
-        
+        }        
     }
 }
