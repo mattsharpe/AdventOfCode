@@ -89,5 +89,21 @@ namespace AdventOfCode.Tests
             Assert.IsTrue(Equals(stateA, stateB));
             Assert.AreEqual(stateA.GetHashCode(), stateB.GetHashCode());
         }
+
+        [Test]
+        public void VisitedStates()
+        {
+            var set = new HashSet<State>();
+
+            set.Add(Day11Fixture.SampleData);
+            Assert.AreEqual(1, set.Count);
+
+            set.Add(Day11Fixture.SampleData);
+            Assert.AreEqual(1, set.Count);
+
+            set.Add(Day11Fixture.SampleData.Clone());
+            Assert.AreEqual(1, set.Count);
+
+        }
     }
 }

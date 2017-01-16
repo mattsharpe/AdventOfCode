@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace AdventOfCode.Utilities.Day11
@@ -86,8 +87,7 @@ namespace AdventOfCode.Utilities.Day11
                 floor.Value.Count == other.ItemsOnFloor[floor.Key].Count &&
                 new HashSet<Item>(floor.Value).SetEquals(other.ItemsOnFloor[floor.Key]));
 
-            return Depth == other.Depth 
-                && CurrentFloor == other.CurrentFloor 
+            return CurrentFloor == other.CurrentFloor 
                 && floorsSame; 
         }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AdventOfCode.Utilities.Day11;
 
@@ -111,7 +112,7 @@ In your situation, what is the minimum number of steps required to bring all of 
     */
     class Day11
     {
-        private State _currentState;
+        public HashSet<State> VisitedStates = new HashSet<State>();
 
         public int CalculateMinimumNumberOfSteps(State input)
         {
@@ -120,17 +121,28 @@ In your situation, what is the minimum number of steps required to bring all of 
             //prune invald states - outside range of lift, mis matched chips 
             //find shortest distance between start and finish - Dijkstra / A* ?
 
-            var nextMoves = GenerateNextStates(input);
+            var nextLevel = GenerateNextStates(input).Distinct().ToList();
+            
+            for (int i = 0; i < 100; i++)
+            {
+                nextLevel = nextLevel.SelectMany(GenerateNextStates).Distinct().ToList();
+                if (nextLevel.Any(x=>x.Complete))
+                {
+                    return nextLevel.Single(x => x.Complete).Depth;
+                }
+                Console.WriteLine($"iteration {i}, next level {nextLevel.Count}");
+            }
 
-            return 0;
+            Console.WriteLine($"We visited {VisitedStates.Count} unique states ");
+            var completed = VisitedStates.Single(x => x.Complete);
+            return completed.Depth;
         }
 
         public IEnumerable<State> GenerateNextStates(State state)
         {
-            //state.PrintState();
-            //let's start with a brute force breadth first approach - what are all the possible moves?
+            VisitedStates.Add(state);
+            
 
-            //what can we move?
             var items = state.ItemsOnFloor[state.CurrentFloor];
             var thingsToMove = new HashSet<ItemPair>();
             foreach (var item in items)
@@ -138,39 +150,59 @@ In your situation, what is the minimum number of steps required to bring all of 
                 thingsToMove.Add(new ItemPair {A = item}); //base case - we just move the one item
                 foreach (var otherItem in items.Where(x=> x != item))
                 {
-                    //TODO: could we here strip out any that would leave our current floor invalid - e.g. don't remove a generator when there's a chip?
+                    //we can only move 2 chips, or 2 generators or a matching chip AND generator
                     thingsToMove.Add(new ItemPair {A = item, B = otherItem});
                 }
-                
                 //TODO: what about equivalence here - Ag + Bg === Bg + Ag [DONE]
             }
 
             //where can we move them to?
-            int[] nextFloors;
             //for floor f +/- current floor, where f > 0 & f< 5
-            if (state.CurrentFloor == 0)
-                nextFloors = new [] {state.CurrentFloor + 1};
-            else if (state.CurrentFloor == 3)
-                nextFloors = new [] {state.CurrentFloor - 1};
-            else
+            //find valid floors to move to
+            var floors = new List<int> {state.CurrentFloor - 1, state.CurrentFloor + 1};
+            if (state.CurrentFloor == 0) floors.Remove(state.CurrentFloor - 1);
+            if (state.CurrentFloor == 3) floors.Remove(state.CurrentFloor + 1);
+
+            //if the lower floor (and all lower floors) are empty, don't move anything down in the wrong direction
+            var preventDown = state.CurrentFloor == 1 && state.ItemsOnFloor[0].Count == 0 || 
+                state.CurrentFloor == 2 && state.ItemsOnFloor[0].Count == 0 && state.ItemsOnFloor[1].Count == 0;
+
+            if (preventDown)
             {
-                nextFloors = new []{state.CurrentFloor + 1, state.CurrentFloor -1};
+                //Console.WriteLine("removed all moves to floor " + (state.CurrentFloor-1));
+                floors.Remove(state.CurrentFloor - 1);
             }
 
-            foreach (var floor in nextFloors)
+            var states = new List<State>();
+
+            foreach (var floor in floors)
             {
                 foreach (var move in thingsToMove)
                 {
+                    //move towards to the goal state:
+
+                    //if I can move 2 things upstairs, don't bother only bringing one. 
+
+
+
+                    //if I can move 1 thing downstairs, dont bother taking two.
+                    //if possible pick an item that has a matching pair the floor below
                     //Console.WriteLine(move + $" to floor {floor} ");
                     var clone = state.Clone();
                     clone.MoveToFloor(move,floor);
                     
-                    //clone.PrintState();
-                    if(clone.Valid)
-                        yield return clone;
+                    //prune invalid states here
+                    if (clone.Valid && !VisitedStates.Contains(clone))
+                    {
+                        states.Add(clone);
+                    }
+                        
                 }
             }
+
             
+
+            return states;
         }
 
         public State GenerateStartState()
