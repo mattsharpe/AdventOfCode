@@ -138,99 +138,59 @@ In your situation, what is the minimum number of steps required to bring all of 
             return completed.Depth;
         }
 
+        State GenerateNextState(State state, int direction, int itemA, int? itemB = null)
+        {
+            //return null;
+            var clone = state.Clone();
+            clone.CurrentFloor += direction;
+            clone.Items[itemA] += direction;
+            if (itemB != null)
+            {
+                clone.Items[itemB.Value] += direction;
+            }
+            return clone;
+        }
+
         public IEnumerable<State> GenerateNextStates(State state)
         {
             VisitedStates.Add(state);
+
+            var thingsOnThisFloor = new List<int>();
+            for (int i = 0; i < state.Items.Length; i++)
+            {
+                if(state.Items[i] == state.CurrentFloor)
+                    thingsOnThisFloor.Add(i); //add the INDEX of the item to the list of things that can move
+            }
             
-
-            var items = state.ItemsOnFloor[state.CurrentFloor];
-            var thingsToMove = new HashSet<ItemPair>();
-            foreach (var item in items)
-            {
-                thingsToMove.Add(new ItemPair {A = item}); //base case - we just move the one item
-                foreach (var otherItem in items.Where(x=> x != item))
-                {
-                    //we can only move 2 chips, or 2 generators or a matching chip AND generator
-                    thingsToMove.Add(new ItemPair {A = item, B = otherItem});
-                }
-                //TODO: what about equivalence here - Ag + Bg === Bg + Ag [DONE]
-            }
-
-            //where can we move them to?
-            //for floor f +/- current floor, where f > 0 & f< 5
-            //find valid floors to move to
-            var floors = new List<int> {state.CurrentFloor - 1, state.CurrentFloor + 1};
-            if (state.CurrentFloor == 0) floors.Remove(state.CurrentFloor - 1);
-            if (state.CurrentFloor == 3) floors.Remove(state.CurrentFloor + 1);
-
-            //if the lower floor (and all lower floors) are empty, don't move anything down in the wrong direction
-            var preventDown = state.CurrentFloor == 1 && state.ItemsOnFloor[0].Count == 0 || 
-                state.CurrentFloor == 2 && state.ItemsOnFloor[0].Count == 0 && state.ItemsOnFloor[1].Count == 0;
-
-            if (preventDown)
-            {
-                //Console.WriteLine("removed all moves to floor " + (state.CurrentFloor-1));
-                floors.Remove(state.CurrentFloor - 1);
-            }
 
             var states = new List<State>();
 
-            foreach (var floor in floors)
+            if (state.CurrentFloor < 3) //not on the top floor so we can optimise moves up
             {
-                foreach (var move in thingsToMove)
+                for (int i = 0; i < thingsOnThisFloor.Count; i++)
                 {
-                    //move towards to the goal state:
-
-                    //if I can move 2 things upstairs, don't bother only bringing one. 
-
-
-
-                    //if I can move 1 thing downstairs, dont bother taking two.
-                    //if possible pick an item that has a matching pair the floor below
-                    //Console.WriteLine(move + $" to floor {floor} ");
-                    var clone = state.Clone();
-                    clone.MoveToFloor(move,floor);
-                    
-                    //prune invalid states here
-                    if (clone.Valid && !VisitedStates.Contains(clone))
+                    for (int j = i + 1; j < thingsOnThisFloor.Count; j++) // for each other thing in the list
                     {
-                        states.Add(clone);
+                        states.Add(GenerateNextState(state,1,thingsOnThisFloor[i],thingsOnThisFloor[j]));//
                     }
-                        
+                    states.Add(GenerateNextState(state,1, thingsOnThisFloor[i]));
                 }
             }
 
-            
-
-            return states;
-        }
-
-        public State GenerateStartState()
-        {
-            var state = new State
+            //not on the bottom floor so we can consider moves down
+            if (state.CurrentFloor > 0)
             {
-                ItemsOnFloor =
+                for (int i = 0; i < thingsOnThisFloor.Count; i++)
                 {
-                    [0] = new List<Item>
+                    states.Add(GenerateNextState(state,-1, thingsOnThisFloor[i]));
+                    for (int j = i + 1; j < thingsOnThisFloor.Count; j++)
                     {
-                        new Item("polonium", ElementType.Generator),
-                        new Item("thulium", ElementType.Generator),
-                        new Item("promethium", ElementType.Generator),
-                        new Item("ruthenium", ElementType.Generator),
-                        new Item("ruthenium", ElementType.MicroChip),
-                        new Item("cobalt", ElementType.Generator)
-                    },
-                    [1] = new List<Item>
-                    {
-                        new Item("polonium", ElementType.MicroChip),
-                        new Item("promethium", ElementType.MicroChip)
-                    },
-                    [2] = new List<Item>(),
-                    [3] = new List<Item>()
+                        states.Add(GenerateNextState(state,-1,thingsOnThisFloor[i],thingsOnThisFloor[j]));
+                    }
                 }
-            };
+            }
             
-            return state;
+            return states.Where(x=>x.Valid && !VisitedStates.Contains(x));
         }
     }
 }

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.CodeDom;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq;
 using AdventOfCode.Solutions;
 using AdventOfCode.Utilities.Day11;
@@ -28,100 +25,88 @@ namespace AdventOfCode.Tests
             Assert.AreEqual(11, result);
         }
 
-        [Test, Explicit]
+        [Test]
         public void Part1Test()
         {
             var result = _day11.CalculateMinimumNumberOfSteps(Part1StartState);
             
             Assert.AreEqual(47, result);
         }
-        
+
         [Test]
-        public void TupleTest()
+        public void Part2Test()
         {
-            var a = new Tuple<string,string>("a", "b");
-            var b = new Tuple<string,string>("b", "a");
-            Assert.AreNotEqual(a,b);
+            var result = _day11.CalculateMinimumNumberOfSteps(Part2StartState);
+            
+            Assert.AreEqual(71, result);
         }
 
-        public static State SampleData => new State
+
+        public static State SampleData
         {
-            ItemsOnFloor =
+            get
             {
-                [0] = new List<Item>
+                State.Elements = new[] {"Hy","Li"};
+                var state = new State
                 {
-                    new Item("hydrogen", ElementType.MicroChip),
-                    new Item("lithium", ElementType.MicroChip),
-                },
-                [1] = new List<Item>
-                {
-                    new Item("hydrogen", ElementType.Generator),
-                },
-                [2] = new List<Item>
-                {
-                    new Item("lithium", ElementType.Generator),
-                },
-                [3] = new List<Item>()
+                    Items = new[]
+                    {
+                     1, 0, //hydrogen
+                     2, 0, //lithium
+                    }
+                };
+                
+                return state;
             }
-        };
+        }
 
         //The first floor contains a polonium generator, a thulium generator, a thulium-compatible microchip, a promethium generator, a ruthenium generator, a ruthenium-compatible microchip, a cobalt generator, and a cobalt-compatible microchip.
         //The second floor contains a polonium-compatible microchip and a promethium-compatible microchip.
         //The third floor contains nothing relevant.
         //The fourth floor contains nothing relevant.
-        public static State Part1StartState => new State
+        public static State Part1StartState
         {
-            ItemsOnFloor =
+            get
             {
-                [0] = new List<Item>
+                State.Elements = new[] { "Po", "Th", "Pr", "Ru", "Co" };
+                var state = new State
                 {
-                    new Item("polonium", ElementType.Generator),
-                    new Item("thulium", ElementType.Generator),
-                    new Item("thulium", ElementType.MicroChip),
-                    new Item("promethium", ElementType.Generator),
-                    new Item("ruthenium", ElementType.Generator),
-                    new Item("ruthenium", ElementType.MicroChip),
-                    new Item("cobalt", ElementType.Generator),
-                    new Item("cobalt", ElementType.MicroChip),
-                },
-                [1] = new List<Item>
-                {
-                    new Item("polonium", ElementType.MicroChip),
-                    new Item("promethium", ElementType.MicroChip),
-                },
-                [2] = new List<Item>(),
-                [3] = new List<Item>()
-            }
-        };
+                    Items = new[]
+                    {
+                        0, 1, // Polonium
+                        0, 0, // Thulium
+                        0, 1, // Promethium
+                        0, 0, // Ruthenium
+                        0, 0, // Cobalt
+                    }
+                };
 
-        public static State Part2StartState => new State
-        {
-            ItemsOnFloor =
-            {
-                [0] = new List<Item>
-                {
-                    new Item("polonium", ElementType.Generator),
-                    new Item("thulium", ElementType.Generator),
-                    new Item("thulium", ElementType.MicroChip),
-                    new Item("promethium", ElementType.Generator),
-                    new Item("ruthenium", ElementType.Generator),
-                    new Item("ruthenium", ElementType.MicroChip),
-                    new Item("cobalt", ElementType.Generator),
-                    new Item("cobalt", ElementType.MicroChip),
-                    new Item("elerium", ElementType.Generator),
-                    new Item("elerium", ElementType.MicroChip),
-                    new Item("dilithium", ElementType.Generator),
-                    new Item("dilithium", ElementType.MicroChip),
-                },
-                [1] = new List<Item>
-                {
-                    new Item("polonium", ElementType.MicroChip),
-                    new Item("promethium", ElementType.MicroChip),
-                },
-                [2] = new List<Item>(),
-                [3] = new List<Item>()
+                return state;
             }
-        };
+        }
+        
+        public static State Part2StartState
+        {
+            get
+            {
+                State.Elements = new[] { "Po", "Th", "Pr", "Ru", "Co", "El", "Di" };
+                var state = new State
+                {
+                    Items = new[]
+                    {
+                        0, 1, // Polonium
+                        0, 0, // Thulium
+                        0, 1, // Promethium
+                        0, 0, // Ruthenium
+                        0, 0, // Cobalt
+                        0, 0, // Elerium
+                        0, 0, // Dilithium
+                    }
+                };
+
+                return state;
+            }
+        }
 
         [Test]
         public void SampleDataStartState()
@@ -133,29 +118,17 @@ namespace AdventOfCode.Tests
         [Test]
         public void BuildStartState()
         {
-     
             var state = new State
             {
-                ItemsOnFloor =
+                Items = new[]
                 {
-                    [0] = new List<Item>
-                    {
-                        new Item("polonium", ElementType.Generator),
-                        new Item("thulium", ElementType.Generator),
-                        new Item("thulium", ElementType.MicroChip),
-                        new Item("promethium", ElementType.Generator),
-                        new Item("ruthenium", ElementType.Generator),
-                        new Item("ruthenium", ElementType.MicroChip),
-                        new Item("cobalt", ElementType.Generator),
-                        new Item("cobalt", ElementType.MicroChip)
-                    },
-                    [1] = new List<Item>
-                    {
-                        new Item("polonium", ElementType.MicroChip),
-                        new Item("promethium", ElementType.MicroChip)
-                    },
-                    [2] = new List<Item>(),
-                    [3] = new List<Item>()
+                    0, 1, // Polonium
+                    0, 0, // Thulium
+                    0, 1, // Promethium
+                    0, 0, // Ruthenium
+                    0, 0, // Cobalt
+                    //0, 0, // Elerium
+                    //0, 0, // Dilithium
                 }
             };
 			
@@ -166,7 +139,12 @@ namespace AdventOfCode.Tests
         public void GenerateNextStates()
         {
             var nextMoves = _day11.GenerateNextStates(SampleData);
-            
+            foreach (var nextMove in nextMoves)
+            {
+                Console.WriteLine();
+                nextMove.PrintState();
+                
+            }
 			Assert.AreEqual(1, nextMoves.Count());
         }
 
@@ -179,24 +157,13 @@ namespace AdventOfCode.Tests
         [Test]
         public void InvalidState()
         {
+            State.Elements = new[] { "Hy", "Li" };
             var invalidState = new State
             {
-                ItemsOnFloor =
+                Items = new[]
                 {
-                    [0] = new List<Item>
-                    {
-                        new Item("hydrogen", ElementType.MicroChip),
-                    },
-                    [1] = new List<Item>
-                    {
-                        new Item("hydrogen", ElementType.Generator),
-                        new Item("lithium", ElementType.MicroChip),
-                    },
-                    [2] = new List<Item>
-                    {
-                        new Item("lithium", ElementType.Generator),
-                    },
-                    [3] = new List<Item>()
+                    0, 1, // Hydrogen
+                    1, 1, // Lithium
                 }
             };
 
@@ -207,20 +174,13 @@ namespace AdventOfCode.Tests
         [Test]
         public void ValidStateMultipleMatchedPairs()
         {
+            State.Elements = new[] { "Hy", "Li" };
             var state = new State
             {
-                ItemsOnFloor =
+                Items = new[]
                 {
-                    [0] = new List<Item>
-                    {
-                        new Item("hydrogen", ElementType.MicroChip),
-                        new Item("lithium", ElementType.MicroChip),
-                        new Item("hydrogen", ElementType.Generator),
-                        new Item("lithium", ElementType.Generator),
-                    },
-                    [1] = new List<Item>(),
-                    [2] = new List<Item>(),
-                    [3] = new List<Item>()
+                    1, 1, // Hydrogen
+                    1, 1, // Lithium
                 }
             };
 
@@ -236,25 +196,18 @@ namespace AdventOfCode.Tests
         [Test]
         public void CompleteState()
         {
-            var completeState = new State
+            State.Elements = new[] { "Hy", "Li" };
+            var state = new State
             {
-                ItemsOnFloor =
+                Items = new[]
                 {
-                    [0] = new List<Item>(),
-                    [1] = new List<Item>(),
-                    [2] = new List<Item>(),
-                    [3] = new List<Item>
-                    {
-                        new Item("hydrogen", ElementType.MicroChip),
-                        new Item("hydrogen", ElementType.Generator),
-                        new Item("lithium", ElementType.MicroChip),
-                        new Item("lithium", ElementType.Generator),
-                    }
+                    3, 3, // Hydrogen
+                    3, 3, // Lithium
                 }
             };
-
-            Assert.IsTrue(completeState.Valid);
-            Assert.IsTrue(completeState.Complete);
+            
+            Assert.IsTrue(state.Valid);
+            Assert.IsTrue(state.Complete);
         }
 
         [Test]

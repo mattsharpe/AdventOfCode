@@ -59,35 +59,18 @@ namespace AdventOfCode.Tests
         }
 
         [Test]
-        public void HashCodesAreOrderSensitive()
+        public void Clone()
         {
-            var stateA = new State
+            var state = Day11Fixture.SampleData;
+            var clone = state.Clone();
+            for (int i = 0; i < state.Items.Length; i++)
             {
-                ItemsOnFloor =
-                {
-                    [0] = new List<Item>
-                    {
-                        new Item("hydrogen", ElementType.MicroChip),
-                        new Item("lithium", ElementType.MicroChip),
-                    }
-                }
-            };
+                Assert.AreEqual(state.Items[i],clone.Items[i]);
+            }
 
-            var stateB = new State
-            {
-                ItemsOnFloor =
-                {
-                    [0] = new List<Item>
-                    {
-                        new Item("lithium", ElementType.MicroChip),
-                        new Item("hydrogen", ElementType.MicroChip),
-                    }
-                }
-            };
-            Assert.That(new HashSet<Item>(stateA.ItemsOnFloor[0]).SetEquals(stateB.ItemsOnFloor[0]));
+            clone.Items[3] = 3;
             
-            Assert.IsTrue(Equals(stateA, stateB));
-            Assert.AreEqual(stateA.GetHashCode(), stateB.GetHashCode());
+            Assert.AreEqual(0, state.Items[3]);
         }
 
         [Test]
@@ -103,7 +86,35 @@ namespace AdventOfCode.Tests
 
             set.Add(Day11Fixture.SampleData.Clone());
             Assert.AreEqual(1, set.Count);
+        }
 
+        [Test]
+        public void EquivalentStatesGiveSameHash()
+        {
+            /*
+                F4 .   .   .   .   .  
+                F3 .   .   .   LiG .  
+                F2 .   HyG .   .   .  
+                F1 [E] .   HyM .   LiM
+                
+                is equivalent to:
+                
+                F4 .   .   .   .   .  
+                F3 .   HyG .   .   .  
+                F2 .   .   .   LiG .  
+                F1 [E] .   HyM .   LiM
+
+            */
+
+            State.Elements = new[] {"Hy", "Li"};
+            var state1 = new State {Items = new[] {1, 0, 2, 0}};
+            var state2 = new State {Items = new[] {2, 0, 1, 0}};
+
+            Assert.That(state1.Equals(state2));
+            Assert.AreEqual(state1.GetHashCode(), state2.GetHashCode());
+            var set = new HashSet<State> {state1};
+            Assert.That(set.Contains(state1));
+            Assert.That(set.Contains(state2));
         }
     }
 }
