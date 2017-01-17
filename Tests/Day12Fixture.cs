@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AdventOfCode.Solutions;
+﻿using AdventOfCode.Solutions;
 using NUnit.Framework;
 
 namespace AdventOfCode.Tests
@@ -32,10 +27,7 @@ namespace AdventOfCode.Tests
                 "dec a"
             };
 
-            foreach (var instruction in instructions)
-            {
-                _day12.ProcessInstruction(instruction);
-            }
+            _day12.ProcessInstructions(instructions);
 
             Assert.AreEqual(42, _day12.A);
         }
@@ -44,19 +36,19 @@ namespace AdventOfCode.Tests
         public void Increment()
         {
             Assert.AreEqual(0, _day12.A);
-            _day12.ProcessInstruction("inc a");
+            _day12.ProcessInstructions(new []{"inc a"});
             Assert.AreEqual(1, _day12.A);
 
             Assert.AreEqual(0, _day12.B);
-            _day12.ProcessInstruction("inc b");
+            _day12.ProcessInstructions(new[] { "inc b"});
             Assert.AreEqual(1, _day12.B);
 
             Assert.AreEqual(0, _day12.C);
-            _day12.ProcessInstruction("inc c");
+            _day12.ProcessInstructions(new[] { "inc c"});
             Assert.AreEqual(1, _day12.C);
 
             Assert.AreEqual(0, _day12.D);
-            _day12.ProcessInstruction("inc d");
+            _day12.ProcessInstructions(new[] { "inc d"});
             Assert.AreEqual(1, _day12.D);
         }
 
@@ -65,20 +57,54 @@ namespace AdventOfCode.Tests
         {
             _day12.A = _day12.B = _day12.C = _day12.D = 10;
             Assert.AreEqual(10, _day12.A);
-            _day12.ProcessInstruction("dec a");
+            _day12.ProcessInstructions(new[] { "dec a"});
+
             Assert.AreEqual(9, _day12.A);
 
             Assert.AreEqual(10, _day12.B);
-            _day12.ProcessInstruction("dec b");
+            _day12.ProcessInstructions(new[] { "dec b"});
             Assert.AreEqual(9, _day12.B);
 
             Assert.AreEqual(10, _day12.C);
-            _day12.ProcessInstruction("dec c");
+            _day12.ProcessInstructions(new[] { "dec c"});
             Assert.AreEqual(9, _day12.C);
 
             Assert.AreEqual(10, _day12.D);
-            _day12.ProcessInstruction("dec d");
+            _day12.ProcessInstructions(new[] { "dec d"});
             Assert.AreEqual(9, _day12.D);
+        }
+
+        [Test]
+        public void CopyValueToRegister()
+        {
+            Assert.AreEqual(0, _day12.A);
+            _day12.ProcessInstructions(new[] { "cpy 41 a"});
+
+            Assert.AreEqual(41, _day12.A);
+        }
+
+        [Test]
+        public void CopyRegisterToRegister()
+        {
+            _day12.A = 123;
+            
+            _day12.ProcessInstructions(new[] { "cpy a b"});
+
+            Assert.AreEqual(123,_day12.B);
+        }
+
+        [Test]
+        public void Part1()
+        {
+            _day12.Part1();
+            Assert.AreEqual(317993, _day12.A);
+        }
+
+        [Test]
+        public void Part2()
+        {
+            _day12.Part2();
+            Assert.AreEqual(9227647, _day12.A);
         }
     }
 }
