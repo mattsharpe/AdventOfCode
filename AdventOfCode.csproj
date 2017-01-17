@@ -49,7 +49,9 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Solutions\Day11.cs" />
+    <Compile Include="Solutions\Day12.cs" />
     <Compile Include="Tests\Day11StateFixture.cs" />
+    <Compile Include="Tests\Day12Fixture.cs" />
     <Compile Include="Utilities\Bot.cs" />
     <Compile Include="Solutions\Day10.cs" />
     <Compile Include="Solutions\Day3.cs" />
@@ -114,6 +116,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Tests\Day11Fixture.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TestData\day12 assembunny.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
