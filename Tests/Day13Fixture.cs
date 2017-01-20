@@ -94,6 +94,14 @@ namespace AdventOfCode.Tests
         }
 
         [Test]
+        public void Part2()
+        {
+            _day13.BuildMaze();
+            var result = _day13.ExploreAllPaths();
+            Assert.AreEqual(141, result);
+        }
+
+        [Test]
         public void NextStates()
         {
             _day13.FavouriteNumber = 10;

@@ -91,6 +91,9 @@ namespace AdventOfCode.Solutions
                         case MazeSquare.Wall:
                             Console.Write("# ");
                             break;
+                        case MazeSquare.Visited:
+                            Console.Write("X ");
+                            break;
                     }
                 }
                 Console.WriteLine();
@@ -138,6 +141,25 @@ namespace AdventOfCode.Solutions
             return 1;
         }
 
+        public int ExploreAllPaths()
+        {
+            var start = new MazeState(1, 1, null);
+            var toExplore = new HashSet<MazeState> { start };
+            
+            for (int i = 0; i < 51; i++) //51
+            {
+                toExplore = new HashSet<MazeState>(toExplore.SelectMany(GetNextStates));
+            }
+
+            foreach (var location in _visited)
+            {
+                Maze[location.X, location.Y] = MazeSquare.Visited;
+            }
+            Print();
+            return _visited.Count;
+
+        }
+
         private HashSet<MazeState> _visited = new HashSet<MazeState>();
 
         public List<MazeState> GetNextStates(MazeState currentSquare)
@@ -154,21 +176,21 @@ namespace AdventOfCode.Solutions
             //0,1 & 1,2 should be open
             var states = new List<MazeState>();
             //North - if I'm greater than y - x is irrelevant
-            if (currentSquare.Y > 0 && Maze[currentSquare.X, currentSquare.Y - 1] == MazeSquare.Open)
+            if (currentSquare.Y > 0 && Maze[currentSquare.X, currentSquare.Y - 1] != MazeSquare.Wall)
             {
                 states.Add(new MazeState(currentSquare.X, currentSquare.Y - 1, currentSquare));
             }
-            if (currentSquare.X < MaxSize && Maze[currentSquare.X + 1, currentSquare.Y] == MazeSquare.Open)
+            if (currentSquare.X < MaxSize && Maze[currentSquare.X + 1, currentSquare.Y] != MazeSquare.Wall)
             {
                 //east
                 states.Add(new MazeState(currentSquare.X + 1, currentSquare.Y, currentSquare));
             }
-            if (currentSquare.Y < MaxSize && Maze[currentSquare.X, currentSquare.Y + 1] == MazeSquare.Open)
+            if (currentSquare.Y < MaxSize && Maze[currentSquare.X, currentSquare.Y + 1] != MazeSquare.Wall)
             {
                 //south
                 states.Add(new MazeState(currentSquare.X, currentSquare.Y + 1, currentSquare));
             }
-            if (currentSquare.X > 0 && Maze[currentSquare.X - 1, currentSquare.Y] == MazeSquare.Open)
+            if (currentSquare.X > 0 && Maze[currentSquare.X - 1, currentSquare.Y] != MazeSquare.Wall)
             {
                 //west
                 states.Add(new MazeState(currentSquare.X - 1, currentSquare.Y, currentSquare));
