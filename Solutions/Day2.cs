@@ -73,7 +73,7 @@ Your puzzle answer was 74CD2.
         
         public int CalculateDoorCode(string input)
         {
-            var lines = input.Split(new[] { '\r', '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
+            var lines = input.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
             var result = new StringBuilder();
             foreach(var line in lines)
             {

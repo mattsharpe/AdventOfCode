@@ -50,8 +50,10 @@
     <Compile Include="Program.cs" />
     <Compile Include="Solutions\Day11.cs" />
     <Compile Include="Solutions\Day12.cs" />
+    <Compile Include="Solutions\Day13.cs" />
     <Compile Include="Tests\Day11StateFixture.cs" />
     <Compile Include="Tests\Day12Fixture.cs" />
+    <Compile Include="Tests\Day13Fixture.cs" />
     <Compile Include="Utilities\Bot.cs" />
     <Compile Include="Solutions\Day10.cs" />
     <Compile Include="Solutions\Day3.cs" />
