@@ -28,25 +28,20 @@ namespace AdventOfCode.Solutions
 
     public class Day5
     {
-        private MD5 _md5;
+        private readonly Md5Hasher _md5Hasher;
 
         public Day5()
         {
-            _md5 = MD5.Create();
+            _md5Hasher = new Md5Hasher();
         }
-        public string Md5Hash(string input)
-        {
-            byte[] data = _md5.ComputeHash(Encoding.UTF8.GetBytes(input));
-            return BitConverter.ToString(data).Replace("-", "");
-        }
-        
+
         public string CalculatePassword(string input)
         {
             var sb = new StringBuilder();
             int index = 0;
             while (sb.Length < 8)
             {
-                var hash = Md5Hash($"{input}{index}");
+                var hash = _md5Hasher.Md5Hash($"{input}{index}");
                 if (hash.StartsWith("00000"))
                 {
                     Console.WriteLine($"found a hash {hash}");
@@ -65,7 +60,7 @@ namespace AdventOfCode.Solutions
             int index = 0;
             while (password.Where(x => x != null).Count()  < 8)
             {
-                var hash = Md5Hash($"{door}{index}");
+                var hash = _md5Hasher.Md5Hash($"{door}{index}");
                 if (hash.StartsWith("00000"))
                 {
                     if (char.IsDigit(hash[5]))
