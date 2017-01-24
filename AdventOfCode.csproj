@@ -52,11 +52,15 @@
     <Compile Include="Solutions\Day12.cs" />
     <Compile Include="Solutions\Day13.cs" />
     <Compile Include="Solutions\Day14.cs" />
+    <Compile Include="Solutions\Day15.cs" />
+    <Compile Include="Solutions\Day16.cs" />
     <Compile Include="Solutions\Md5Hasher.cs" />
     <Compile Include="Tests\Day11StateFixture.cs" />
     <Compile Include="Tests\Day12Fixture.cs" />
     <Compile Include="Tests\Day13Fixture.cs" />
     <Compile Include="Tests\Day14Fixture.cs" />
+    <Compile Include="Tests\Day15Fixture.cs" />
+    <Compile Include="Tests\Day16Fixture.cs" />
     <Compile Include="Utilities\Bot.cs" />
     <Compile Include="Solutions\Day10.cs" />
     <Compile Include="Solutions\Day3.cs" />
