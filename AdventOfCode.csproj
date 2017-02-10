@@ -66,6 +66,7 @@
     <Compile Include="Tests\Day16Fixture.cs" />
     <Compile Include="Tests\Day17Fixture.cs" />
     <Compile Include="Tests\Day18Fixture.cs" />
+    <Compile Include="Tests\Day19Fixture.cs" />
     <Compile Include="Utilities\Bot.cs" />
     <Compile Include="Solutions\Day10.cs" />
     <Compile Include="Solutions\Day3.cs" />

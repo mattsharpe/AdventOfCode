@@ -8,6 +8,7 @@ namespace AdventOfCode.Solutions
 {
     class Day19
     {
+        private LinkedList<Elf> _circle = new LinkedList<Elf>();
         /*
         --- Day 19: An Elephant Named Joseph ---
 
@@ -38,5 +39,68 @@ namespace AdventOfCode.Solutions
         Your puzzle input is 3018458.
 
         */
+
+        public int Simulate(int numberOfElves)
+        {
+            var elves = Enumerable.Repeat(1, numberOfElves).ToArray();
+            
+            for (int i = 0; i < elves.Length; i++)
+            {
+                _circle.AddLast(new Elf {Location = i + 1, Presents = 1});
+            }
+            //foreach elf, if elf has no presents then skip
+            //else find next elf that does have presents,
+            //take presents from that elf.
+            //move to next elf.
+
+            while (_circle.All(x => x.Presents != _circle.Count))
+            {
+                ProcessTurn();
+            }
+
+            return _circle.Single(elf => elf.Presents == _circle.Count).Location;
+        }
+
+        private void ProcessTurn()
+        {
+            var current = _circle.First;
+            while (current != null)
+            {
+                if (current.Value.Presents == 0)
+                {
+                    current = current.Next;
+                    continue;
+                }
+
+                var target = current.Next ?? _circle.First;
+
+                while (target.Value.Presents == 0)
+                {
+                    target = target.Next ?? _circle.First;
+                }
+
+                current.Value.Presents += target.Value.Presents;
+                target.Value.Presents = 0;
+                current = current.Next;
+            }
+        }
+
+        public void PrintCircle()
+        {
+            Console.WriteLine();
+
+            foreach (var elf in _circle)
+            {
+                Console.WriteLine($"{elf.Location} : {elf.Presents}");
+            }
+        }
+
+
+    }
+
+    public class Elf
+    {
+        public int Location { get; set; }
+        public int Presents { get; set; }
     }
 }
