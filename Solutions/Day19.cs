@@ -95,6 +95,14 @@ namespace AdventOfCode.Solutions
             }
         }
 
+        public int Part2(int numberOfElves)
+        {
+            //Because Maths
+            int section = (int)Math.Pow(3, (int)Math.Log(numberOfElves - 1, 3));
+            int result = numberOfElves - section + Math.Max(0, numberOfElves - 2 * section);
+            return result;
+        }
+
 
     }
 

@@ -39,5 +39,19 @@ namespace AdventOfCode.Tests
                 Console.WriteLine(_day19.Simulate(i));
             }
         }
+
+        [Test]
+        public void Part2Sample()
+        {
+            var result = _day19.Part2(5);
+            Assert.AreEqual(result, 2);
+        }
+
+        [Test]
+        public void Part2()
+        {
+            var result = _day19.Part2(3018458);
+            Assert.AreEqual(result, 1424135);
+        }
     }
 }

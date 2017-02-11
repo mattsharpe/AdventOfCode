@@ -48,3 +48,4 @@ Temporary Items
 bin/**
 obj/**
 AdventOfCode.csproj.DotSettings
+packages/
