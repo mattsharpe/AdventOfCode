@@ -40,7 +40,7 @@ namespace AdventOfCode.Tests
             Assert.AreEqual(15035, result);
         }
 
-        [Test]
+        [Test, Explicit]
         public void Part2()
         {
             var result = _day14.Part2();
