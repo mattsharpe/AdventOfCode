@@ -68,6 +68,7 @@
     <Compile Include="Tests\Day17Fixture.cs" />
     <Compile Include="Tests\Day18Fixture.cs" />
     <Compile Include="Tests\Day19Fixture.cs" />
+    <Compile Include="Tests\Day20Fixture.cs" />
     <Compile Include="Utilities\Bot.cs" />
     <Compile Include="Solutions\Day10.cs" />
     <Compile Include="Solutions\Day3.cs" />
@@ -135,6 +136,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TestData\day 20.txt" />
+    <EmbeddedResource Include="TestData\day 21.txt" />
+    <EmbeddedResource Include="TestData\day 22.txt" />
+    <EmbeddedResource Include="TestData\day 23.txt" />
+    <EmbeddedResource Include="TestData\day 24.txt" />
+    <EmbeddedResource Include="TestData\day 25.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

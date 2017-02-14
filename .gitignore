@@ -49,3 +49,4 @@ bin/**
 obj/**
 AdventOfCode.csproj.DotSettings
 packages/
+.vs/AdventOfCode/v14/.suo
