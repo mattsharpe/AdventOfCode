@@ -58,6 +58,8 @@
     <Compile Include="Solutions\Day18.cs" />
     <Compile Include="Solutions\Day19.cs" />
     <Compile Include="Solutions\Day20.cs" />
+    <Compile Include="Solutions\Day21.cs" />
+    <Compile Include="Utilities\ExtensionMethods.cs" />
     <Compile Include="Solutions\Md5Hasher.cs" />
     <Compile Include="Tests\Day11StateFixture.cs" />
     <Compile Include="Tests\Day12Fixture.cs" />
@@ -69,6 +71,7 @@
     <Compile Include="Tests\Day18Fixture.cs" />
     <Compile Include="Tests\Day19Fixture.cs" />
     <Compile Include="Tests\Day20Fixture.cs" />
+    <Compile Include="Tests\Day21Fixture.cs" />
     <Compile Include="Utilities\Bot.cs" />
     <Compile Include="Solutions\Day10.cs" />
     <Compile Include="Solutions\Day3.cs" />
