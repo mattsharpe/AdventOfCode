@@ -33,6 +33,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using AdventOfCode.Utilities;
 
@@ -66,12 +67,12 @@ namespace AdventOfCode.Solutions
             instructions.ForEach(x =>
             {
                 ProcessInstruction(x);
-                Console.WriteLine(Password);
             });
         }
 
-        public void ProcessInstruction(string instruction)
+        public void ProcessInstruction(string instruction, bool invert = false)
         {
+            
             if (_swapLetter.IsMatch(instruction))
             {
                 SwapLetter(instruction);
@@ -82,11 +83,11 @@ namespace AdventOfCode.Solutions
             }
             else if (_rotate.IsMatch(instruction))
             {
-                Rotate(instruction);
+                Rotate(instruction, invert);
             }
             else if (_advancedRotateRegex.IsMatch(instruction))
             {
-                AdvancedRotate(instruction);
+                Password = AdvancedRotate(instruction, null, invert);
             }
             else if (_reversePostions.IsMatch(instruction))
             {
@@ -94,7 +95,7 @@ namespace AdventOfCode.Solutions
             }
             else if (_movePosition.IsMatch(instruction))
             {
-                MovePosition(instruction);
+                MovePosition(instruction, invert);
             }
             else
             {
@@ -120,7 +121,7 @@ namespace AdventOfCode.Solutions
             _password[second] = firstChar;
         }
 
-        public void SwapLetter(string instruction)
+        public void SwapLetter(string instruction, bool invert = false)
         {
             
             var match = _swapLetter.Match(instruction);
@@ -138,65 +139,73 @@ namespace AdventOfCode.Solutions
             }
         }
 
-        public void Rotate(string instruction)
+        public void Rotate(string instruction, bool invert = false)
         {
             var match = _rotate.Match(instruction);
             var direction = match.Groups[1].Value;
             var steps = Convert.ToInt32(match.Groups[2].Value);
-
+            if (invert)
+            {
+                direction = direction == "right" ? "left" : "right";
+            }
             var password = Password;
-            if (direction.ToLower() == "right")
-            {
-                //abcd -> dabc
-                RotateRight(password, steps);
-            }
-            else
-            {
-                //abcd -> bcda
+            Password = direction.ToLower() == "right" ?
+                RotateRight(password, steps) : 
                 RotateLeft(password, steps);
-            }
         }
 
-        private void RotateLeft(string password, int steps)
+        private string RotateLeft(string password, int steps)
         {
             if (steps > password.Length) steps = steps % password.Length;
             var result = password.Substring(steps, password.Length - steps);
             result += password.Substring(0, steps);
-            Password = result;
+            return result;
         }
 
-        private void RotateRight(string password, int steps)
+        private string RotateRight(string password, int steps)
         {
             if (steps > password.Length) steps = steps % password.Length;
             var result = password.Substring(password.Length - steps);
             result += password.Substring(0, password.Length - steps);
-            Password = result;
+            return result;
         }
 
-        public void AdvancedRotate(string instruction)
+        public string AdvancedRotate(string instruction, string password = null, bool invert = false)
         {
+            password = password ?? Password;
             //rotate based on position of letter X means that the whole string should be rotated to the right 
             //based on the index of letter X(counting from 0) as determined before this instruction does any rotations. 
             //Once the index is determined, rotate the string to the right one time, plus a number of times equal to that index, 
             //plus one additional time if the index was at least 4.
-
-            //hokay so, first we find the position of the letter in question, assume first index matched?
+            
+            if (invert)
+            {
+                return AdvancedRotateInverse(instruction);
+                
+            }
 
             var match = _advancedRotateRegex.Match(instruction);
             var characterToFind = Convert.ToChar(match.Groups[1].Value);
-            int stepsToRotate = 0;
-            for (int i = 0; i < Password.Length; i++)
+
+            var stepsToRotate = 1 +
+                password.IndexOf(characterToFind) +
+                (password.IndexOf(characterToFind) >= 4 ? 1 : 0);
+
+            return RotateRight(password, stepsToRotate);
+        }
+
+        private string AdvancedRotateInverse(string instruction)
+        {
+            //rotate one to the left and check if the result matches our current password.
+
+            var currentPassword = Password;
+
+            var adjusted = RotateLeft(Password, 1);
+            while (AdvancedRotate(instruction, adjusted) != currentPassword)
             {
-                if (Password[i] == characterToFind)
-                {
-                    stepsToRotate = i;
-                    break;
-                }
+                adjusted = RotateLeft(adjusted, 1);
             }
-            stepsToRotate++;
-            if (stepsToRotate >= 5) stepsToRotate++;
-            
-            RotateRight(Password, stepsToRotate);
+            return adjusted;
         }
 
         public void ReversePositions(string instruction)
@@ -208,7 +217,7 @@ namespace AdventOfCode.Solutions
             _password.Reverse(first,second - first + 1);
         }
 
-        public void MovePosition(string instruction)
+        public void MovePosition(string instruction, bool invert = false)
         {
             var match = _movePosition.Match(instruction);
 
@@ -218,12 +227,29 @@ namespace AdventOfCode.Solutions
             
             var word = new List<char>(Password);
             var character = word[startIndex];
-            word.RemoveAt(startIndex);
-            word.Insert(destinationIndex, character);
+            if (invert)
+            {
+                character = word[destinationIndex];
+                word.RemoveAt(destinationIndex);
+                word.Insert(startIndex, character);
+            }
+            else
+            {
+                word.RemoveAt(startIndex);
+                word.Insert(destinationIndex, character);
+            }
 
             _password = word;
+            
+        }
 
-
+        public void Unscramble(IEnumerable<string> instructions)
+        {
+            Console.WriteLine(Password);
+            instructions.Reverse().ForEach(x =>
+            {
+                ProcessInstruction(x, true);
+            });
         }
     }
 }
