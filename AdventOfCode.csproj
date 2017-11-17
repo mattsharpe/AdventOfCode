@@ -64,6 +64,7 @@
     <Compile Include="Solutions\Day20.cs" />
     <Compile Include="Solutions\Day21.cs" />
     <Compile Include="Solutions\Day22.cs" />
+    <Compile Include="Tests\Day23Fixture.cs" />
     <Compile Include="Utilities\Day22\Day22Node.cs" />
     <Compile Include="Utilities\Day22\NodeState.cs" />
     <Compile Include="Utilities\Day22\Day22Grid.cs" />
