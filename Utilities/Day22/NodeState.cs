@@ -97,7 +97,7 @@ What is the fewest number of steps required to move your goal data to node-x0-y0
  */
 
 
-namespace AdventOfCode2016.Utilities.Day22
+namespace Advent2016.Utilities.Day22
 {
     public enum NodeState
     {

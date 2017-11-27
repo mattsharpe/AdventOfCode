@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using AdventOfCode2016.Solutions;
-using AdventOfCode2016.Utilities.Day11;
+using Advent2016.Solutions;
+using Advent2016.Utilities.Day11;
 using NUnit.Framework;
 
-namespace AdventOfCode2016.Tests
+namespace Advent2016.Tests
 {
     [TestFixture]
     public class Day11Fixture

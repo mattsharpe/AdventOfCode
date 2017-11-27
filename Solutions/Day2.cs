@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Text;
-using AdventOfCode2016.Utilities;
+using Advent2016.Utilities;
 
-namespace AdventOfCode2016.Solutions
+namespace Advent2016.Solutions
 {
 /*
 --- Day 2: Bathroom Security ---

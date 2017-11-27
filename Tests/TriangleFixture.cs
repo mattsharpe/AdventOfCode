@@ -1,7 +1,7 @@
-﻿using AdventOfCode2016.Utilities;
+﻿using Advent2016.Utilities;
 using NUnit.Framework;
 
-namespace AdventOfCode2016.Tests
+namespace Advent2016.Tests
 {
     [TestFixture]
     public class TriangleFixture

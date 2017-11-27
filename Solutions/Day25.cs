@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace AdventOfCode2016.Solutions
+namespace Advent2016.Solutions
 {
     class Day25
     {

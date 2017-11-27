@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Text;
 
-namespace AdventOfCode2016.Solutions
+namespace Advent2016.Solutions
 {
 
     /*

@@ -1,4 +1,4 @@
-namespace AdventOfCode2016.Utilities.Day22
+namespace Advent2016.Utilities.Day22
 {
     public class Day22Node
     {

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using AdventOfCode2016.Utilities.Day11;
+using Advent2016.Utilities.Day11;
 using NUnit.Framework;
 
-namespace AdventOfCode2016.Tests
+namespace Advent2016.Tests
 {
     [TestFixture]
     class Day11StateFixture

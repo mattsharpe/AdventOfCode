@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AdventOfCode2016.Utilities.Day11
+namespace Advent2016.Utilities.Day11
 {
     public class State
     {

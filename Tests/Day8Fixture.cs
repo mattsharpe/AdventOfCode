@@ -1,8 +1,8 @@
 ﻿using System.Text;
-using AdventOfCode2016.Solutions;
+using Advent2016.Solutions;
 using NUnit.Framework;
 
-namespace AdventOfCode2016.Tests
+namespace Advent2016.Tests
 {
     [TestFixture]
     public class Day8Fixture

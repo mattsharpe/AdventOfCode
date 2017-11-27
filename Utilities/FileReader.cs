@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
-namespace AdventOfCode2016.Utilities
+namespace Advent2016.Utilities
 {
     public class FileReader
     {

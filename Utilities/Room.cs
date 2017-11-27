@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace AdventOfCode2016.Utilities
+namespace Advent2016.Utilities
 {
     public class Room
     {

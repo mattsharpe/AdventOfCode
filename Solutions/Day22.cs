@@ -100,10 +100,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using AdventOfCode2016.Utilities;
-using AdventOfCode2016.Utilities.Day22;
+using Advent2016.Utilities;
+using Advent2016.Utilities.Day22;
 
-namespace AdventOfCode2016.Solutions
+namespace Advent2016.Solutions
 {
     class Day22
     {

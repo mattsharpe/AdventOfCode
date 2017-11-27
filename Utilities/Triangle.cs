@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AdventOfCode2016.Utilities
+namespace Advent2016.Utilities
 {
     public class Triangle
     {

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text;
 
-namespace AdventOfCode2016.Solutions
+namespace Advent2016.Solutions
 {
     /*
     --- Day 5: How About a Nice Game of Chess? ---

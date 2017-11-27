@@ -7,8 +7,8 @@
     <ProjectGuid>{F575C1B7-2465-434F-B29A-B56B1573AC1B}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AdventOfCode2016</RootNamespace>
-    <AssemblyName>AdventOfCode2016</AssemblyName>
+    <RootNamespace>Advent2016</RootNamespace>
+    <AssemblyName>Advent2016</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

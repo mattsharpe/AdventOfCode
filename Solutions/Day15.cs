@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace AdventOfCode2016.Solutions
+namespace Advent2016.Solutions
 {
     /*
     --- Day 15: Timing is Everything ---

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AdventOfCode2016.Utilities;
+using Advent2016.Utilities;
 
-namespace AdventOfCode2016.Solutions
+namespace Advent2016.Solutions
 {
 /*
 --- Day 3: Squares With Three Sides ---
