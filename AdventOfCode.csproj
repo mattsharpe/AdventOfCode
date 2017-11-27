@@ -64,7 +64,9 @@
     <Compile Include="Solutions\Day20.cs" />
     <Compile Include="Solutions\Day21.cs" />
     <Compile Include="Solutions\Day22.cs" />
+    <Compile Include="Solutions\Day25.cs" />
     <Compile Include="Solutions\Day24.cs" />
+    <Compile Include="Tests\Day25Fixture.cs" />
     <Compile Include="Utilities\MazeState.cs" />
     <Compile Include="Tests\Day23Fixture.cs" />
     <Compile Include="Tests\Day24Fixture.cs" />
