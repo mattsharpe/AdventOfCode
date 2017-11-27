@@ -10,7 +10,7 @@ namespace Advent2016.Utilities
         public static string[] ReadFile(string filename)
         {
             var asm = Assembly.GetExecutingAssembly();
-            var stream = asm.GetManifestResourceStream($"AdventOfCode.TestData.{filename}");
+            var stream = asm.GetManifestResourceStream($"Advent2016.TestData.{filename}");
 
             if (stream == null)
                 throw new Exception($"Could not load file {filename}");
