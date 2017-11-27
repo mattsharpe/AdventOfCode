@@ -51,5 +51,43 @@ namespace Advent2015.Tests
             var visited = _day3.Visited.Count;
             Assert.AreEqual(2572, visited);
         }
+
+        [Test]
+        public void Part2()
+        {
+            var input = FileReader.ReadFile("day3.txt")[0];
+            _day3.ProcessInstructions(input, true);
+
+            var visited = _day3.Visited.Count;
+            Assert.AreEqual(2631, visited);
+        }
+
+
+        [Test]
+        public void SampleData_Part2()
+        {
+            string input = "^v";
+            _day3.ProcessInstructions(input, true);
+            var visited = _day3.Visited.Count;
+            Assert.AreEqual(3, visited);
+        }
+
+        [Test]
+        public void SampleData_Square_Part2()
+        {
+            string input = "^>v<";
+            _day3.ProcessInstructions(input, true);
+            var visited = _day3.Visited.Count;
+            Assert.AreEqual(3, visited);
+        }
+
+        [Test]
+        public void SampleData_Bouncing_Part2()
+        {
+            string input = "^v^v^v^v^v";
+            _day3.ProcessInstructions(input, true);
+            var visited = _day3.Visited.Count;
+            Assert.AreEqual(11, visited);
+        }
     }
 }

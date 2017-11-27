@@ -7,42 +7,67 @@ namespace Advent2015.Solutions
     {
         public Day3()
         {
-            X = 0;
-            Y = 0;
+            SantaX = 0;
+            SantaY = 0;
+            RobotX = 0;
+            RobotY = 0;
+
             Visited = new HashSet<Tuple<int, int>>
             {
-                new Tuple<int, int>(X, Y)
+                new Tuple<int, int>(SantaX, SantaY),
+                new Tuple<int, int>(RobotX, RobotY)
             };
         }
 
-        public int X { get; set; }
-        public int Y { get; set; }
+        public int SantaX { get; set; }
+        public int SantaY { get; set; }
+
+        public int RobotX { get; set; }
+        public int RobotY { get; set; }
 
         public HashSet<Tuple<int, int>> Visited;
 
-        public void ProcessInstructions(string input)
+        public void ProcessInstructions(string input, bool helperRobot = false)
         {
+            int index = 0;
             foreach (var instruction in input)
             {
+                index++;
+                bool santa = index % 2 != 1 || !helperRobot;
+
                 switch (instruction)
                 {
                     case '<':
-                        X--;
+                        if (santa)
+                            SantaX--;
+                        else
+                            RobotX--;
                         break;
+
                     case '>':
-                        X++;
+                        if (santa)
+                            SantaX++;
+                        else
+                            RobotX++;
                         break;
                     case '^':
-                        Y--;
+                        if (santa)
+                            SantaY--;
+                        else
+                            RobotY--;
                         break;
                     case 'v':
-                        Y++;
+                        if (santa)
+                            SantaY++;
+                        else
+                            RobotY++;
                         break;
                     default:
                         throw new Exception("Uknown instruction");
                 }
 
-                Visited.Add(new Tuple<int,int>(X, Y));
+                Visited.Add(new Tuple<int,int>(SantaX, SantaY));
+                Visited.Add(new Tuple<int,int>(RobotX, RobotY));
             }
         }
     }
