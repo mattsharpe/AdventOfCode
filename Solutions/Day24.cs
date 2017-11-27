@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AdventOfCode.Utilities;
-using AdventOfCode.Utilities.Day11;
-using NUnit.Framework.Interfaces;
+using AdventOfCode2016.Utilities;
 
-namespace AdventOfCode.Solutions
+namespace AdventOfCode2016.Solutions
 {
     class Day24
     {

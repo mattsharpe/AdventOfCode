@@ -1,6 +1,4 @@
-using System;
-
-namespace AdventOfCode.Solutions
+namespace AdventOfCode2016.Utilities.Day22
 {
     public class Day22Node
     {

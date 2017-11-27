@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AdventOfCode.Utilities
+namespace AdventOfCode2016.Utilities
 {
     public class Bot
     {

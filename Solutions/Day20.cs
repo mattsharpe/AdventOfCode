@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AdventOfCode.Solutions
+namespace AdventOfCode2016.Solutions
 {
     /*
      * --- Day 20: Firewall Rules ---

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AdventOfCode.Utilities
+namespace AdventOfCode2016.Utilities
 {
     public static class ExtensionMethods
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace AdventOfCode.Solutions
+namespace AdventOfCode2016.Solutions
 {
     /*
     --- Day 18: Like a Rogue ---

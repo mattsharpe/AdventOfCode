@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
-namespace AdventOfCode.Solutions
+
+namespace AdventOfCode2016.Solutions
 {
     /*
     --- Day 5: How About a Nice Game of Chess? ---

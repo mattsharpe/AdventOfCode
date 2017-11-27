@@ -101,7 +101,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace AdventOfCode.Solutions
+namespace AdventOfCode2016.Utilities.Day22
 {
     public class Day22Grid
     {

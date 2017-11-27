@@ -1,7 +1,7 @@
-﻿using AdventOfCode.Solutions;
+﻿using AdventOfCode2016.Solutions;
 using NUnit.Framework;
 
-namespace AdventOfCode.Tests
+namespace AdventOfCode2016.Tests
 {
     [TestFixture]
     public class Day7Fixture

@@ -1,9 +1,8 @@
 ﻿using System;
-using AdventOfCode.Utilities;
 using System.Text;
-using static System.String;
+using AdventOfCode2016.Utilities;
 
-namespace AdventOfCode.Solutions
+namespace AdventOfCode2016.Solutions
 {
 /*
 --- Day 2: Bathroom Security ---
@@ -168,7 +167,7 @@ Your puzzle answer was 74CD2.
 
             if (CurrentLocation.X < 0 || CurrentLocation.X > 4 || 
                 CurrentLocation.Y < 0 || CurrentLocation.Y > 4 || 
-                IsNullOrEmpty(GetCurrentKeyOnRealPad()))
+                String.IsNullOrEmpty(GetCurrentKeyOnRealPad()))
             {
                 //not a good place to be - head for open water!
                 CurrentLocation = lastKnownGood;

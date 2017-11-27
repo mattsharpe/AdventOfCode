@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Text;
 using System.Threading;
-using AdventOfCode.Utilities;
+using AdventOfCode2016.Utilities;
 
-namespace AdventOfCode.Solutions
+namespace AdventOfCode2016.Solutions
 {
     /*
     --- Day 8: Two-Factor Authentication ---

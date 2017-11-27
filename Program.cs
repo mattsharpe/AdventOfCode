@@ -1,7 +1,7 @@
 ﻿using System;
-using AdventOfCode.Solutions;
+using AdventOfCode2016.Solutions;
 
-namespace AdventOfCode
+namespace AdventOfCode2016
 {
     public class Program
     {

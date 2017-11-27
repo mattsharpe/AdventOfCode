@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AdventOfCode.Utilities.Day11;
+using AdventOfCode2016.Utilities.Day11;
 
-namespace AdventOfCode.Solutions
+namespace AdventOfCode2016.Solutions
 {
 /*
 --- Day 11: Radioisotope Thermoelectric Generators ---

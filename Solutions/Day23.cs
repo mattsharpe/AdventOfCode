@@ -46,12 +46,11 @@ What value should be sent to the safe?
 
 
  */
+
 using System;
 using System.Reflection;
-using AdventOfCode.Utilities;
-using NUnit.Framework.Constraints;
 
-namespace AdventOfCode.Solutions
+namespace AdventOfCode2016.Solutions
 {
     class Day23
     {

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using AdventOfCode.Utilities;
+using AdventOfCode2016.Utilities;
 
-namespace AdventOfCode.Solutions
+namespace AdventOfCode2016.Solutions
 {
     /*
     --- Day 6: Signals and Noise ---

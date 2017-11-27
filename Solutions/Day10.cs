@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using AdventOfCode.Utilities;
+using AdventOfCode2016.Utilities;
 
-namespace AdventOfCode.Solutions
+namespace AdventOfCode2016.Solutions
 {
     /*
 --- Day 10: Balance Bots ---

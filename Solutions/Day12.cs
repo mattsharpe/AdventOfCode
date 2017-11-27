@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Reflection;
-using AdventOfCode.Utilities;
+using AdventOfCode2016.Utilities;
 
-namespace AdventOfCode.Solutions
+namespace AdventOfCode2016.Solutions
 {
     /*
     --- Day 12: Leonardo's Monorail ---

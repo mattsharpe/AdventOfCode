@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using AdventOfCode.Solutions;
-using AdventOfCode.Utilities;
-using Microsoft.SqlServer.Server;
+using AdventOfCode2016.Solutions;
+using AdventOfCode2016.Utilities;
 using NUnit.Framework;
 
-namespace AdventOfCode.Tests
+namespace AdventOfCode2016.Tests
 {
 
     [TestFixture]

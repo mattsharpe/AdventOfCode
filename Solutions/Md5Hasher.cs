@@ -2,7 +2,7 @@ using System;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace AdventOfCode.Solutions
+namespace AdventOfCode2016.Solutions
 {
     public class Md5Hasher
     {

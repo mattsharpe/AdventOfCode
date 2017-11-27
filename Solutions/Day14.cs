@@ -57,7 +57,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace AdventOfCode.Solutions
+namespace AdventOfCode2016.Solutions
 {
     class Day14
     {

@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Dynamic;
-using System.Globalization;
 using System.Linq;
 
-namespace AdventOfCode.Utilities.Day11
+namespace AdventOfCode2016.Utilities.Day11
 {
     public class State
     {

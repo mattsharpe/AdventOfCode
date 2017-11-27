@@ -1,4 +1,4 @@
-namespace AdventOfCode.Utilities.Day11
+namespace AdventOfCode2016.Utilities.Day11
 {
     public enum ElementType
     {
