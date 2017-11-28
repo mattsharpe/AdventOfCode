@@ -58,7 +58,7 @@ namespace Advent2015.Tests
         public void Part2()
         {
             var input = FileReader.ReadFile("day5.txt");
-            Assert.AreEqual(238, input.Count(x => _day5.IsNice2(x)));
+            Assert.AreEqual(69, input.Count(x => _day5.IsNice2(x)));
         }
 
         [Test]
