@@ -53,5 +53,40 @@ namespace Advent2015.Tests
             var input = FileReader.ReadFile("day5.txt");
             Assert.AreEqual(238, input.Count(x => _day5.IsNice(x)));
         }
+
+        [Test]
+        public void Part2()
+        {
+            var input = FileReader.ReadFile("day5.txt");
+            Assert.AreEqual(238, input.Count(x => _day5.IsNice2(x)));
+        }
+
+        [Test]
+        public void Nice2_qjhvhtzxzqqjkmpb()
+        {
+            //qjhvhtzxzqqjkmpb is nice because is has a pair that appears twice (qj) and a letter that repeats with exactly one letter between them (zxz).
+            Assert.That(_day5.IsNice2("qjhvhtzxzqqjkmpb"));
+        }
+
+        [Test]
+        public void Nice2_xxyxx()
+        {
+            //xxyxx is nice because it has a pair that appears twice and a letter that repeats with one between, even though the letters used by each rule overlap.
+            Assert.That(_day5.IsNice2("xxyxx"));
+        }
+
+        [Test]
+        public void Naughty2_uurcxstgmygtbstg()
+        {
+            //uurcxstgmygtbstg is naughty because it has a pair (tg) but no repeat with a single letter between them.
+            Assert.False(_day5.IsNice2("uurcxstgmygtbstg"));
+        }
+
+        [Test]
+        public void Naughty2_ieodomkazucvgmuy()
+        {
+            //ieodomkazucvgmuy is naughty because it has a repeating letter with one between (odo), but no pair that appears twice.
+            Assert.False(_day5.IsNice2("ieodomkazucvgmuy"));
+        }
     }
 }

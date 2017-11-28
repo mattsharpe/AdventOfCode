@@ -21,12 +21,17 @@ How many strings are nice?
 
 --- Part Two ---
 
-Realizing the error of his ways, Santa has switched to a better model of determining whether a string is naughty or nice. None of the old rules apply, as they are all clearly ridiculous.
+Realizing the error of his ways, Santa has switched to a better model of determining whether a string is naughty or nice. 
+None of the old rules apply, as they are all clearly ridiculous.
 
 Now, a nice string is one with all of the following properties:
 
-It contains a pair of any two letters that appears at least twice in the string without overlapping, like xyxy (xy) or aabcdefgaa (aa), but not like aaa (aa, but it overlaps).
-It contains at least one letter which repeats with exactly one letter between them, like xyx, abcdefeghi (efe), or even aaa.
+It contains a pair of any two letters that appears at least twice in the string without overlapping, 
+like xyxy (xy) or aabcdefgaa (aa), but not like aaa (aa, but it overlaps).
+
+It contains at least one letter which repeats with exactly one letter between them, 
+like xyx, abcdefeghi (efe), or even aaa. 
+
 For example:
 
 qjhvhtzxzqqjkmpb is nice because is has a pair that appears twice (qj) and a letter that repeats with exactly one letter between them (zxz).
@@ -50,11 +55,20 @@ namespace Advent2015.Solutions
         private readonly Regex _doubleLetters = new Regex(@"(\w)\1");
         private readonly Regex _bannedStrings = new Regex("ab|cd|pq|xy");
 
+        private readonly Regex _nonOverlapping = new Regex(@"(\w\w)\w*\1");
+        private readonly Regex _letterBetween = new Regex(@"(.).\1");
+
         public bool IsNice(string input)
         {
             return _threeVowels.Matches(input).Count >= 3 &&
                     _doubleLetters.IsMatch(input) &&
                     !_bannedStrings.IsMatch(input);
+        }
+
+        public bool IsNice2(string input)
+        {
+            return _nonOverlapping.IsMatch(input) &&
+                    _letterBetween.IsMatch(input);
         }
     }
 }
