@@ -24,7 +24,12 @@ namespace Advent2015.Solutions
             return _lights.Cast<int>().Count(x=>x==1);
         }
 
-        public void ProcessInstructions(string[] instructions)
+        public int SumLights()
+        {
+            return _lights.Cast<int>().Sum(x=>x);
+        }
+
+        public void ProcessInstructions(string[] instructions, bool part2 = false)
         {
             var parseInstruction = new Regex(@"(turn off|toggle|turn on) (\d*,\d*) through (\d*,\d*)");
             //turn off 994,939 through 998,988
@@ -40,31 +45,50 @@ namespace Advent2015.Solutions
                 switch (command)
                 {
                     case "turn on":
-                        TurnOn(start, stop);
+                        TurnOn(start, stop, part2);
                         break;
                     case "turn off":
-                        TurnOff(start, stop);
+                        TurnOff(start, stop, part2);
                         break;
                     case "toggle":
-                        Toggle(start, stop);
+                        Toggle(start, stop, part2);
                         break;
                 }
             }
         }
 
-        public void TurnOn(Coordinate start, Coordinate stop)
+        public void TurnOn(Coordinate start, Coordinate stop, bool part2)
         {
-            PerformOperation(start, stop, (x,y) => _lights[x, y] = 1);
+            PerformOperation(start, stop, (x,y) =>
+            {
+                if(part2)
+                    _lights[x, y]++;
+                else
+                    _lights[x, y] = 1;
+            });
         }
 
-        public void TurnOff(Coordinate start, Coordinate stop)
+        public void TurnOff(Coordinate start, Coordinate stop, bool part2)
         {
-            PerformOperation(start, stop, (x,y)=> _lights[x,y] = 0);
+            PerformOperation(start, stop, (x, y) =>
+            {
+                if (part2 && _lights[x,y] > 0)
+                    _lights[x, y]--;
+                else
+                    _lights[x, y] = 0;
+                
+            });
         }
 
-        public void Toggle(Coordinate start, Coordinate stop)
+        public void Toggle(Coordinate start, Coordinate stop, bool part2)
         {
-            PerformOperation(start, stop, (x,y)=> _lights[x,y] = _lights[x, y] == 0 ? 1: 0);
+            PerformOperation(start, stop, (x, y) =>
+            {
+                if (part2)
+                    _lights[x, y] = _lights[x, y] + 2;
+                else
+                    _lights[x, y] = _lights[x, y] == 0 ? 1 : 0;
+            });
         }
 
         public void PerformOperation(Coordinate start, Coordinate stop, Action<int, int> action)

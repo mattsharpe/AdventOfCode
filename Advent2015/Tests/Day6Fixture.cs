@@ -9,10 +9,10 @@ namespace Advent2015.Tests
     {
         private Day6 _day6 = new Day6();
 
-        [Test]
-        public void Print()
+        [SetUp]
+        public void Setup()
         {
-           // _day6.PrintLights();   
+            _day6 = new Day6();
         }
 
         [Test]
@@ -62,6 +62,27 @@ namespace Advent2015.Tests
         {
             _day6.ProcessInstructions(FileReader.ReadFile("day6.txt"));
             Assert.AreEqual(543903, _day6.CountLit());
+        }
+
+        [Test]
+        public void Part2()
+        {
+            _day6.ProcessInstructions(FileReader.ReadFile("day6.txt"), true);
+            Assert.AreEqual(14687245, _day6.SumLights());
+        }
+
+        [Test]
+        public void TurnOnPart2()
+        {
+            _day6.ProcessInstructions(new []{ "turn on 0,0 through 0,0" }, true);
+            Assert.AreEqual(1,_day6.SumLights());
+        }
+
+        [Test]
+        public void TogglePart2()
+        {
+            _day6.ProcessInstructions(new []{ "toggle 0,0 through 999,999" }, true);
+            Assert.AreEqual(2000000,_day6.SumLights());
         }
         
     }
