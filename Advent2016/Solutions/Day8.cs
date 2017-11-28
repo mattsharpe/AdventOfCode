@@ -181,5 +181,21 @@ There seems to be an intermediate check of the voltage used by the display: afte
             }
             
         }
+
+        public void Bonus(bool animate = false)
+        {
+            var input = FileReader.ReadFile("bonus2.txt");
+            foreach (var instruction in input)
+            {
+                ProcessInstruction(instruction);
+                if (animate)
+                {
+                    Console.Clear();
+                    PrintArray();
+                    Thread.Sleep(50);
+                }
+            }
+
+        }
     }
 }

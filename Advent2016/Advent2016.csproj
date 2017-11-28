@@ -158,6 +158,10 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+    <EmbeddedResource Include="TestData\bonus2.txt">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>bonus21.feature.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="TestData\day 20.txt" />
@@ -166,6 +170,9 @@
     <EmbeddedResource Include="TestData\day 23.txt" />
     <EmbeddedResource Include="TestData\day 24.txt" />
     <EmbeddedResource Include="TestData\day 25.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TestData\bonus.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

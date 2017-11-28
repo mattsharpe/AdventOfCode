@@ -54,3 +54,4 @@ packages/
 /.vs
 Advent2015/obj/
 Advent2015/bin/
+*.user

@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace Advent2016.Tests
 {
     [TestFixture]
-    public class Day8Fixture
+    public class tDay8Fixture
     {
         private Day8 _day8;
 

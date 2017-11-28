@@ -35,5 +35,13 @@ namespace Advent2016.Tests
                     Console.WriteLine(i + ": " + computer.Output);
             }
         }
+
+        [Test]
+        public void Bonus()
+        {
+            var instructions = FileReader.ReadFile("bonus.txt");
+            _day25.ProcessInstructions(instructions);
+            Console.WriteLine(_day25.Output);
+        }
     }
 }

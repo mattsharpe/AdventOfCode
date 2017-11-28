@@ -64,7 +64,7 @@ namespace Advent2016.Solutions
         private void Out(string details)
         {
             var parts = details.Split(' ');
-            Output += GetValue(parts[0]);
+            Output += (char)GetValue(parts[0]);
         }
 
         private void Multiply(string details)
