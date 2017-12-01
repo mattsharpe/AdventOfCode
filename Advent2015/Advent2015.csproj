@@ -51,8 +51,11 @@
     <Compile Include="Solutions\Day1.cs" />
     <Compile Include="Solutions\Day5.cs" />
     <EmbeddedResource Include="TestData\day6.txt" />
+    <Compile Include="Solutions\Day7.cs" />
+    <EmbeddedResource Include="TestData\day7.txt" />
     <Compile Include="Tests\Day5Fixture.cs" />
     <Compile Include="Tests\Day6Fixture.cs" />
+    <Compile Include="Tests\Day7Fixture.cs" />
     <Compile Include="Utilities\Md5Hasher.cs" />
     <EmbeddedResource Include="TestData\day1.txt" />
     <EmbeddedResource Include="TestData\day3.txt" />
