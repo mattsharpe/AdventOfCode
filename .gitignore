@@ -55,3 +55,5 @@ packages/
 Advent2015/obj/
 Advent2015/bin/
 *.user
+/Advent2017/bin/Debug
+/Advent2017/obj/Debug

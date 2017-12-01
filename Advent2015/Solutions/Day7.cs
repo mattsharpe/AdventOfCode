@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Reflection.Emit;
 
 namespace Advent2015.Solutions
 {
@@ -16,24 +18,24 @@ namespace Advent2015.Solutions
 
         public ushort And(string a, string b)
         {
-            return Convert.ToUInt16((GetValue(a) & GetValue(b)));
+            return (ushort)(GetValue(a) & GetValue(b));
         }
 
         public ushort Or(string a, string b)
         {
-            return Convert.ToUInt16((GetValue(a) | GetValue(b)));
+            return (ushort)(GetValue(a) | GetValue(b));
         }
 
         public ushort Not(string a)
         {
-            return Convert.ToUInt16(~GetValue(a));
+            return (ushort)~GetValue(a);
         }
 
         public ushort LShift(string s, string shift)
         {
             GetValue(s);
             GetValue(shift);
-            return  (ushort)(GetValue(s) << GetValue(shift));
+            return  unchecked ((ushort)(GetValue(s) << GetValue(shift)));
 
         }
 
@@ -48,6 +50,37 @@ namespace Advent2015.Solutions
             {
                 return _cache[value];
             }
+
+        }
+
+        public void Solver()
+        {
+            AssemblyName assemblyName = new AssemblyName("MyDynamicAssembly");
+            AssemblyBuilder assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName,AssemblyBuilderAccess.Run);
+            ModuleBuilder moduleBuilder= assemblyBuilder.DefineDynamicModule("MyDynamicModule");
+            TypeBuilder typeBuilder = moduleBuilder.DefineType(
+                    "InternalType",
+                    TypeAttributes.Public
+                    | TypeAttributes.Class
+                    | TypeAttributes.AutoClass
+                    | TypeAttributes.AnsiClass
+                    | TypeAttributes.ExplicitLayout);
+
+            var fieldBuilder_a = typeBuilder.DefineField("a", typeof(UInt32), FieldAttributes.Public);
+            fieldBuilder_a.SetOffset(sizeof(UInt16));
+
+            var fieldBuilder_b = typeBuilder.DefineField("b", typeof(UInt32), FieldAttributes.Public);
+            fieldBuilder_b.SetOffset(0);
+
+            
+            Type logic = typeBuilder.CreateType();
+
+            dynamic thing = Activator.CreateInstance(logic);
+            Console.WriteLine(thing.a);
+            Console.WriteLine(thing.b);
+            var variable = "aa";
+            
+            //Console.WriteLine(thing.variable);
 
         }
 

@@ -60,5 +60,11 @@ namespace Advent2015.Tests
         {
             _day7.Solve(_sample);
         }
+
+        [Test]
+        public void Solver()
+        {
+            _day7.Solver();
+        }
     }
 }
