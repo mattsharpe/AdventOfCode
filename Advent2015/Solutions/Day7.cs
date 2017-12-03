@@ -56,10 +56,10 @@ namespace Advent2015.Solutions
         public void Solver()
         {
             AssemblyName assemblyName = new AssemblyName("MyDynamicAssembly");
-            AssemblyBuilder assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName,AssemblyBuilderAccess.Run);
+            AssemblyBuilder assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName,AssemblyBuilderAccess.RunAndSave);
             ModuleBuilder moduleBuilder= assemblyBuilder.DefineDynamicModule("MyDynamicModule");
             TypeBuilder typeBuilder = moduleBuilder.DefineType(
-                    "InternalType",
+                    "LogicSolver",
                     TypeAttributes.Public
                     | TypeAttributes.Class
                     | TypeAttributes.AutoClass
@@ -72,15 +72,29 @@ namespace Advent2015.Solutions
             var fieldBuilder_b = typeBuilder.DefineField("b", typeof(UInt32), FieldAttributes.Public);
             fieldBuilder_b.SetOffset(0);
 
+            var propBuilder = typeBuilder.DefineProperty("c", PropertyAttributes.HasDefault, typeof(ushort), Type.EmptyTypes);
+            MethodBuilder builder = typeBuilder.DefineMethod("get_c", MethodAttributes.Public | 
+                MethodAttributes.SpecialName |MethodAttributes.HideBySig);
+
+            var il = builder.GetILGenerator();
+
+            il.Emit(OpCodes.Ldarg_0);
+            il.Emit(OpCodes.Ldfld, fieldBuilder_a);
+            il.Emit(OpCodes.Ret);
             
+            propBuilder.SetGetMethod(builder);
+
+            //123 & 456 = 72
             Type logic = typeBuilder.CreateType();
+            Console.WriteLine(Environment.CurrentDirectory);
+            assemblyBuilder.Save("test.dll");
 
             dynamic thing = Activator.CreateInstance(logic);
             Console.WriteLine(thing.a);
             Console.WriteLine(thing.b);
-            var variable = "aa";
+            Console.WriteLine(thing.c);
             
-            //Console.WriteLine(thing.variable);
+            
 
         }
 
