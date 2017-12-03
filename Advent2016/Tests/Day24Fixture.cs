@@ -33,15 +33,7 @@ namespace Advent2016.Tests
             _day24.BuildMap(_sampleData);
             _day24.PrintMap();
         }
-
-        [Test]
-        public void StartStateIsPopulatedCorrectly_SampleData()
-        {
-            _day24.BuildMap(_sampleData);
-            Assert.AreEqual(1,_day24.StartState.X);
-            Assert.AreEqual(1,_day24.StartState.Y);
-        }
-
+        
         [Test]
         public void GetNextStates()
         {
