@@ -155,7 +155,6 @@
       <SubType>Designer</SubType>
     </None>
     <EmbeddedResource Include="TestData\bonus2.txt">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>bonus21.feature.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
