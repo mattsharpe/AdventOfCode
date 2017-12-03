@@ -57,4 +57,5 @@ Advent2015/bin/
 *.user
 /Advent2017/bin/Debug
 /Advent2017/obj/Debug
+/Advent2017/obj/Release
 *.cache
