@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Reflection;
-using System.Reflection.Emit;
-using System.Threading;
 using Advent2015.Solutions;
+using Advent2015.Utilities;
 using NUnit.Framework;
 
 namespace Advent2015.Tests
@@ -23,138 +21,47 @@ namespace Advent2015.Tests
             "NOT y -> i"
         };
 
+        [TestCase("123 -> x", "public const ushort x = unchecked((ushort)(123));")]
+        [TestCase("456 -> y", "public const ushort y = unchecked((ushort)(456));")]
+        [TestCase("x AND y -> d", "public const ushort d = unchecked((ushort)(x & y));")]
+        [TestCase("x OR y -> e", "public const ushort e = unchecked((ushort)(x | y));")]
+        [TestCase("x LSHIFT 2 -> f", "public const ushort f = unchecked((ushort)(x << 2));")]
+        [TestCase("y RSHIFT 2 -> g", "public const ushort g = unchecked((ushort)(y >> 2));")]
+        [TestCase("NOT x -> h", "public const ushort h = unchecked((ushort)(~x));")]
+        [TestCase("NOT y -> i", "public const ushort i = unchecked((ushort)(~y));")]
+        public void Transpile(string input, string expected)
+        {
+            Assert.AreEqual(expected, _day7.Transpile(input));
+        }
+        
+        [TestCase("d", 72)]
+        [TestCase("e", 507)]
+        [TestCase("f", 492)]
+        [TestCase("g", 114)]
+        [TestCase("h", 65412)]
+        [TestCase("i", 65079)]
+        [TestCase("x", 123)]
+        [TestCase("y", 456)]
+        public void SampleData(string register, int expected)
+        {
+            Assert.AreEqual(expected, _day7.BuildSolver(_sample, register));
+        }
+
         [Test]
         public void Part1()
         {
-            _day7.Part1();
+            var result = _day7.BuildSolver(FileReader.ReadFile("day7.txt"),"a");
+            Console.WriteLine(result);
         }
 
         [Test]
-        public void And()
+        public void Part2()
         {
-            Assert.AreEqual(72, _day7.And("123","456"));    
+            var input = FileReader.ReadFile("day7.txt");
+            input[54] = "16076 -> b";
+            var result = _day7.BuildSolver(input,"a");
+            Console.WriteLine(result);
         }
         
-        [Test]
-        public void Or()
-        {
-            Assert.AreEqual(507, _day7.Or("123","456"));    
-        }
-
-        [Test]
-        public void Not()
-        {
-            Assert.AreEqual(65412, _day7.Not("123"));    
-        }
-
-        [Test]
-        public void LShift()
-        {
-            Assert.AreEqual(492, _day7.LShift("123", "2"));    
-        }
-
-        [Test]
-        public void SampleData()
-        {
-            _day7.Solve(_sample);
-        }
-
-        [Test]
-        public void Solver()
-        {
-            _day7.Solver();
-        }
-
-        [Test]
-        public void Compile()
-        {
-            AppDomain myDomain = Thread.GetDomain();
-            AssemblyName myAsmName = new AssemblyName();
-            myAsmName.Name = "LogicCompiler";
-
-            // To generate a persistable assembly, specify AssemblyBuilderAccess.RunAndSave.
-            AssemblyBuilder myAsmBuilder = myDomain.DefineDynamicAssembly(myAsmName, AssemblyBuilderAccess.RunAndSave);
-            // Generate a persistable single-module assembly.
-            ModuleBuilder myModBuilder = myAsmBuilder.DefineDynamicModule(myAsmName.Name, myAsmName.Name + ".dll");
-
-            TypeBuilder myTypeBuilder = myModBuilder.DefineType("CustomerData",
-                                                            TypeAttributes.Public);
-
-            FieldBuilder customerNameBldr = myTypeBuilder.DefineField("customerName", typeof(ushort), FieldAttributes.Private);
-            var fieldABuilder = myTypeBuilder.DefineField("a", typeof(ushort), FieldAttributes.Public);
-            var fieldB = myTypeBuilder.DefineField("b", typeof(ushort), FieldAttributes.Public);
-            
-
-            // The last argument of DefineProperty is null, because the
-            // property has no parameters. (If you don't specify null, you must
-            // specify an array of Type objects. For a parameterless property,
-            // use an array with no elements: new Type[] {})
-            PropertyBuilder custNamePropBldr = myTypeBuilder.DefineProperty("CustomerName",
-                                                             PropertyAttributes.HasDefault,
-                                                             typeof(ushort),
-                                                             null);
-
-            // The property set and property get methods require a special
-            // set of attributes.
-            MethodAttributes getSetAttr = MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.HideBySig;
-
-            // Define the "get" accessor method for CustomerName.
-            MethodBuilder custNameGetPropMthdBldr =
-                myTypeBuilder.DefineMethod("get_CustomerName",
-                                           getSetAttr,
-                                           typeof(ushort),
-                                           Type.EmptyTypes);
-
-            ILGenerator custNameGetIL = custNameGetPropMthdBldr.GetILGenerator();
-
-            custNameGetIL.Emit(OpCodes.Ldfld, fieldABuilder);
-            custNameGetIL.Emit(OpCodes.Ldfld, fieldB);
-            custNameGetIL.Emit(OpCodes.Add_Ovf);
-            custNameGetIL.Emit(OpCodes.Conv_Ovf_U2_Un);
-
-            custNameGetIL.Emit(OpCodes.Ret);
-
-            //// Define the "set" accessor method for CustomerName.
-            //MethodBuilder custNameSetPropMthdBldr =
-            //    myTypeBuilder.DefineMethod("set_CustomerName",
-            //                               getSetAttr,
-            //                               null,
-            //                               new Type[] { typeof(ushort) });
-
-            //ILGenerator custNameSetIL = custNameSetPropMthdBldr.GetILGenerator();
-
-            //custNameSetIL.Emit(OpCodes.Ldarg_0);
-            //custNameSetIL.Emit(OpCodes.Ldarg_1);
-            //custNameSetIL.Emit(OpCodes.Stfld, customerNameBldr);
-            //custNameSetIL.Emit(OpCodes.Ret);
-
-            // Last, we must map the two methods created above to our PropertyBuilder to 
-            // their corresponding behaviors, "get" and "set" respectively. 
-            custNamePropBldr.SetGetMethod(custNameGetPropMthdBldr);
-            //custNamePropBldr.SetSetMethod(custNameSetPropMthdBldr);
-
-
-            Type logic = myTypeBuilder.CreateType();
-
-            // Save the assembly so it can be examined with Ildasm.exe,
-            // or referenced by a test program.
-            myAsmBuilder.Save(myAsmName.Name + ".dll");
-
-            dynamic thing = Activator.CreateInstance(logic);
-            Console.WriteLine(thing.a);
-            Console.WriteLine(thing.b);
-            Console.WriteLine(thing.CustomerName);
-            //Console.WriteLine(thing.c);
-            //return retval;
-
-        }
-
-        public class Temp
-        {
-            public const ushort a = 123;
-            public const ushort b = a & 1;
-
-            public ushort C => a & b;
-        }
     }
 }

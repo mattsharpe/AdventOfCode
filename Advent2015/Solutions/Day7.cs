@@ -1,137 +1,52 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Text;
+using Microsoft.CSharp;
 
 namespace Advent2015.Solutions
 {
     class Day7
     {
-        public void Part1()
+
+        public string Transpile(string instruction)
         {
-            throw new NotImplementedException();
+            var template = "public const ushort {0} = unchecked((ushort)({1}));";
+            instruction = instruction.Replace("NOT ", "~").Replace("OR", "|").Replace("AND", "&")
+                .Replace("LSHIFT", "<<").Replace("RSHIFT", ">>").Replace("->","=")
+                .Replace("as","@as").Replace("if","@if").Replace("do", "@do").Replace("is", "@is").Replace("in", "@in");
+
+            var parts = instruction.Split('=');
+            return string.Format(template, parts[1].Trim(), parts[0].Trim());
         }
 
-        private Dictionary<string, ushort> _cache = default;
-        private Dictionary<string, string> _wires = default;
-
-        public ushort And(string a, string b)
+        public ushort BuildSolver(string[] instructions, string register)
         {
-            return (ushort)(GetValue(a) & GetValue(b));
-        }
-
-        public ushort Or(string a, string b)
-        {
-            return (ushort)(GetValue(a) | GetValue(b));
-        }
-
-        public ushort Not(string a)
-        {
-            return (ushort)~GetValue(a);
-        }
-
-        public ushort LShift(string s, string shift)
-        {
-            GetValue(s);
-            GetValue(shift);
-            return  unchecked ((ushort)(GetValue(s) << GetValue(shift)));
-
-        }
-
-        private ushort GetValue(string value)
-        {
-            ushort temp;
-            if (UInt16.TryParse(value, out temp))
-            {
-                return temp;
-            }
-            else
-            {
-                return _cache[value];
-            }
-
-        }
-
-        public void Solver()
-        {
-            AssemblyName assemblyName = new AssemblyName("MyDynamicAssembly");
-            AssemblyBuilder assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName,AssemblyBuilderAccess.RunAndSave);
-            ModuleBuilder moduleBuilder= assemblyBuilder.DefineDynamicModule("MyDynamicModule");
-            TypeBuilder typeBuilder = moduleBuilder.DefineType(
-                    "LogicSolver",
-                    TypeAttributes.Public
-                    | TypeAttributes.Class
-                    | TypeAttributes.AutoClass
-                    | TypeAttributes.AnsiClass
-                    | TypeAttributes.ExplicitLayout);
-
-            var fieldBuilder_a = typeBuilder.DefineField("a", typeof(UInt32), FieldAttributes.Public);
-            fieldBuilder_a.SetOffset(sizeof(UInt16));
-
-            var fieldBuilder_b = typeBuilder.DefineField("b", typeof(UInt32), FieldAttributes.Public);
-            fieldBuilder_b.SetOffset(0);
-
-            var propBuilder = typeBuilder.DefineProperty("c", PropertyAttributes.HasDefault, typeof(ushort), Type.EmptyTypes);
-            MethodBuilder builder = typeBuilder.DefineMethod("get_c", MethodAttributes.Public | 
-                MethodAttributes.SpecialName |MethodAttributes.HideBySig);
-
-            var il = builder.GetILGenerator();
-
-            il.Emit(OpCodes.Ldarg_0);
-            il.Emit(OpCodes.Ldfld, fieldBuilder_a);
-            il.Emit(OpCodes.Ret);
+            var sb = new StringBuilder();
+            sb.AppendLine($"public class Logic{register} {{");
             
-            propBuilder.SetGetMethod(builder);
-
-            //123 & 456 = 72
-            Type logic = typeBuilder.CreateType();
-            Console.WriteLine(Environment.CurrentDirectory);
-            assemblyBuilder.Save("test.dll");
-
-            dynamic thing = Activator.CreateInstance(logic);
-            Console.WriteLine(thing.a);
-            Console.WriteLine(thing.b);
-            Console.WriteLine(thing.c);
-            
-            
-
-        }
-
-        public void Solve(string[] instructions)
-        {
-            _wires = instructions.ToList().ToDictionary(k => k.Split(' ').Last());
             foreach (var instruction in instructions)
             {
-                var split = instruction.Split(' ');
-                Console.WriteLine(instruction);
-                var gate = new LogicGate();
-                switch (split.Length)
-                {
-                    //123 -> a
-                    case 3:
-                        gate.Left = split[0];
-                        gate.Right = split[2];
-                        break;
-                    
-                }
+                sb.AppendLine(Transpile(instruction));
             }
+             
+            sb.AppendLine("public ushort GetValue(){");
+            sb.AppendLine($"return {register};");
+            sb.AppendLine(" }");
+            sb.AppendLine("}");
+            //Console.WriteLine(sb.ToString());
+            var csc = new CSharpCodeProvider(new Dictionary<string, string>() { { "CompilerVersion", "v4.0" } });
+            var parameters = new CompilerParameters(new[] { "mscorlib.dll", "System.Core.dll" }, $"Advent{register}.dll", true);
+
+            var results = csc.CompileAssemblyFromSource(parameters, sb.ToString());
+            var type = results.CompiledAssembly.GetType($"Logic{register}");
+            dynamic logic = Activator.CreateInstance(type);
+            
+            return (ushort)logic.GetValue();
         }
     }
-
-    public class LogicGate
-    {
-        public string Left { get; set; }
-        public string Right { get; set; }
-        public ushort Value { get; set; }
-    }
-
-    public enum LogicOperator
-    {
-        And,
-        Or,
-        LShift,
-        RShift,
-        Not
-    }
+    
 }
