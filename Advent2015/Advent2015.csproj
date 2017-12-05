@@ -57,10 +57,12 @@
     <Compile Include="Solutions\Day7.cs" />
     <EmbeddedResource Include="TestData\day7.txt" />
     <Compile Include="Solutions\Day8.cs" />
+    <Compile Include="Solutions\Day9.cs" />
     <Compile Include="Tests\Day5Fixture.cs" />
     <Compile Include="Tests\Day6Fixture.cs" />
     <Compile Include="Tests\Day7Fixture.cs" />
     <Compile Include="Tests\Day8Fixture.cs" />
+    <Compile Include="Tests\Day9Fixture.cs" />
     <Compile Include="Utilities\Md5Hasher.cs" />
     <EmbeddedResource Include="TestData\day1.txt" />
     <EmbeddedResource Include="TestData\day3.txt" />
@@ -86,6 +88,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="TestData\day8.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TestData\day9.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
