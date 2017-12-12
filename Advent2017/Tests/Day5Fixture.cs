@@ -11,7 +11,13 @@ namespace Advent2017.Tests
     {
         private Day5 _day5 = new Day5();
 
-        private int[] _sample = {0, 3, 0, 1, -3,};
+        private int[] _sample;
+
+        [SetUp]
+        public void Setup()
+        {
+            _sample = new []{ 0, 3, 0, 1, -3};
+        }
 
         [Test]
         public void Sample()
