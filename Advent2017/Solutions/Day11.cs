@@ -43,8 +43,8 @@ namespace Advent2017.Solutions
                         y++;
                         break;
                 }
-                if (CubicDistance(x, y, z) > furthestDistance)
-                    furthestDistance = CubicDistance(x, y, z);
+
+                furthestDistance = Math.Max(furthestDistance, CubicDistance(x, y, z));
             }
 
             return part2 ? furthestDistance : CubicDistance(x, y, z);
