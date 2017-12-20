@@ -48,6 +48,7 @@
     <Compile Include="Solutions\Day1.cs" />
     <Compile Include="Solutions\Day10.cs" />
     <Compile Include="Solutions\Day11.cs" />
+    <Compile Include="Solutions\Day13.cs" />
     <Compile Include="Solutions\Day2.cs" />
     <Compile Include="Solutions\Day3.cs" />
     <Compile Include="Solutions\Day4.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Tests\Day10Fixture.cs" />
     <Compile Include="Tests\Day11Fixture.cs" />
     <Compile Include="Tests\Day12Fixture.cs" />
+    <Compile Include="Tests\Day13Fixture.cs" />
     <Compile Include="Tests\Day4Fixture.cs" />
     <Compile Include="Tests\Day5Fixture.cs" />
     <Compile Include="Tests\Day6Fixture.cs" />
@@ -106,6 +108,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="TestData\day12.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TestData\day13.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
