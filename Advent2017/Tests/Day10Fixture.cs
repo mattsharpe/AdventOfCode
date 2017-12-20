@@ -44,13 +44,13 @@ namespace Advent2017.Tests
         public void Part2_Sample(string test, string expected)
         {
 
-            Assert.AreEqual(expected,_day10.KnotHash(test.Select(x => (int)x).ToArray()));
+            Assert.AreEqual(expected,_day10.KnotHash(test));
         }
 
         [Test]
         public void Part2()
         {
-            Assert.AreEqual("c500ffe015c83b60fad2e4b7d59dabc4", _day10.KnotHash(_part2.Select(x => (int)x).ToArray()));
+            Assert.AreEqual("c500ffe015c83b60fad2e4b7d59dabc4", _day10.KnotHash(_part2));
         }
     }
 }

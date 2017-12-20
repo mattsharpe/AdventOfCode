@@ -40,6 +40,11 @@ namespace Advent2017.Solutions
             }
         }
 
+        public string KnotHash(string input)
+        {
+            return KnotHash(input.Select(x => (int) x).ToArray());
+        }
+
         public string KnotHash(int[] bytes)
         {
             var input = bytes.Select(x => (int)x).Concat(new[] { 17, 31, 73, 47, 23 }).ToArray();
