@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Advent2017.Solutions;
 using Advent2017.Utilities;
 using NUnit.Framework;
@@ -15,13 +14,7 @@ namespace Advent2017.Tests
         {
             _day16 = new Day16();
         }
-
-        [Test]
-        public void Dance()
-        {
-            //a -> p
-        }
-
+        
         [Test]
         public void Sample()
         {

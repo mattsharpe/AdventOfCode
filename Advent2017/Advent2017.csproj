@@ -52,6 +52,7 @@
     <Compile Include="Solutions\Day14.cs" />
     <Compile Include="Solutions\Day15.cs" />
     <Compile Include="Solutions\Day16.cs" />
+    <Compile Include="Solutions\Day17.cs" />
     <Compile Include="Solutions\Day2.cs" />
     <Compile Include="Solutions\Day3.cs" />
     <Compile Include="Solutions\Day4.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Tests\Day14Fixture.cs" />
     <Compile Include="Tests\Day15Fixture.cs" />
     <Compile Include="Tests\Day16Fixture.cs" />
+    <Compile Include="Tests\Day17Fixture.cs" />
     <Compile Include="Tests\Day4Fixture.cs" />
     <Compile Include="Tests\Day5Fixture.cs" />
     <Compile Include="Tests\Day6Fixture.cs" />
