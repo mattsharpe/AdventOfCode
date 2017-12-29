@@ -140,17 +140,19 @@ namespace Advent2017.Tests
         public void Part2()
         {
             var instructions = FileReader.ReadFile("day18.txt");
-            var zero = new Day18 {Registers = {["p"] = 0}};
-            var one = new Day18 {Registers = {["p"] = 1}};
+            var zero = new Day18Part2 {Registers = {["p"] = 0}, Id=0};
+            var one = new Day18Part2 { Registers = {["p"] = 1}, Id=1};
 
             zero.InputQueue = one.OutputQueue;
             zero.OutputQueue = one.InputQueue;
+            zero.OtherBlocked = one.IsBlocked;
+            one.OtherBlocked = zero.IsBlocked;
 
-            var task1 = Task.Run(() => zero.ProcessInstructions2(instructions, one.IsBlocked));
-            var task2 = Task.Run(() => one.ProcessInstructions2(instructions, zero.IsBlocked));
+            var task1 = Task.Run(() => zero.ProcessInstructions(instructions));
+            var task2 = Task.Run(() => one.ProcessInstructions(instructions));
 
             Task.WaitAll(task1, task2);
-
+            
             Assert.AreEqual(7493, one.SendCount);
 
         }
@@ -169,19 +171,21 @@ namespace Advent2017.Tests
                 "rcv d"
             };
 
-            var zero = new Day18 { Registers = { ["p"] = 0 } };
-            var one = new Day18 { Registers = { ["p"] = 1 } };
+            var zero = new Day18Part2 { Registers = { ["p"] = 0 } };
+            var one = new Day18Part2 { Registers = { ["p"] = 1 } };
 
             zero.InputQueue = one.OutputQueue;
             zero.OutputQueue = one.InputQueue;
+            zero.OtherBlocked = one.IsBlocked;
+            one.OtherBlocked = zero.IsBlocked;
 
-            var task1 = Task.Run(() => zero.ProcessInstructions2(instructions, one.IsBlocked));
-            var task2 = Task.Run(() => one.ProcessInstructions2(instructions, zero.IsBlocked));
+            var task1 = Task.Run(() => zero.ProcessInstructions(instructions));
+            var task2 = Task.Run(() => one.ProcessInstructions(instructions));
 
             Task.WaitAll(task1, task2);
             
-            Console.WriteLine(zero.SendCount);
-            Console.WriteLine(one.SendCount);
+            Assert.AreEqual(3, zero.SendCount);
+            Assert.AreEqual(3, one.SendCount);
             
 
         }
