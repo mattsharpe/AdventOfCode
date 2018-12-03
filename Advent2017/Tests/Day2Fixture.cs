@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Advent2017.Solutions;
 using Advent2017.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
