@@ -6,10 +6,10 @@ namespace Advent2016.Solutions
 {
     class Day25
     {
-        public int A;
-        public int B;
-        public int C;
-        public int D;
+        public int A { get; set; }
+        public int B { get; set; }
+        public int C { get; set; }
+        public int D { get; set; }
         public string Output { get; set; } = "";
 
         public void ProcessInstructions(string[] instructions)
@@ -70,7 +70,7 @@ namespace Advent2016.Solutions
         private void Multiply(string details)
         {
             var parts = details.Split(' ');
-            var field = GetField(parts[2]);
+            var field = GetProperty(parts[2]);
             
             field.SetValue(this, GetValue(parts[0]) * GetValue(parts[1]));
         }
@@ -119,7 +119,7 @@ namespace Advent2016.Solutions
 
         public void Shift(string register, int offset)
         {
-            var field = GetField(register);
+            var field = GetProperty(register);
             var currentValue = Convert.ToInt32(field.GetValue(this));
             field.SetValue(this, currentValue + offset);
         }
@@ -127,7 +127,7 @@ namespace Advent2016.Solutions
         public void Copy(string input, string target)
         {
             var value = GetValue(input);
-            GetField(target).SetValue(this, value);
+            GetProperty(target).SetValue(this, value);
 
         }
 
@@ -143,14 +143,14 @@ namespace Advent2016.Solutions
 
             if (!isValue)
             {
-                value = Convert.ToInt32(GetField(input).GetValue(this));
+                value = Convert.ToInt32(GetProperty(input).GetValue(this));
             }
             return value;
         }
         
-        private FieldInfo GetField(string name)
+        private PropertyInfo GetProperty(string name)
         {
-            return GetType().GetField(name.Trim().ToUpper());
+            return GetType().GetProperty(name.Trim().ToUpper());
         }
     }
 }
