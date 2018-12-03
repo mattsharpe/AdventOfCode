@@ -45,8 +45,8 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
-bin/**
-obj/**
+/Advent*/bin/**
+/Advent*/obj/**
 AdventOfCode.csproj.DotSettings
 packages/
 .vs/AdventOfCode/v14/.suo
@@ -55,9 +55,8 @@ packages/
 Advent2015/obj/
 Advent2015/bin/
 *.user
-/Advent2017/bin/Debug
-/Advent2017/obj/Debug
-/Advent2017/obj/Release
+/Advent2017/bin/
+/Advent2017/obj/
 *.cache
 /Advent2018/obj
 /Advent2018/bin/

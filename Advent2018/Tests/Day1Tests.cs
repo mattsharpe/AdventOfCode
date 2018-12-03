@@ -8,12 +8,12 @@ namespace Advent2018.Tests
     [TestClass]
     public class Day1Tests
     {
-        private FrequencyCalibrator _calibrator;
+        private Day1 _calibrator;
 
         [TestInitialize]
         public void Setup()
         {
-            _calibrator = new FrequencyCalibrator { CurrentFrequency = 0 };
+            _calibrator = new Day1 { CurrentFrequency = 0 };
         }
 
         [TestMethod]

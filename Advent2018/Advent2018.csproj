@@ -2,16 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="TestData\Day1Input.txt" />
+    <None Remove="TestData\Day2Input.txt" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="TestData\Day1Input.txt" />
+    <EmbeddedResource Include="TestData\Day2Input.txt" />
   </ItemGroup>
 
   <ItemGroup>
