@@ -1,21 +1,21 @@
 ﻿using Advent2015.Solutions;
 using Advent2015.Utilities;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2015.Tests
 {
-    [TestFixture]
-    class Day3Fixture
+    [TestClass]
+    public class Day3Fixture
     {
         private Day3 _day3 = new Day3();
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             _day3 = new Day3();
         }
 
-        [Test]
+        [TestMethod]
         public void SampleData()
         {
             string input = ">";
@@ -24,7 +24,7 @@ namespace Advent2015.Tests
             Assert.AreEqual(2, visited);
         }
 
-        [Test]
+        [TestMethod]
         public void SampleData_Square()
         {
             string input = "^>v<";
@@ -33,7 +33,7 @@ namespace Advent2015.Tests
             Assert.AreEqual(4, visited);
         }
 
-        [Test]
+        [TestMethod]
         public void SampleData_Bouncing()
         {
             string input = "^v^v^v^v^v";
@@ -42,7 +42,7 @@ namespace Advent2015.Tests
             Assert.AreEqual(2, visited);
         }
 
-        [Test]
+        [TestMethod]
         public void Part1()
         {
             var input = FileReader.ReadFile("day3.txt")[0];
@@ -52,7 +52,7 @@ namespace Advent2015.Tests
             Assert.AreEqual(2572, visited);
         }
 
-        [Test]
+        [TestMethod]
         public void Part2()
         {
             var input = FileReader.ReadFile("day3.txt")[0];
@@ -63,7 +63,7 @@ namespace Advent2015.Tests
         }
 
 
-        [Test]
+        [TestMethod]
         public void SampleData_Part2()
         {
             string input = "^v";
@@ -72,7 +72,7 @@ namespace Advent2015.Tests
             Assert.AreEqual(3, visited);
         }
 
-        [Test]
+        [TestMethod]
         public void SampleData_Square_Part2()
         {
             string input = "^>v<";
@@ -81,7 +81,7 @@ namespace Advent2015.Tests
             Assert.AreEqual(3, visited);
         }
 
-        [Test]
+        [TestMethod]
         public void SampleData_Bouncing_Part2()
         {
             string input = "^v^v^v^v^v";

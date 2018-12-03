@@ -2,12 +2,12 @@
 using System.Linq;
 using Advent2015.Solutions;
 using Advent2015.Utilities;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2015.Tests
 {
-    [TestFixture]
-    class Day9Fixture
+    [TestClass]
+    public class Day9Fixture
     {
         private Day9 _day9 = new Day9();
 
@@ -18,7 +18,7 @@ namespace Advent2015.Tests
             "Dublin to Belfast = 141"
         };
 
-        [Test]
+        [TestMethod]
         public void BuildMap()
         {
             _day9.BuildDistances(_sample);
@@ -38,32 +38,32 @@ namespace Advent2015.Tests
             }
         }
 
-        [Test]
+        [TestMethod]
         public void GetPaths()
         {
             _day9.BuildDistances(_sample);
             _day9.GeneratePaths();
         }
 
-        [Test]
+        [TestMethod]
         public void Sample()
         {
             Assert.AreEqual(605, _day9.Part1(_sample));
         }
 
-        [Test]
+        [TestMethod]
         public void Part1()
         {
             Assert.AreEqual(117, _day9.Part1(FileReader.ReadFile("day9.txt")));
         }
 
-        [Test]
+        [TestMethod]
         public void Sample_Part2()
         {
             Assert.AreEqual(982, _day9.Part2(_sample));
         }
 
-        [Test]
+        [TestMethod]
         public void Part2()
         {
             Assert.AreEqual(909, _day9.Part2(FileReader.ReadFile("day9.txt")));

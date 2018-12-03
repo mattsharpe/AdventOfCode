@@ -1,35 +1,35 @@
 ﻿using Advent2015.Solutions;
 using Advent2015.Utilities;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2015.Tests
 {
-    [TestFixture]
-    class Day6Fixture
+    [TestClass]
+    public class Day6Fixture
     {
         private Day6 _day6 = new Day6();
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             _day6 = new Day6();
         }
 
-        [Test]
+        [TestMethod]
         public void CountLit()
         {
             var lit = _day6.CountLit();
             Assert.AreEqual(0, lit);
         }
 
-        [Test]
+        [TestMethod]
         public void TurnOnAll()
         {
             _day6.ProcessInstructions(new []{"turn on 0,0 through 999,999"});
             Assert.AreEqual(1000000, _day6.CountLit());
         }
 
-        [Test]
+        [TestMethod]
         public void Toggle()
         {
             _day6.ProcessInstructions(new []{ "toggle 0,0 through 999,0" });
@@ -39,7 +39,7 @@ namespace Advent2015.Tests
             Assert.AreEqual(0, _day6.CountLit());
         }
 
-        [Test]
+        [TestMethod]
         public void TurnOff()
         {
             _day6.ProcessInstructions(new []{ "turn on 0,0 through 999,999" });
@@ -49,7 +49,7 @@ namespace Advent2015.Tests
             Assert.AreEqual(999996, _day6.CountLit());
         }
 
-        [Test]
+        [TestMethod]
         public void Process()
         {
             _day6.ProcessInstructions(new []{ "turn off 994,939 through 998,988" });
@@ -57,28 +57,28 @@ namespace Advent2015.Tests
             Assert.AreEqual(0, lit);
         }
 
-        [Test]
+        [TestMethod]
         public void Part1()
         {
             _day6.ProcessInstructions(FileReader.ReadFile("day6.txt"));
             Assert.AreEqual(543903, _day6.CountLit());
         }
 
-        [Test]
+        [TestMethod]
         public void Part2()
         {
             _day6.ProcessInstructions(FileReader.ReadFile("day6.txt"), true);
             Assert.AreEqual(14687245, _day6.SumLights());
         }
 
-        [Test]
+        [TestMethod]
         public void TurnOnPart2()
         {
             _day6.ProcessInstructions(new []{ "turn on 0,0 through 0,0" }, true);
             Assert.AreEqual(1,_day6.SumLights());
         }
 
-        [Test]
+        [TestMethod]
         public void TogglePart2()
         {
             _day6.ProcessInstructions(new []{ "toggle 0,0 through 999,999" }, true);

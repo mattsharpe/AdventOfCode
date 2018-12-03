@@ -1,11 +1,9 @@
 ﻿using System;
-using System.CodeDom.Compiler;
-using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Reflection;
-using System.Reflection.Emit;
 using System.Text;
-using Microsoft.CSharp;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 
 namespace Advent2015.Solutions
 {
@@ -37,15 +35,21 @@ namespace Advent2015.Solutions
             sb.AppendLine($"return {register};");
             sb.AppendLine(" }");
             sb.AppendLine("}");
-            //Console.WriteLine(sb.ToString());
-            var csc = new CSharpCodeProvider(new Dictionary<string, string>() { { "CompilerVersion", "v4.0" } });
-            var parameters = new CompilerParameters(new[] { "mscorlib.dll", "System.Core.dll" }, $"Advent{register}.dll", true);
-
-            var results = csc.CompileAssemblyFromSource(parameters, sb.ToString());
-            var type = results.CompiledAssembly.GetType($"Logic{register}");
-            dynamic logic = Activator.CreateInstance(type);
             
-            return (ushort)logic.GetValue();
+            var compilation = CSharpCompilation.Create(
+                $"Advent{register}.dll",
+                new[] { CSharpSyntaxTree.ParseText(sb.ToString()) },
+                new[]{ MetadataReference.CreateFromFile(typeof(object).Assembly.Location) },
+                new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
+            
+            using (var ms = new MemoryStream())
+            {
+                compilation.Emit(ms);
+                var assembly = Assembly.Load(ms.ToArray());
+                var type = assembly.GetType($"Logic{register}");
+                dynamic logic = Activator.CreateInstance(type);
+                return logic.GetValue();
+            }
         }
     }
     
