@@ -1,24 +1,25 @@
 ﻿using System.Linq;
 using Advent2017.Solutions;
 using Advent2017.Utilities;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2017.Tests
 {
-    [TestFixture]
-    class Day4Fixture
+    [TestClass]
+    public class Day4Fixture
     {
         private Day4 _day4 = new Day4();
 
-        [TestCase("aa bb cc dd ee", true)]
-        [TestCase("aa bb cc dd aa", false)]
-        [TestCase("aa bb cc dd aaa", true)]
+        [DataRow("aa bb cc dd ee", true)]
+        [DataRow("aa bb cc dd aa", false)]
+        [DataRow("aa bb cc dd aaa", true)]
+        [DataTestMethod]
         public void IsValid_Sample(string input, bool expected)
         {
             Assert.AreEqual(expected, _day4.IsValid(input));
         }
 
-        [Test]
+        [TestMethod]
         public void Part1()
         {
             var input = FileReader.ReadFile("day4.txt");
@@ -26,17 +27,18 @@ namespace Advent2017.Tests
             Assert.AreEqual(477, result);
         }
 
-        [TestCase("abcde fghij", true)]
-        [TestCase("abcde xyz ecdab", false)]
-        [TestCase("a ab abc abd abf abj", true)]
-        [TestCase("iiii oiii ooii oooi oooo", true)]
-        [TestCase("oiii ioii iioi iiio", false)]
+        [DataRow("abcde fghij", true)]
+        [DataRow("abcde xyz ecdab", false)]
+        [DataRow("a ab abc abd abf abj", true)]
+        [DataRow("iiii oiii ooii oooi oooo", true)]
+        [DataRow("oiii ioii iioi iiio", false)]
+        [DataTestMethod]
         public void IsValid_Anagram(string input, bool expected)
         {
             Assert.AreEqual(expected, _day4.IsValidAnagram(input));
         }
 
-        [Test]
+        [TestMethod]
         public void Part2()
         {
             var input = FileReader.ReadFile("day4.txt");

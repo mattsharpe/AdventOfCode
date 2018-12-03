@@ -5,16 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Advent2017.Solutions;
 using Advent2017.Utilities;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2017.Tests
 {
-    [TestFixture]
-    class Day2Fixture
+    [TestClass]
+    public class Day2Fixture
     {
         private Day2 _day2 = new Day2();
 
-        [Test]
+        [TestMethod]
         public void SampleData()
         {
             string[] input =
@@ -27,14 +27,14 @@ namespace Advent2017.Tests
             Assert.AreEqual(18, _day2.Solve(input));
         }
 
-        [Test]
+        [TestMethod]
         public void Part1()
         {
             var input = FileReader.ReadFile("day2.txt");
             Console.WriteLine(_day2.Solve(input));
         }
 
-        [Test]
+        [TestMethod]
         public void SampleData2()
         {
             string[] input =
@@ -47,7 +47,7 @@ namespace Advent2017.Tests
             Assert.AreEqual(9, _day2.Solve2(input));
         }
 
-        [Test]
+        [TestMethod]
         public void Part2()
         {
             var input = FileReader.ReadFile("day2.txt");

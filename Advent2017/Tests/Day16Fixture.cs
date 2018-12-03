@@ -1,21 +1,22 @@
 ﻿using System;
 using Advent2017.Solutions;
 using Advent2017.Utilities;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2017.Tests
 {
-    class Day16Fixture
+    [TestClass]
+    public class Day16Fixture
     {
         private Day16 _day16 = new Day16();
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             _day16 = new Day16();
         }
         
-        [Test]
+        [TestMethod]
         public void Sample()
         {
             _day16.Dancers = "abcde";
@@ -26,7 +27,7 @@ namespace Advent2017.Tests
             Assert.AreEqual("baedc", _day16.Dancers);
         }
 
-        [Test]
+        [TestMethod]
         public void Spin()
         {
             _day16.Dancers = "abcde";
@@ -35,7 +36,7 @@ namespace Advent2017.Tests
             Assert.AreEqual("cdeab", _day16.Dancers);
         }
 
-        [Test]
+        [TestMethod]
         public void Exchange()
         {
             _day16.Dancers = "eabcd";
@@ -44,7 +45,7 @@ namespace Advent2017.Tests
             Assert.AreEqual("eabdc", _day16.Dancers);
         }
 
-        [Test]
+        [TestMethod]
         public void Switch()
         {
             _day16.Dancers = "eabdc";
@@ -53,14 +54,14 @@ namespace Advent2017.Tests
             Assert.AreEqual("baedc", _day16.Dancers);
         }
 
-        [Test]
+        [TestMethod]
         public void Part1()
         {
             _day16.Dance(FileReader.ReadFile("day16.txt")[0]);
             Assert.AreEqual("fnloekigdmpajchb",_day16.Dancers);
         }
 
-        [Test]
+        [TestMethod]
         public void Part2()
         {
             var steps = FileReader.ReadFile("day16.txt")[0];

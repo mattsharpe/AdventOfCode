@@ -1,10 +1,10 @@
 ﻿using Advent2017.Solutions;
 using Advent2017.Utilities;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2017.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class Day13Fixture
     {
         private string[] _sample =
@@ -17,25 +17,25 @@ namespace Advent2017.Tests
 
         private Day13 _day13 = new Day13();
 
-        [Test]
+        [TestMethod]
         public void Sample()
         {
             Assert.AreEqual(24, _day13.CalculateSeverity(_sample));
         }
 
-        [Test]
+        [TestMethod]
         public void Part1()
         {
             Assert.AreEqual(748, _day13.CalculateSeverity(FileReader.ReadFile("day13.txt")));
         }
 
-        [Test]
+        [TestMethod]
         public void Part2_Sample()
         {
             Assert.AreEqual(10, _day13.CalculateDelay(_sample));
         }
 
-        [Test]
+        [TestMethod]
         public void Part2()
         {
             Assert.AreEqual(3873662, _day13.CalculateDelay(FileReader.ReadFile("day13.txt")));

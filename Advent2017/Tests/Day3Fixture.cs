@@ -1,29 +1,30 @@
 ﻿using Advent2017.Solutions;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2017.Tests
 {
-    [TestFixture]
-    class Day3Fixture
+    [TestClass]
+    public class Day3Fixture
     {
         private readonly Day3 _day3 = new Day3();
         
-        [TestCase(1, 0)]
-        [TestCase(12, 3)]
-        [TestCase(23, 2)]
-        [TestCase(1024, 31)]
+        [DataRow(1, 0)]
+        [DataRow(12, 3)]
+        [DataRow(23, 2)]
+        [DataRow(1024, 31)]
+        [DataTestMethod]
         public void Samples(int square, int expected)
         {
             Assert.AreEqual(expected,_day3.Solve(square));
         }
 
-        [Test]
+        [TestMethod]
         public void Part1()
         {
             Assert.AreEqual(430, _day3.Solve(312051));
         }
 
-        [Test]
+        [TestMethod]
         public void Part2()
         {
             Assert.AreEqual(312453, _day3.Solve2(312051));

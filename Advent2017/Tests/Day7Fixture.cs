@@ -1,14 +1,15 @@
 ﻿using Advent2017.Solutions;
 using Advent2017.Utilities;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2017.Tests
 {
-    class Day7Fixture
+    [TestClass]
+    public class Day7Fixture
     {
         private Day7 _day7 = new Day7();
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             _day7 = new Day7();
@@ -31,25 +32,25 @@ namespace Advent2017.Tests
             "cntj (57)"
         };
 
-        [Test]
+        [TestMethod]
         public void Sample()
         {
             Assert.AreEqual("tknk", _day7.FindBottomProgram(_sample));
         }
          
-        [Test]
+        [TestMethod]
         public void Part1()
         {
             Assert.AreEqual("hlhomy", _day7.FindBottomProgram(FileReader.ReadFile("day7.txt")));
         }
 
-        [Test]
+        [TestMethod]
         public void Sample2()
         {
             Assert.AreEqual(60, _day7.FindCorrectedWeight(_sample));
         }
         
-        [Test]
+        [TestMethod]
         public void Part2()
         {
             Assert.AreEqual(1505, _day7.FindCorrectedWeight(FileReader.ReadFile("day7.txt")));
