@@ -3,16 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Advent2016", "Advent2016\Advent2016.csproj", "{F575C1B7-2465-434F-B29A-B56B1573AC1B}"
-	ProjectSection(ProjectDependencies) = postProject
-		{7A42AE9C-D88E-492D-A1CA-3695A87EC57D} = {7A42AE9C-D88E-492D-A1CA-3695A87EC57D}
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Advent2016", "Advent2016\Advent2016.csproj", "{F575C1B7-2465-434F-B29A-B56B1573AC1B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Advent2015", "Advent2015\Advent2015.csproj", "{7A42AE9C-D88E-492D-A1CA-3695A87EC57D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Advent2017", "Advent2017\Advent2017.csproj", "{5B816815-4144-4974-A353-D4202F5B40A9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Advent2018", "Advent2018\Advent2018.csproj", "{94F32CB7-BDDF-4C02-867C-E15B33CA9CAC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2EEF2C6E-1CF6-461D-9E75-80B1ED1E631C}"
+	ProjectSection(SolutionItems) = preProject
+		tests.testsettings = tests.testsettings
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Advent2015", "Advent2015\Advent2015.csproj", "{7A42AE9C-D88E-492D-A1CA-3695A87EC57D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Advent2017", "Advent2017\Advent2017.csproj", "{5B816815-4144-4974-A353-D4202F5B40A9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Advent2018", "Advent2018\Advent2018.csproj", "{94F32CB7-BDDF-4C02-867C-E15B33CA9CAC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -61,3 +61,4 @@ Advent2015/bin/
 *.cache
 /Advent2018/obj
 /Advent2018/bin/
+/.vscode
