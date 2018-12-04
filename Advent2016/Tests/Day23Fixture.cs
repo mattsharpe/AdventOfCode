@@ -1,16 +1,16 @@
 ﻿using System;
 using Advent2016.Solutions;
 using Advent2016.Utilities;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2016.Tests
 {
-    [TestFixture]
-    class Day23Fixture
+    [TestClass]
+    public class Day23Fixture
     {
         private Day23 _day23 = new Day23();
 
-        [Test]
+        [TestMethod]
         public void SampleData()
         {
             var input = new[]{"cpy 2 a",
@@ -27,7 +27,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(3, _day23.A);
         }
 
-        [Test]
+        [TestMethod]
         public void Part1()
         {
             var input = FileReader.ReadFile("day 23.txt");
@@ -38,7 +38,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(11500, _day23.A);
         }
 
-        [Test]
+        [TestMethod]
         public void Part2()
         {
             var instructions = new[]

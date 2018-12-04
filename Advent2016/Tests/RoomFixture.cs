@@ -1,9 +1,9 @@
 ﻿using Advent2016.Utilities;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2016.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class RoomFixture
     {
 
@@ -13,7 +13,7 @@ a-b-c-d-e-f-g-h-987[abcde] is a real room because although the letters are all t
 not-a-real-room-404[oarel] is a real room.
 totally-real-room-200[decoy]
 */
-        [Test]
+        [TestMethod]
         public void ParseRoom_abxyz()
         {
             var input = "aaaaa-bbb-z-y-x-123[abxyz]";
@@ -23,7 +23,7 @@ totally-real-room-200[decoy]
             Assert.AreEqual("aaaaa-bbb-z-y-x", room.EncryptedName);
         }
 
-        [Test]
+        [TestMethod]
         public void ParseRoom_abcde()
         {
             var input = "a-b-c-d-e-f-g-h-987[abcde]";
@@ -33,7 +33,7 @@ totally-real-room-200[decoy]
             Assert.AreEqual("a-b-c-d-e-f-g-h", room.EncryptedName);
         }
 
-        [Test]
+        [TestMethod]
         public void ParseRoom_oarel()
         {
             var input = "not-a-real-room-404[oarel]";
@@ -43,7 +43,7 @@ totally-real-room-200[decoy]
             Assert.AreEqual("not-a-real-room", room.EncryptedName);
         }
 
-        [Test]
+        [TestMethod]
         public void ParseRoom_decoy()
         {
             var input = "totally-real-room-200[decoy]";

@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using Advent2016.Solutions;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2016.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class Day15Fixture
     {
         private Day15 _day15;
             
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             _day15 = new Day15();
         }
 
-        [Test]
+        [TestMethod]
         public void SampleData()
         {
             var sculpture = new List<Disc>
@@ -34,7 +34,7 @@ namespace Advent2016.Tests
             
         }
 
-        [Test]
+        [TestMethod]
         public void Part1()
         {
             /*
@@ -62,7 +62,7 @@ namespace Advent2016.Tests
             Console.WriteLine(result);
         }
 
-        [Test]
+        [TestMethod]
         public void Part2()
         {
             var sculpture = new List<Disc>

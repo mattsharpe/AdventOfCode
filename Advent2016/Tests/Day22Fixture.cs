@@ -3,16 +3,16 @@ using System.Linq;
 using Advent2016.Solutions;
 using Advent2016.Utilities;
 using Advent2016.Utilities.Day22;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2016.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class Day22Fixture
     {
         private Day22 _day22;
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             _day22 = new Day22();
@@ -29,21 +29,21 @@ namespace Advent2016.Tests
             Assert.AreEqual(result.Y, node.Y);
         }
 
-        [Test]
+        [TestMethod]
         public void BuildNode()
         {
             TestBuildNode(@"/dev/grid/node-x6-y7    507T  497T    10T   98%",
                 new Day22Node { X = 6, Y = 7, Capacity = 507, Used = 497 });
         }
 
-        [Test]
+        [TestMethod]
         public void BuildNode2()
         {
             TestBuildNode(@"/dev/grid/node-x5-y15    92T   64T    28T   69%",
                 new Day22Node { X = 5, Y = 15, Capacity = 92, Used = 64});
         }
 
-        [Test]
+        [TestMethod]
         public void BuildNetwork()
         {
             var contents = FileReader.ReadFile("day 22.txt").Skip(2).ToArray();
@@ -51,7 +51,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(925, network.Nodes.Count);
         }
 
-        [Test]
+        [TestMethod]
         public void ViablePairs()
         {
             var pairs = _day22.ViablePairs();
@@ -72,21 +72,21 @@ namespace Advent2016.Tests
 
         private string[] _part2Data = FileReader.ReadFile("day 22.txt").Skip(2).ToArray();
 
-        [Test]
+        [TestMethod]
         public void PrintMap()
         {
             var grid = _day22.BuildNetwork(FileReader.ReadFile("day 22.txt").Skip(2).ToArray());
             grid.Print();
         }
 
-        [Test]
+        [TestMethod]
         public void PrintSpaceMap()
         {
             //_day22.DrawSpaceMap(FileReader.ReadFile("day 22.txt").Skip(2).ToArray());
             _day22.DrawSpaceMap(_part2Sample);
         }
 
-        [Test]
+        [TestMethod]
         public void MatchedAdjacentPairs()
         {
             var pairs = _day22.ViablePairs(_part2Sample);

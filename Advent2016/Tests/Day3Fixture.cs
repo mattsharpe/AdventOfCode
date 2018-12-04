@@ -1,28 +1,28 @@
 ﻿using System.Linq;
 using Advent2016.Solutions;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2016.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class Day3Fixture
     {
         private Day3 _day3;
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             _day3 = new Day3();
         }
         
-        [Test]
+        [TestMethod]
         public void Part1()
         {
             var result = _day3.FindInvalidTriangles();
             Assert.AreEqual(917, result);
         }
 
-        [Test]
+        [TestMethod]
         public void MultilineParsing()
         {
             var input = new[]
@@ -50,7 +50,7 @@ namespace Advent2016.Tests
         }
 
 
-        [Test]
+        [TestMethod]
         public void Part2()
         {
             var result = _day3.BuildTrianglesVertically();

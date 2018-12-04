@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using Advent2016.Solutions;
 using Advent2016.Utilities;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2016.Tests
 {
-
-    [TestFixture]
-    class Day24Fixture
+    [TestClass]
+    public class Day24Fixture
     {
         private Day24 _day24 = new Day24();
 
@@ -21,20 +20,20 @@ namespace Advent2016.Tests
             "###########"
         };
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             _day24 = new Day24();
         }
 
-        [Test]
+        [TestMethod]
         public void BuildMap()
         {
             _day24.BuildMap(_sampleData);
             _day24.PrintMap();
         }
         
-        [Test]
+        [TestMethod]
         public void GetNextStates()
         {
             _day24.BuildMap(_sampleData);
@@ -42,7 +41,7 @@ namespace Advent2016.Tests
             Console.WriteLine(next.Count);
         }
 
-        [Test]
+        [TestMethod]
         public void ShortestDistance()
         {
             _day24.BuildMap(_sampleData);
@@ -58,41 +57,41 @@ namespace Advent2016.Tests
             Assert.AreEqual(2, distance);
         }
 
-        [Test]
+        [TestMethod]
         public void GetAllDistances()
         {
             _day24.GetAllDistances(_sampleData);
         }
 
-        [Test]
+        [TestMethod]
         public void Solve_Sample()
         {
             var result = _day24.SolveForShortestPath(_sampleData, 0);
             Assert.AreEqual(14, result);
         }
 
-        [Test]
+        [TestMethod]
         public void Solve_Part1()
         {
             var result = _day24.SolveForShortestPath(FileReader.ReadFile("day 24.txt"), 0);
             Assert.AreEqual(428, result);
         }
 
-        [Test]
+        [TestMethod]
         public void Solve_Part2()
         {
             var result = _day24.SolveForShortestPath(FileReader.ReadFile("day 24.txt"), 0, true);
             Assert.AreEqual(680, result);
         }
 
-        [Test]
+        [TestMethod]
         public void GetPermuations()
         {
             var result = _day24.GetPermutations<int>(new List<int>(new []{1,2,3}), 3);
             result.ForEach(x=> Console.WriteLine(string.Join(",",x)));
         }
 
-        [Test]
+        [TestMethod]
         public void CalculateShortest()
         {
             _day24.GetAllDistances(_sampleData);

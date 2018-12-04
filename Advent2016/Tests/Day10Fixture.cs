@@ -1,20 +1,20 @@
 ﻿using Advent2016.Solutions;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2016.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class Day10Fixture
     {
         private Day10 _day10;
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             _day10 = new Day10();
         }
 
-        [Test]
+        [TestMethod]
         public void Part1()
         {
             _day10.Part1();
@@ -23,7 +23,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(27,bot.Id); // Too High
         }
 
-        [Test]
+        [TestMethod]
         public void SampleDataPart1()
         {
             var input = new[]
@@ -44,7 +44,7 @@ namespace Advent2016.Tests
 
         }
 
-        [Test]
+        [TestMethod]
         public void Part2()
         {
             _day10.Part1();

@@ -1,43 +1,43 @@
 ﻿using Advent2016.Solutions;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2016.Tests
 {
 
-    [TestFixture, Explicit]
+    [TestClass, Ignore]
     public class Day5Fixture
     {
         private Day5 _day5;
 
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             _day5 = new Day5();
         }
 
-        [Test]
+        [TestMethod]
         public void SampleData()
         {
             var password = _day5.CalculatePassword("abc");
             Assert.AreEqual("18f47a30",password);
         }
 
-        [Test]
+        [TestMethod]
         public void Part1()
         {
             var password = _day5.CalculatePassword("ugkcyxxp");
             Assert.AreEqual("d4cd2ee1", password);
         }
 
-        [Test]
+        [TestMethod]
         public void Part2SampleData()
         {
             var password = _day5.CalculatePasswordWithOrder("abc");
             Assert.AreEqual("05ace8e3", password);
         }
 
-        [Test]
+        [TestMethod]
         public void Part2()
         {
             var password = _day5.CalculatePasswordWithOrder("ugkcyxxp");

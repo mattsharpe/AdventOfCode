@@ -1,15 +1,15 @@
 ﻿using Advent2016.Solutions;
 using Advent2016.Utilities;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2016.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class Day20Fixture
     {
         private Day20 _day20;
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             _day20 = new Day20();
@@ -17,14 +17,14 @@ namespace Advent2016.Tests
 
         private string[] _sample = {"5-8", "0-2", "4-7"};
 
-        [Test]
+        [TestMethod]
         public void SampleData()
         {
             var result = _day20.Solve(_sample);
             Assert.AreEqual(3, result);
         }
 
-        [Test]
+        [TestMethod]
         public void Part1()
         {
             var input = FileReader.ReadFile("day 20.txt");
@@ -32,7 +32,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(32259706, result);
         }
 
-        [Test]
+        [TestMethod]
         public void Part2()
         {
             var input = FileReader.ReadFile("day 20.txt");

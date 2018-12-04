@@ -1,20 +1,20 @@
 ﻿using Advent2016.Solutions;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2016.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class Day6Fixture
     {
         private Day6 _day6;
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             _day6 = new Day6();
         }
 
-        [Test]
+        [TestMethod]
         public void SampleData1()
         {
             var input = new []
@@ -41,14 +41,14 @@ namespace Advent2016.Tests
             Assert.AreEqual("easter", result);
         }
 
-        [Test]
+        [TestMethod]
         public void Task1()
         {
             var result  = _day6.Challenge1();
             Assert.AreEqual("ursvoerv", result);
         }
 
-        [Test]
+        [TestMethod]
         public void Task2()
         {
             var result  = _day6.Challenge2();

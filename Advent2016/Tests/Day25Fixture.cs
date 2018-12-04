@@ -1,16 +1,16 @@
 ﻿using System;
 using Advent2016.Solutions;
 using Advent2016.Utilities;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2016.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class Day25Fixture
     {
         private Day25 _day25 = new Day25();
 
-        [Test]
+        [TestMethod]
         public void TargetString()
         {
             Console.WriteLine(_day25.TargetString(1));
@@ -20,7 +20,7 @@ namespace Advent2016.Tests
             Console.WriteLine(_day25.TargetString(20));
         }
 
-        [Test]
+        [TestMethod]
         public void Part1()
         {
             var instructions = FileReader.ReadFile("day 25.txt");
@@ -36,7 +36,7 @@ namespace Advent2016.Tests
             }
         }
 
-        [Test]
+        [TestMethod]
         public void Bonus()
         {
             var instructions = FileReader.ReadFile("bonus.txt");

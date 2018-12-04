@@ -1,46 +1,46 @@
 ﻿using Advent2016.Solutions;
 using Advent2016.Utilities;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2016.Tests
 {
 
-    [TestFixture]
+    [TestClass]
     public class Day4Fixture
     {
         private Day4 _day4;
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             _day4 = new Day4();
         }
 
-        [Test]
+        [TestMethod]
         public void TestRoom_abxyz()
         {
             Assert.IsTrue(_day4.VerifyRoom(new Room("aaaaa-bbb-z-y-x-123[abxyz]")));
         }
 
-        [Test]
+        [TestMethod]
         public void TestRoom_abcde()
         {
             Assert.IsTrue(_day4.VerifyRoom(new Room("a-b-c-d-e-f-g-h-987[abcde]")));
         }
 
-        [Test]
+        [TestMethod]
         public void TestRoom_oarel()
         {
             Assert.IsTrue(_day4.VerifyRoom(new Room("not-a-real-room-404[oarel]")));
         }
 
-        [Test]
+        [TestMethod]
         public void TestRoom_decoy()
         {
             Assert.IsFalse(_day4.VerifyRoom(new Room("totally-real-room-200[decoy]")));
         }
 
-        [Test]
+        [TestMethod]
         public void SampleData()
         {
             var input = new [] {
@@ -55,14 +55,14 @@ namespace Advent2016.Tests
             Assert.AreEqual(1514, result);
         }
 
-        [Test]
+        [TestMethod]
         public void Part1()
         {
             var result = _day4.Part1();
             Assert.AreEqual(137896, result);
         }
 
-        [Test]
+        [TestMethod]
         public void ShiftCipher()
         {
             string input = "qzmt-zixmtkozy-ivhz";
@@ -72,7 +72,7 @@ namespace Advent2016.Tests
             Assert.AreEqual("very encrypted name", result);
         }
 
-        [Test]
+        [TestMethod]
         public void Part2()
         {
             var result = _day4.Part2();

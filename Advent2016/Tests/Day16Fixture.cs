@@ -1,20 +1,20 @@
 ﻿using Advent2016.Solutions;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2016.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class Day16Fixture
     {
         private Day16 _day16;
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             _day16 = new Day16();
         }
 
-        [Test]
+        [TestMethod]
         public void RandomData()
         {
             Assert.AreEqual("100",_day16.RandomData("1"));
@@ -23,14 +23,14 @@ namespace Advent2016.Tests
             Assert.AreEqual("1111000010100101011110000", _day16.RandomData("111100001010"));
         }
 
-        [Test]
+        [TestMethod]
         public void Checksum()
         {
             var result = _day16.Checksum("110010110100");
             Assert.AreEqual("100", result);
         }
 
-        [Test]
+        [TestMethod]
         public void SampleData()
         {
             var target = 20;
@@ -40,7 +40,7 @@ namespace Advent2016.Tests
             Assert.AreEqual("01100", checksum);
         }
 
-        [Test]
+        [TestMethod]
         public void Part1()
         {
             var target = 272;
@@ -50,7 +50,7 @@ namespace Advent2016.Tests
             Assert.AreEqual("00000100100001100", checksum);
         }
 
-        [Test]
+        [TestMethod]
         public void Part2()
         {
             var target = 35651584;

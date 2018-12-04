@@ -1,35 +1,35 @@
 ﻿using System;
 using Advent2016.Solutions;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2016.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class Day19Fixture
     {
         private Day19 _day19;
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             _day19 = new Day19();
         }
 
-        [Test]
+        [TestMethod]
         public void SampleData()
         {
             int result = _day19.Simulate(5);
             Assert.AreEqual(3,result);
         }
 
-        [Test]
+        [TestMethod]
         public void Part1()
         {
             int result = _day19.Simulate(3018458);
             Assert.AreEqual(1842613, result);
         }
 
-        [Test]
+        [TestMethod]
         public void Pattern()
         {
             for (int i = 1; i < 101; i++)
@@ -39,14 +39,14 @@ namespace Advent2016.Tests
             }
         }
 
-        [Test]
+        [TestMethod]
         public void Part2Sample()
         {
             var result = _day19.Part2(5);
             Assert.AreEqual(result, 2);
         }
 
-        [Test]
+        [TestMethod]
         public void Part2()
         {
             var result = _day19.Part2(3018458);

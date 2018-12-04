@@ -1,21 +1,21 @@
 ﻿using Advent2016.Solutions;
 using Advent2016.Utilities;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2016.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class Day21Fixture
     {
         private Day21 _day21;
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             _day21 = new Day21();
         }
 
-        [Test]
+        [TestMethod]
         public void SampleData()
         {
             string[] sample =
@@ -36,7 +36,7 @@ namespace Advent2016.Tests
         }
 
 
-        [Test]
+        [TestMethod]
         public void SampleData_Invert()
         {
             string[] sample =
@@ -56,7 +56,7 @@ namespace Advent2016.Tests
             Assert.AreEqual("abcde", _day21.Password);
         }
 
-        [Test]
+        [TestMethod]
         public void Part1()
         {
             _day21.Password = "abcdefgh";
@@ -64,7 +64,7 @@ namespace Advent2016.Tests
             Assert.AreEqual("cbeghdaf", _day21.Password);
         }
 
-        [Test]
+        [TestMethod]
         public void Part2()
         {
             _day21.Password = "fbgdceah";
@@ -76,7 +76,7 @@ namespace Advent2016.Tests
            
         }
 
-        [Test]
+        [TestMethod]
         public void ParseInstruction_SwapPosition()
         {
             _day21.Password = "abcdef";
@@ -85,7 +85,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(_day21.Password, "adcbef");
         }
         
-        [Test]
+        [TestMethod]
         public void ParseInstruction_SwapPosition_Sample()
         {
             _day21.Password = "abcdef";
@@ -94,7 +94,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(_day21.Password, "ebcdaf");
         }
 
-        [Test]
+        [TestMethod]
         public void ParseInstruction_SwapLetter()
         {
             _day21.Password = "abcdef";
@@ -103,7 +103,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(_day21.Password, "fbcdea");
         }
 
-        [Test]
+        [TestMethod]
         public void ParseInstruction_Reverse()
         {
             _day21.Password = "abcdef";
@@ -112,7 +112,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(_day21.Password, "fedcba");
         }
 
-        [Test]
+        [TestMethod]
         public void ParseInstruction_ReverseSubset()
         {
             _day21.Password = "abcdef";
@@ -121,7 +121,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(_day21.Password, "aedcbf");
         }
 
-        [Test]
+        [TestMethod]
         public void ParseInstruction_RotateRight()
         {
             //rotate left/right X steps means that the whole string should be rotated; for example, one right rotation would turn abcd into dabc.
@@ -131,7 +131,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(_day21.Password, "dabc");
         }
 
-        [Test]
+        [TestMethod]
         public void ParseInstruction_RotateLeft()
         {
             //rotate left/right X steps means that the whole string should be rotated; for example, one right rotation would turn abcd into dabc.
@@ -141,7 +141,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(_day21.Password, "bcda");
         }
 
-        [Test]
+        [TestMethod]
         public void ParseInstruction_AdvancedRotate()
         {
             //rotate based on position of letter X
@@ -153,7 +153,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(result, "cdeab");
         }
 
-        [Test]
+        [TestMethod]
         public void ParseInstruction_AdvancedRotateWithIndexGreaterThan4()
         {
             //rotate based on position of letter X
@@ -174,7 +174,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(result, "cdefghijkab");
         }
 
-        [Test]
+        [TestMethod]
         public void ParseInstruction_AdancedRotate_SampleData()
         {
             _day21.Password = "abdec";
@@ -183,7 +183,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(result, "ecabd");
         }
 
-        [Test]
+        [TestMethod]
         public void ParseInstruction_AdancedRotate_SampleData_MoreThan4()
         {
             _day21.Password = "ecabd";
@@ -192,7 +192,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(result, "decab");
         }
 
-        [Test]
+        [TestMethod]
         public void ParseInstruction_MovePosition()
         {
             _day21.Password = "bcdea";
@@ -201,7 +201,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(_day21.Password, "bdeac");   
         }
 
-        [Test]
+        [TestMethod]
         public void ParseInstruction_SwapLetter_Invert()
         {
             _day21.Password = "fbcdea";
@@ -209,7 +209,7 @@ namespace Advent2016.Tests
             Assert.AreEqual("abcdef", _day21.Password);
         }
 
-        [Test]
+        [TestMethod]
         public void ParseInstruction_SwapPosition_Invert()
         {
             _day21.Password = "adcbef";
@@ -219,7 +219,7 @@ namespace Advent2016.Tests
         }
 
 
-        [Test]
+        [TestMethod]
         public void ParseInstruction_RotateRight_Invert()
         {
             //rotate left/right X steps means that the whole string should be rotated; for example, one right rotation would turn abcd into dabc.
@@ -229,7 +229,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(_day21.Password, "abcd");
         }
 
-        [Test]
+        [TestMethod]
         public void ParseInstruction_RotateLeft_Invert()
         {
             //rotate left/right X steps means that the whole string should be rotated; for example, one right rotation would turn abcd into dabc.
@@ -239,7 +239,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(_day21.Password, "abcd");
         }
 
-        [Test]
+        [TestMethod]
         public void ParseInstruction_ReverseSubset_Invert()
         {
             _day21.Password = "aedcbf";
@@ -248,7 +248,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(_day21.Password, "abcdef");
         }
 
-        [Test]
+        [TestMethod]
         public void ParseInstruction_MovePosition_Invert()
         {
             _day21.Password = "bdeac";
@@ -257,7 +257,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(_day21.Password, "bcdea");
         }
         
-        [Test]
+        [TestMethod]
         public void ParseInstruction_AdancedRotate_Invert()
         {
             _day21.Password = "decab";
@@ -266,7 +266,7 @@ namespace Advent2016.Tests
             Assert.AreEqual("ecabd", result);
         }
 
-        [Test]
+        [TestMethod]
         public void ParseInstruction_AdancedRotate_sample()
         {
             _day21.Password = "ecabd";
@@ -275,7 +275,7 @@ namespace Advent2016.Tests
             Assert.AreEqual("decab", result);
         }
 
-        [Test]
+        [TestMethod]
         public void ParseInstruction_AdancedRotate_sample2_Invert()
         {
             _day21.Password = "ecabd";
@@ -284,7 +284,7 @@ namespace Advent2016.Tests
             Assert.AreEqual("abdec", result);
         }
 
-        [Test]
+        [TestMethod]
         public void ParseInstruction_MovePosition_Invert_Sample()
         {
             _day21.Password = "abdec";

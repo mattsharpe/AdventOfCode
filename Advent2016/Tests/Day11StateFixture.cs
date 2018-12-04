@@ -1,64 +1,65 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Advent2016.Utilities;
 using Advent2016.Utilities.Day11;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2016.Tests
 {
-    [TestFixture]
-    class Day11StateFixture
+    [TestClass]
+    public class Day11StateFixture
     {
-        [TestCaseSource(nameof(TestData))]
-        public void StateEquality(State a, State b)
+        [DataTestMethod]
+        public void StateEquality()
         {
-            Assert.That(Equals(a, b));
+            TestData().ForEach(x=> Assert.IsTrue(Equals(x.Item1, x.Item2)));
+            
         }
 
-        [TestCaseSource(nameof(TestData))]
-        public void StateHashCodeEquality(State a, State b)
+        [DataTestMethod]
+        public void StateHashCodeEquality()
         {
-            Assert.AreEqual(a.GetHashCode(), b.GetHashCode());
+            TestData().ForEach(x => Assert.AreEqual(x.Item1.GetHashCode(), x.Item2.GetHashCode()));
+        }
+
+        [DataTestMethod]
+        public void StateSetEquality()
+        {
+            TestData().ForEach(x =>
+            {
+                var set = new HashSet<State> { x.Item1 };
+                Assert.IsTrue(set.Contains(x.Item2));
+            });
         }
         
-        [TestCaseSource(nameof(TestData))]
-        public void StateSetEquality(State a, State b)
+        [TestMethod]
+        public void StateInequality()
         {
-            var set = new HashSet<State> { a };
-            Assert.That(set.Contains(b));
+            Assert.IsFalse(Equals(Day11Fixture.SampleData, Day11Fixture.Part1StartState));
+        }
+
+        [TestMethod]
+        public void StateHashCodeInequality()
+        {
+            Assert.AreNotEqual(Day11Fixture.SampleData.GetHashCode(), Day11Fixture.Part1StartState.GetHashCode());
+        }
+
+        [TestMethod]
+        public void StateSetInequality()
+        {
+            var set = new HashSet<State> { Day11Fixture.SampleData };
+            Assert.IsFalse(set.Contains(Day11Fixture.Part1StartState));
         }
         
-        [TestCaseSource(nameof(MismatchedTestCaseData))]
-        public void StateInequality(State a, State b)
+        public static IEnumerable<Tuple<State,State>> TestData()
         {
-            Assert.IsFalse(Equals(a,b));
+            yield return new Tuple<State, State>(new State(), new State());
+            yield return new Tuple<State, State>(new State {CurrentFloor = 1}, new State {CurrentFloor = 1});
+            yield return new Tuple<State, State>(Day11Fixture.SampleData, Day11Fixture.SampleData.Clone(false));
+            yield return new Tuple<State, State>(Day11Fixture.Part1StartState, Day11Fixture.Part1StartState.Clone(false));
         }
 
-        [TestCaseSource(nameof(MismatchedTestCaseData))]
-        public void StateHashCodeInequality(State a, State b)
-        {
-            Assert.AreNotEqual(a.GetHashCode(), b.GetHashCode());
-        }
-
-        [TestCaseSource(nameof(MismatchedTestCaseData))]
-        public void StateSetInequality(State a, State b)
-        {
-            var set = new HashSet<State> { a };
-            Assert.IsFalse(set.Contains(b));
-        }
-        
-        public static IEnumerable<TestCaseData> TestData()
-        {
-            yield return new TestCaseData(new State(), new State()) {TestName = "Empty States"};
-            yield return new TestCaseData(new State {CurrentFloor = 1}, new State {CurrentFloor = 1}) {TestName = "Simple Comparison"};
-            yield return new TestCaseData(Day11Fixture.SampleData, Day11Fixture.SampleData.Clone(false)){TestName = "Cloned Sample Data"};
-            yield return new TestCaseData(Day11Fixture.Part1StartState, Day11Fixture.Part1StartState.Clone(false)){TestName = "Cloned Part 1 Data"};
-        }
-
-        public static IEnumerable<TestCaseData> MismatchedTestCaseData()
-        {
-            yield return new TestCaseData(Day11Fixture.SampleData, Day11Fixture.Part1StartState) {TestName = "Mismatched start state"};
-        }
-
-        [Test]
+        [TestMethod]
         public void Clone()
         {
             var state = Day11Fixture.SampleData;
@@ -73,7 +74,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(0, state.Items[3]);
         }
 
-        [Test]
+        [TestMethod]
         public void VisitedStates()
         {
             var set = new HashSet<State>();
@@ -88,7 +89,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(1, set.Count);
         }
 
-        [Test]
+        [TestMethod]
         public void EquivalentStatesGiveSameHash()
         {
             /*
@@ -106,15 +107,14 @@ namespace Advent2016.Tests
 
             */
 
-            State.Elements = new[] {"Hy", "Li"};
-            var state1 = new State {Items = new[] {1, 0, 2, 0}};
-            var state2 = new State {Items = new[] {2, 0, 1, 0}};
+            var state1 = new State {Items = new[] {1, 0, 2, 0}, Elements = new[] { "Hy", "Li" } };
+            var state2 = new State {Items = new[] {2, 0, 1, 0}, Elements = new[] { "Hy", "Li" } };
 
-            Assert.That(state1.Equals(state2));
+            Assert.IsTrue(state1.Equals(state2));
             Assert.AreEqual(state1.GetHashCode(), state2.GetHashCode());
             var set = new HashSet<State> {state1};
-            Assert.That(set.Contains(state1));
-            Assert.That(set.Contains(state2));
+            Assert.IsTrue(set.Contains(state1));
+            Assert.IsTrue(set.Contains(state2));
         }
     }
 }

@@ -2,22 +2,22 @@
 using System.Linq;
 using Advent2016.Solutions;
 using Advent2016.Utilities;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2016.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class Day2Fixture
     {
         private Day2 _day2;
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             _day2 = new Day2 { CurrentKey = 5 };
         }
 
-        [Test]
+        [TestMethod]
         public void Part1()
         {
             var input =@"ULUULLUULUUUUDURUUULLDLDDRDRDULULRULLRLULRUDRRLDDLRULLLDRDRRDDLLLLDURUURDUDUUURDRLRLLURUDRDULURRUDLRDRRLLRDULLDURURLLLULLRLUDDLRRURRLDULRDDULDLRLURDUDRLLRUDDRLRDLLDDUURLRUDDURRLRURLDDDURRDLLDUUDLLLDUDURLUDURLRDLURURRLRLDDRURRLRRDURLURURRRULRRDLDDDDLLRDLDDDRDDRLUUDDLDUURUULDLUULUURRDRLDDDULRRRRULULLRLLDDUDRLRRLLLLLDRULURLLDULULLUULDDRURUDULDRDRRURLDRDDLULRDDRDLRLUDLLLDUDULUUUUDRDRURDDULLRDRLRRURLRDLRRRRUDDLRDDUDLDLUUDLDDRRRDRLLRLUURUDRUUULUDDDLDUULULLRUDULULLLDRLDDLLUUDRDDDDRUDURDRRUUDDLRRRRURLURLD
@@ -31,7 +31,7 @@ UDUULLRLUDLLUULRURRUUDDLLLDUURRURURDDRDLRRURLLRURLDDDRRDDUDRLLDRRUDRDRDDRURLULDD
             Assert.AreEqual(52981, result);
         }
 
-        [Test]
+        [TestMethod]
         public void SampleTest()
         {
             string input = @"ULL
@@ -44,7 +44,7 @@ UUUUD
             Assert.AreEqual(1985, result);
         }
 
-        [Test]
+        [TestMethod]
         public void SampleTest_Task2()
         {
             string input = @"ULL
@@ -59,7 +59,7 @@ UUUUD
             
         }
 
-        [Test]
+        [TestMethod]
         public void Task2()
         {
             var input = @"ULUULLUULUUUUDURUUULLDLDDRDRDULULRULLRLULRUDRRLDDLRULLLDRDRRDDLLLLDURUURDUDUUURDRLRLLURUDRDULURRUDLRDRRLLRDULLDURURLLLULLRLUDDLRRURRLDULRDDULDLRLURDUDRLLRUDDRLRDLLDDUURLRUDDURRLRURLDDDURRDLLDUUDLLLDUDURLUDURLRDLURURRLRLDDRURRLRRDURLURURRRULRRDLDDDDLLRDLDDDRDDRLUUDDLDUURUULDLUULUURRDRLDDDULRRRRULULLRLLDDUDRLRRLLLLLDRULURLLDULULLUULDDRURUDULDRDRRURLDRDDLULRDDRDLRLUDLLLDUDULUUUUDRDRURDDULLRDRLRRURLRDLRRRRUDDLRDDUDLDLUUDLDDRRRDRLLRLUURUDRUUULUDDDLDUULULLRUDULULLLDRLDDLLUUDRDDDDRUDURDRRUUDDLRRRRURLURLD
@@ -73,7 +73,7 @@ UDUULLRLUDLLUULRURRUUDDLLLDUURRURURDDRDLRRURLLRURLDDDRRDDUDRLLDRRUDRDRDDRURLULDD
             Assert.AreEqual("74CD2", result);
         }
 
-        [Test]
+        [TestMethod]
         public void Test_ModuloArithmetic()
         {
             foreach (var key in Enumerable.Range(1, 9))
@@ -85,7 +85,7 @@ UDUULLRLUDLLUULRURRUUDDLLLDUURRURURDDRDLRRURLLRURLDDDRRDDUDRLLDRRUDRDRDDRURLULDD
             }
         }
 
-        [Test]
+        [TestMethod]
         public void TestLine1()
         {
             string input = "ULL";
@@ -93,7 +93,7 @@ UDUULLRLUDLLUULRURRUUDDLLLDUURRURURDDRDLRRURLLRURLDDDRRDDUDRLLDRRUDRDRDDRURLULDD
             Assert.AreEqual(1, result);
         }
 
-        [Test]
+        [TestMethod]
         public void TestLine2()
         {
             string input = "RRDDD";
@@ -101,7 +101,7 @@ UDUULLRLUDLLUULRURRUUDDLLLDUURRURURDDRDLRRURLLRURLDDDRRDDUDRLLDRRUDRDRDDRURLULDD
             Assert.AreEqual(9, result);
         }
 
-        [Test]
+        [TestMethod]
         public void TestLine3()
         {
             string input = "LURDL";
@@ -109,7 +109,7 @@ UDUULLRLUDLLUULRURRUUDDLLLDUURRURURDDRDLRRURLLRURLDDDRRDDUDRLLDRRUDRDRDDRURLULDD
             Assert.AreEqual(4, result);
         }
 
-        [Test]
+        [TestMethod]
         public void TestLine4()
         {
             string input = "UUUUD";
@@ -117,7 +117,7 @@ UDUULLRLUDLLUULRURRUUDDLLLDUURRURURDDRDLRRURLLRURLDDDRRDDUDRLLDRRUDRDRDDRURLULDD
             Assert.AreEqual(5, result);
         }
 
-        [Test]
+        [TestMethod]
         public void TestDirectionUp()
         {
             _day2.ProcessInstruction('U');
@@ -125,7 +125,7 @@ UDUULLRLUDLLUULRURRUUDDLLLDUURRURURDDRDLRRURLLRURLDDDRRDDUDRLLDRRUDRDRDDRURLULDD
             Assert.AreEqual(0, _day2.CurrentLocation.Y);
         }
 
-        [Test]
+        [TestMethod]
         public void TestDirectionDown()
         {
             _day2.ProcessInstruction('D');
@@ -133,7 +133,7 @@ UDUULLRLUDLLUULRURRUUDDLLLDUURRURURDDRDLRRURLLRURLDDDRRDDUDRLLDRRUDRDRDDRURLULDD
             Assert.AreEqual(2, _day2.CurrentLocation.Y);
         }
 
-        [Test]
+        [TestMethod]
         public void TestDirectionLeft()
         {
             _day2.ProcessInstruction('L');
@@ -141,7 +141,7 @@ UDUULLRLUDLLUULRURRUUDDLLLDUURRURURDDRDLRRURLLRURLDDDRRDDUDRLLDRRUDRDRDDRURLULDD
             Assert.AreEqual(1, _day2.CurrentLocation.Y);
         }
 
-        [Test]
+        [TestMethod]
         public void TestDirectionRight()
         {
             _day2.ProcessInstruction('R');
@@ -149,11 +149,20 @@ UDUULLRLUDLLUULRURRUUDDLLLDUURRURURDDRDLRRURLLRURLDDDRRDDUDRLLDRRUDRDRDDRURLULDD
             Assert.AreEqual(1, _day2.CurrentLocation.Y);
         }
 
-        [Test, Sequential]
-        public void LocationMapsToKey(
-            [Values(0, 0, 0, 1, 1, 1, 2, 2, 2)] int x,
-            [Values(0, 1, 2, 0, 1, 2, 0, 1, 2)] int y, 
-            [Values(1, 4, 7, 2, 5, 8, 3, 6, 9)] int expected)
+        [DataTestMethod]
+        [DataRow(0,0,1)]
+        [DataRow(0,1,4)]
+        [DataRow(0,2,7)]
+        [DataRow(1,0,2)]
+        [DataRow(1,1,5)]
+        [DataRow(1,2,8)]
+        [DataRow(2,0,3)]
+        [DataRow(2,1,6)]
+        [DataRow(2,2,9)]
+        public void LocationMapsToKey(int x, int y, int expected)
+            //[Values(0, 0, 0, 1, 1, 1, 2, 2, 2)] int x,
+            //[Values(0, 1, 2, 0, 1, 2, 0, 1, 2)] int y, 
+            //[Values(1, 4, 7, 2, 5, 8, 3, 6, 9)] int expected)
         {
             _day2.CurrentLocation = new Location(x,y);
             var result = _day2.GetCurrentKeyPadNumber();

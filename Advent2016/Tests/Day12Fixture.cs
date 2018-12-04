@@ -1,20 +1,20 @@
 ﻿using Advent2016.Solutions;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2016.Tests
 {
-    [TestFixture]
-    class Day12Fixture
+    [TestClass]
+    public class Day12Fixture
     {
         private Day12 _day12;
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             _day12 = new Day12();
         }
 
-        [Test]
+        [TestMethod]
         public void SampleData()
         {
             string[] instructions =
@@ -32,7 +32,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(42, _day12.A);
         }
 
-        [Test]
+        [TestMethod]
         public void Increment()
         {
             Assert.AreEqual(0, _day12.A);
@@ -52,7 +52,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(1, _day12.D);
         }
 
-        [Test]
+        [TestMethod]
         public void Decrement()
         {
             _day12.A = _day12.B = _day12.C = _day12.D = 10;
@@ -74,7 +74,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(9, _day12.D);
         }
 
-        [Test]
+        [TestMethod]
         public void CopyValueToRegister()
         {
             Assert.AreEqual(0, _day12.A);
@@ -83,7 +83,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(41, _day12.A);
         }
 
-        [Test]
+        [TestMethod]
         public void CopyRegisterToRegister()
         {
             _day12.A = 123;
@@ -93,14 +93,14 @@ namespace Advent2016.Tests
             Assert.AreEqual(123,_day12.B);
         }
 
-        [Test]
+        [TestMethod]
         public void Part1()
         {
             _day12.Part1();
             Assert.AreEqual(317993, _day12.A);
         }
 
-        [Test]
+        [TestMethod]
         public void Part2()
         {
             _day12.Part2();

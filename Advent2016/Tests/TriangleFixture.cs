@@ -1,12 +1,12 @@
 ﻿using Advent2016.Utilities;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2016.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class TriangleFixture
     {
-        [Test]
+        [TestMethod]
         public void BuildMeATriangle()
         {
             var input = "  330  143  338";
@@ -17,14 +17,14 @@ namespace Advent2016.Tests
             Assert.AreEqual(338, triangle.C);
         }
 
-        [Test]
+        [TestMethod]
         public void ValidTriangle()
         {
             var triangle = new Triangle {A = 5, B = 10, C = 7};
             Assert.IsTrue(triangle.IsValid());
         }
 
-        [Test]
+        [TestMethod]
         public void InvalidTriangle()
         {
             var triangle = new Triangle {A = 5, B = 10, C = 25};

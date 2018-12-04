@@ -1,45 +1,40 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Advent2016.Solutions;
 using Advent2016.Utilities;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2016.Tests
 {
-    [TestFixture]
-    class Day13Fixture
+    [TestClass]
+    public class Day13Fixture
     {
         private Day13 _day13;
 
         private const int FavouriteNumber = 1358;
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             _day13 = new Day13();
         }
 
-        [Test, TestCaseSource(nameof(HammingWeights))]
+        [DataTestMethod]
+        [DataRow(0,0)]
+        [DataRow(1,1)]
+        [DataRow(2,1)]
+        [DataRow(3,2)]
+        [DataRow(4,1)]
+        [DataRow(5,2)]
+        [DataRow(6,2)]
+        [DataRow(7,3)]
+        [DataRow(8,1)]
         public void HammingWeight(int input, int result)
         {
             Assert.AreEqual(result, _day13.HammingWeight(input));
         }
-
-        public static IEnumerable<TestCaseData> HammingWeights()
-        {
-            yield return new TestCaseData(0,0);
-            yield return new TestCaseData(1,1);
-            yield return new TestCaseData(2,1);
-            yield return new TestCaseData(3,2);
-            yield return new TestCaseData(4,1);
-            yield return new TestCaseData(5,2);
-            yield return new TestCaseData(6,2);
-            yield return new TestCaseData(7,3);
-            yield return new TestCaseData(8,1);
-        }
-
-        [Test]
+        
+        [TestMethod]
         public void WallOrOpen()
         {
             _day13.FavouriteNumber = 10;
@@ -56,7 +51,7 @@ namespace Advent2016.Tests
             
         }
 
-        [Test]
+        [TestMethod]
         public void Print()
         {
             _day13.FavouriteNumber = 10;
@@ -64,14 +59,14 @@ namespace Advent2016.Tests
             _day13.Print();
         }
 
-        [Test]
+        [TestMethod]
         public void BuildMaze()
         {
             _day13.FavouriteNumber = 10;
             _day13.BuildMaze();
         }
 
-        [Test]
+        [TestMethod]
         public void Sample()
         {
             _day13.FavouriteNumber = 10;
@@ -83,7 +78,7 @@ namespace Advent2016.Tests
             _day13.Print();
         }
 
-        [Test]
+        [TestMethod]
         public void Part1()
         {
             _day13.FavouriteNumber = 1358;
@@ -93,7 +88,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(96, distance);
         }
 
-        [Test]
+        [TestMethod]
         public void Part2()
         {
             _day13.BuildMaze();
@@ -101,7 +96,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(141, result);
         }
 
-        [Test]
+        [TestMethod]
         public void NextStates()
         {
             _day13.FavouriteNumber = 10;

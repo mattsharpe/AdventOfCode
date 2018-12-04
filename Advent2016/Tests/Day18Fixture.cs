@@ -1,34 +1,34 @@
 ﻿using Advent2016.Solutions;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2016.Tests
 {
-    [TestFixture]
-    class Day18Fixture
+    [TestClass]
+    public class Day18Fixture
     {
         private Day18 _day18;
         //.^^^.^.^^^.^.......^^.^^^^.^^^^..^^^^^.^.^^^..^^.^.^^..^.^..^^...^.^^.^^^...^^.^.^^^..^^^^.....^....
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             _day18 = new Day18();
         }
 
-        [Test]
+        [TestMethod]
         public void IsTrap()
         {
             //Its left and center tiles are traps, but its right tile is not.
-            Assert.That(_day18.IsTrap("^", "^", "."));
+            Assert.IsTrue(_day18.IsTrap("^", "^", "."));
 
             //Its center and right tiles are traps, but its left tile is not.
-            Assert.That(_day18.IsTrap(".", "^", "^"));
+            Assert.IsTrue(_day18.IsTrap(".", "^", "^"));
 
             // Only its left tile is a trap.
-            Assert.That(_day18.IsTrap("^", ".", "."));
+            Assert.IsTrue(_day18.IsTrap("^", ".", "."));
 
             // Only its left tile is a trap.
-            Assert.That(_day18.IsTrap(".", ".", "^"));
+            Assert.IsTrue(_day18.IsTrap(".", ".", "^"));
 
             
             Assert.IsFalse(_day18.IsTrap(".", ".", "."));
@@ -36,7 +36,7 @@ namespace Advent2016.Tests
             Assert.IsFalse(_day18.IsTrap("^", "^", "^"));
         }
 
-        [Test]
+        [TestMethod]
         public void Sample1()
         {
             _day18.Process("..^^.", 3);
@@ -46,7 +46,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(6,result);
         }
 
-        [Test]
+        [TestMethod]
         public void Sample2()
         {
             _day18.Process(".^^.^.^^^^", 10);
@@ -56,7 +56,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(38,result);
         }
 
-        [Test]
+        [TestMethod]
         public void Part1()
         {
             _day18.Process(".^^^.^.^^^.^.......^^.^^^^.^^^^..^^^^^.^.^^^..^^.^.^^..^.^..^^...^.^^.^^^...^^.^.^^^..^^^^.....^....", 40);
@@ -65,7 +65,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(2013, result); //too low
         }
 
-        [Test]
+        [TestMethod]
         public void Part2()
         {
             _day18.Process(".^^^.^.^^^.^.......^^.^^^^.^^^^..^^^^^.^.^^^..^^.^.^^..^.^..^^...^.^^.^^^...^^.^.^^^..^^^^.....^....", 400000);

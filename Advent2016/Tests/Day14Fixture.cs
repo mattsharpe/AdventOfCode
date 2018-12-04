@@ -1,52 +1,52 @@
 ﻿using Advent2016.Solutions;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2016.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class Day14Fixture
     {
         private Day14 _day14;
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             _day14 = new Day14();
         }
 
-        [Test]
+        [TestMethod]
         public void Unthreaded()
         {
             _day14.PopulateHashes();
         }
 
-        [Test]
+        [TestMethod]
         public void ThreeLetterMatch()
         {
-            Assert.That(_day14.IsThreeLetterMatch("0034e0923cc38887a57bd7b1d4f953df"));
+            Assert.IsTrue(_day14.IsThreeLetterMatch("0034e0923cc38887a57bd7b1d4f953df"));
         }
 
-        [Test]
+        [TestMethod]
         public void IsNotThreeLetterMatch()
         {
             Assert.IsFalse(_day14.IsThreeLetterMatch("BadgerBadgerBadger"));
         }
         
-        [Test]
+        [TestMethod]
         public void Part1()
         {
             var result = _day14.Part1();
             Assert.AreEqual(15035, result);
         }
 
-        [Test, Explicit]
+        [TestMethod, Ignore]
         public void Part2()
         {
             var result = _day14.Part2();
             Assert.AreEqual(19968, result);
         }
 
-        [Test]
+        [TestMethod]
         public void GetStretchedHash()
         {
             _day14.Salt = "abc";

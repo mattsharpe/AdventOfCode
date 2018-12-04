@@ -6,10 +6,10 @@ namespace Advent2016.Utilities.Day11
 {
     public class State
     {
-        public static string[] ItemType = {"G", "M"};
-        public static string[] Elements = { "Po", "Th", "Pr", "Ru", "Co" };//, "El", "Dl"};
+        public string[] ItemType = {"G", "M"};
+        public string[] Elements = { "Po", "Th", "Pr", "Ru", "Co" };//, "El", "Dl"};
 
-        public int[] Items { get; set; } = new int[Elements.Length * 2];
+        public int[] Items { get; set; } = new int[10];
         public int Depth { private set; get; } = 0;
 
         public bool Complete => Items.All(x => x == 3);
@@ -34,12 +34,6 @@ namespace Advent2016.Utilities.Day11
             }
         }
         
-        public void MoveToFloor(ItemPair items, int destFloor)
-        {
-            throw new NotImplementedException();
-          
-        }
-
         public State Clone(bool incrementDepth = true)
         {
             var state = new State
@@ -64,7 +58,15 @@ namespace Advent2016.Utilities.Day11
                 {
                     var type = i % 2;
                     var element = (i - type) / 2;
-                    floors[f] += Items[i] == f ? " " + Elements[element] + ItemType[type] : " .  ";
+                    Console.WriteLine(floors[f]);
+                    Console.WriteLine(Items[i]);
+                    Console.WriteLine(Elements[element]);
+                    Console.WriteLine(ItemType[type]);
+
+                    floors[f] += 
+                        Items[i] == f ? " " + 
+                                        Elements[element] + 
+                                        ItemType[type] : " .  ";
                 }
             }
 

@@ -1,22 +1,22 @@
 ﻿using System.Linq;
 using Advent2016.Solutions;
 using Advent2016.Utilities;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2016.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class Day17Fixture
     {
         private Day17 _day17;
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             _day17 = new Day17();
         }
 
-        [Test]
+        [TestMethod]
         public void CharTest()
         {
             Assert.IsFalse(_day17.IsOpen('a'));
@@ -28,35 +28,35 @@ namespace Advent2016.Tests
             Assert.IsFalse(_day17.IsOpen('g'));
         }
 
-        [Test]
+        [TestMethod]
         public void Sample1()
         {
             string result = _day17.Solve("ihgpwlah");
             Assert.AreEqual("DDRRRD", result);
         }
 
-        [Test]
+        [TestMethod]
         public void Sample2()
         {
             string result = _day17.Solve("kglvqrro");
             Assert.AreEqual("DDUDRLRRUDRD", result);
         }
 
-        [Test]
+        [TestMethod]
         public void Sample3()
         {
             string result = _day17.Solve("ulqzkmiv");
             Assert.AreEqual("DRURDRUDDLLDLUURRDULRLDUUDDDRR", result);
         }
 
-        [Test]
+        [TestMethod]
         public void Part1()
         {
             string result = _day17.Solve("pxxbnzuo");
             Assert.AreEqual("RDULRDDRRD", result);
         }
 
-        [Test]
+        [TestMethod]
         public void GetNextState()
         {
             var startState = new Day17MazeState {Location = new Location(0, 0), Path = "hijkl"};
@@ -67,28 +67,28 @@ namespace Advent2016.Tests
             Assert.AreEqual(new Location(0,1), state.Location);
         }
 
-        [Test]
+        [TestMethod]
         public void Part2()
         {
             int longestPath = _day17.SolvePart2("pxxbnzuo");
             Assert.AreEqual(752, longestPath);    
         }
 
-        [Test]
+        [TestMethod]
         public void Part2_Sample1()
         {
             int longestPath = _day17.SolvePart2("ihgpwlah");
             Assert.AreEqual(370, longestPath);    
         }
 
-        [Test]
+        [TestMethod]
         public void Part2_Sample2()
         {
             int longestPath = _day17.SolvePart2("kglvqrro");
             Assert.AreEqual(492, longestPath);    
         }
 
-        [Test]
+        [TestMethod]
         public void Part2_Sample3()
         {
             int longestPath = _day17.SolvePart2("ulqzkmiv");

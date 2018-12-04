@@ -1,27 +1,27 @@
 ﻿using System.Text;
 using Advent2016.Solutions;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2016.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class tDay8Fixture
     {
         private Day8 _day8;
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             _day8 = new Day8();    
         }
 
-        [Test]
+        [TestMethod]
         public void DisplayIsInitialisedToFalse()
         {
             Assert.AreEqual(0, _day8.ActivePixels);
         }
 
-        [Test]
+        [TestMethod]
         public void ThreeByTwoRectangle()
         {
             _day8.Rectangle("rect 3x2");
@@ -40,7 +40,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(sb.ToString(), display);
         }
 
-        [Test]
+        [TestMethod]
         public void ThreeByThreeRectangle()
         {
             _day8.Rectangle("rect 3x3");
@@ -59,7 +59,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(sb.ToString(),display);
         }
 
-        [Test]
+        [TestMethod]
         public void ThirtyFiveByOneRectangle()
         {
             _day8.Rectangle("rect 35x1");
@@ -78,7 +78,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(sb.ToString(),display);
         }
 
-        [Test]
+        [TestMethod]
         public void Column1X1()
         {
             _day8.ProcessInstruction("rect 3x3");
@@ -99,7 +99,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(sb.ToString(), _day8.ToString());
         }
 
-        [Test]
+        [TestMethod]
         public void Row1X1()
         {
             _day8.ProcessInstruction("rect 3x3");
@@ -119,7 +119,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(sb.ToString(), _day8.ToString());
         }
 
-        [Test]
+        [TestMethod]
         public void TestData()
         {
             _day8.Part1();

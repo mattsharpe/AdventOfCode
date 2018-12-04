@@ -1,14 +1,14 @@
 ﻿using Advent2016.Solutions;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2016.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class Day7Fixture
     {
         private Day7 _day7 = new Day7();
 
-        [Test]
+        [TestMethod]
         public void Sample1()
         {
             var input = "abba[mnop]qrst";
@@ -16,7 +16,7 @@ namespace Advent2016.Tests
             Assert.IsTrue(result);
         }
 
-        [Test]
+        [TestMethod]
         public void Sample2()
         {
             var input = "abcd[bddb]xyyx";
@@ -24,7 +24,7 @@ namespace Advent2016.Tests
             Assert.IsFalse(result);
         }
 
-        [Test]
+        [TestMethod]
         public void Sample3()
         {
             var input = "aaaa[qwer]tyui";
@@ -32,7 +32,7 @@ namespace Advent2016.Tests
             Assert.IsFalse(result);
         }
 
-        [Test]
+        [TestMethod]
         public void Sample4()
         {
             var input = "ioxxoj[asdfgh]zxcvbn";
@@ -40,14 +40,14 @@ namespace Advent2016.Tests
             Assert.IsTrue(result);
         }
         
-        [Test]
+        [TestMethod]
         public void Part1()
         {
             var result = _day7.Part1();
             Assert.AreEqual(105, result);
         }
 
-        [Test]
+        [TestMethod]
         public void SSL_Sample1()
         {
             var input = "aba[bab]xyz";
@@ -55,70 +55,70 @@ namespace Advent2016.Tests
             Assert.IsTrue(result);
         }
 
-        [Test]
+        [TestMethod]
         public void SSL_Sample2()
         {
             var input = "xyx[xyx]xyx";
             var result = _day7.SupportsSSL(input);
-            Assert.False(result);
+            Assert.IsFalse(result);
         }
 
-        [Test]
+        [TestMethod]
         public void SSL_Sample3()
         {
             var input = "aaa[kek]eke";
             var result = _day7.SupportsSSL(input);
-            Assert.True(result);
+            Assert.IsTrue(result);
         }
 
-        [Test]
+        [TestMethod]
         public void SSL_Sample4()
         {
             var input = "zazbz[bzb]cdb";
             var result = _day7.SupportsSSL(input);
-            Assert.True(result);
+            Assert.IsTrue(result);
         }
 
-        [Test]
+        [TestMethod]
         public void SSL_Sample5()
         {
             var input = "vjqhodfzrrqjshbhx[lezezbbswydnjnz]ejcflwytgzvyigz[hjdilpgdyzfkloa]mxtkrysovvotkuyekba";
             var result = _day7.SupportsSSL(input);
-            Assert.False(result);
+            Assert.IsFalse(result);
         }
 
-        [Test]
+        [TestMethod]
         public void SSL_Invalid()
         {
             var input = "rnqfzoisbqxbdlkgfh[lwlybvcsiupwnsyiljz]kmbgyaptjcsvwcltrdx[ntrpwgkrfeljpye]jxjdlgtntpljxaojufe";
             var result = _day7.SupportsSSL(input);
-            Assert.False(result);
+            Assert.IsFalse(result);
         }
 
-        [Test]
+        [TestMethod]
         public void SSL_Valid()
         {
             var input = "neakzsrjrhvixwp[ydbbvlckobfkgbandud]xdynfcpsooblftf[wzyquuvtwnjjrjbuhj]yxlpiloirianyrkzfqe";
             var result = _day7.SupportsSSL(input);
-            Assert.True(result);
+            Assert.IsTrue(result);
         }
 
-        [Test]
+        [TestMethod]
         public void Part2()
         {
             var result = _day7.Part2();
             Assert.AreEqual(258, result);
         }
 
-        [Test]
+        [TestMethod]
         public void FindAbas()
         {
             string test = "cgjtaytywwwoclclru";
             var result = _day7.FindAbas(test);
-            Assert.That(result.Contains("yty"));
-            Assert.That(!result.Contains("www"));
-            Assert.That(result.Contains("clc"));
-            Assert.That(result.Contains("lcl"));
+            Assert.IsTrue(result.Contains("yty"));
+            Assert.IsTrue(!result.Contains("www"));
+            Assert.IsTrue(result.Contains("clc"));
+            Assert.IsTrue(result.Contains("lcl"));
         }
     }
 }

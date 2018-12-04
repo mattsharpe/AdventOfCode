@@ -2,22 +2,22 @@
 using System.Linq;
 using Advent2016.Solutions;
 using Advent2016.Utilities.Day11;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2016.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class Day11Fixture
     {
         private Day11 _day11;
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             _day11 = new Day11();
         }
 
-        [Test]
+        [TestMethod]
         public void SampleDataTest()
         {
             var result = _day11.CalculateMinimumNumberOfSteps(SampleData);
@@ -25,7 +25,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(11, result);
         }
 
-        [Test]
+        [TestMethod]
         public void Part1Test()
         {
             var result = _day11.CalculateMinimumNumberOfSteps(Part1StartState);
@@ -33,7 +33,7 @@ namespace Advent2016.Tests
             Assert.AreEqual(47, result);
         }
 
-        [Test]
+        [TestMethod]
         public void Part2Test()
         {
             var result = _day11.CalculateMinimumNumberOfSteps(Part2StartState);
@@ -46,9 +46,9 @@ namespace Advent2016.Tests
         {
             get
             {
-                State.Elements = new[] {"Hy","Li"};
                 var state = new State
                 {
+                    Elements = new[] { "Hy", "Li" },
                     Items = new[]
                     {
                      1, 0, //hydrogen
@@ -68,9 +68,10 @@ namespace Advent2016.Tests
         {
             get
             {
-                State.Elements = new[] { "Po", "Th", "Pr", "Ru", "Co" };
+                
                 var state = new State
                 {
+                    Elements = new[] { "Po", "Th", "Pr", "Ru", "Co" },
                     Items = new[]
                     {
                         0, 1, // Polonium
@@ -89,9 +90,9 @@ namespace Advent2016.Tests
         {
             get
             {
-                State.Elements = new[] { "Po", "Th", "Pr", "Ru", "Co", "El", "Di" };
                 var state = new State
                 {
+                    Elements = new[] { "Po", "Th", "Pr", "Ru", "Co", "El", "Di" },
                     Items = new[]
                     {
                         0, 1, // Polonium
@@ -108,14 +109,14 @@ namespace Advent2016.Tests
             }
         }
 
-        [Test]
+        [TestMethod]
         public void SampleDataStartState()
         {
             var state = SampleData;
             state.PrintState();
         }
 
-        [Test]
+        [TestMethod]
         public void BuildStartState()
         {
             var state = new State
@@ -135,7 +136,7 @@ namespace Advent2016.Tests
 			state.PrintState();
         }
 
-        [Test]
+        [TestMethod]
         public void GenerateNextStates()
         {
             var nextMoves = _day11.GenerateNextStates(SampleData);
@@ -148,18 +149,18 @@ namespace Advent2016.Tests
 			Assert.AreEqual(1, nextMoves.Count());
         }
 
-        [Test]
+        [TestMethod]
         public void ValidState()
         {
             Assert.IsTrue(SampleData.Valid);
         }
 
-        [Test]
+        [TestMethod]
         public void InvalidState()
         {
-            State.Elements = new[] { "Hy", "Li" };
             var invalidState = new State
             {
+                Elements =new[] { "Hy", "Li" },
                 Items = new[]
                 {
                     0, 1, // Hydrogen
@@ -171,12 +172,13 @@ namespace Advent2016.Tests
         }
 
 
-        [Test]
+        [TestMethod]
         public void ValidStateMultipleMatchedPairs()
         {
-            State.Elements = new[] { "Hy", "Li" };
+            
             var state = new State
             {
+                Elements = new[] { "Hy", "Li" },
                 Items = new[]
                 {
                     1, 1, // Hydrogen
@@ -187,18 +189,18 @@ namespace Advent2016.Tests
             Assert.IsTrue(state.Valid);
         }
 
-        [Test]
+        [TestMethod]
         public void IncompleteState()
         {
             Assert.IsFalse(SampleData.Complete);
         }
 
-        [Test]
+        [TestMethod]
         public void CompleteState()
         {
-            State.Elements = new[] { "Hy", "Li" };
             var state = new State
             {
+                Elements = new[] { "Hy", "Li" },
                 Items = new[]
                 {
                     3, 3, // Hydrogen
@@ -210,7 +212,7 @@ namespace Advent2016.Tests
             Assert.IsTrue(state.Complete);
         }
 
-        [Test]
+        [TestMethod]
         public void DontRevisitExploredStates()
         {
             Assert.AreEqual(0, _day11.VisitedStates.Count);
