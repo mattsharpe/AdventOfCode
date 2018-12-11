@@ -41,7 +41,7 @@ namespace Advent2018.Tests
         public void SizeOfRegionWithAllLocations()
         {
             var input = FileReader.ReadFile("day6.txt");
-            Assert.AreEqual(4060, _day6.Part2(input));
+            Assert.AreEqual(36136, _day6.Part2(input));
         }
     }
 }
