@@ -32,5 +32,12 @@ namespace Advent2018.Tests
             //416 players; last marble is worth 71617 points
             Assert.AreEqual(436720, _day9.PlayMarbles(416, 71617));
         }
+
+        [TestMethod]
+        public void PlayingMarblesPart2()
+        {
+            //416 players; last marble is worth 71617 points
+            Assert.AreEqual(3527845091, _day9.PlayMarbles(416, 7161700));
+        }
     }
 }

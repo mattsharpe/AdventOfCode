@@ -6,47 +6,56 @@ namespace Advent2018.Solutions
 {
     public class Day9
     {
-        LinkedListNode<int> FindNextMarble(LinkedListNode<int> node, int amount)
-        {
-            Enumerable.Range(0, amount).ForEach(x => node = node.Next ?? node.List.First);
-            return node;
-        }
-
-        LinkedListNode<int> Previous(LinkedListNode<int> node)
-        {
-            Enumerable.Range(0,7).ForEach(x=> node = node.Previous ?? node.List.Last);
-            return node;
-        }
-
         public long PlayMarbles(int players, int lastMarble)
         {
             var scores = new long[players];
-            var currentPlayer = 0;
-
-            var marbles = new LinkedList<int>();
-            marbles.AddFirst(0);
-            var currentMarble = marbles.First;
             
+            var currentPlayer = 1;
+
+            var currentMarble = new Marble
+            {
+                Id = 0
+            };
+
+            currentMarble.Left = currentMarble;
+            currentMarble.Right = currentMarble;
+
             for (var i = 1; i <= lastMarble; i++)
             {
+                //current marble is number 1
                 if (i % 23 == 0)
                 {
                     scores[currentPlayer] += i;
-                    var sevenBack = Previous(currentMarble);
-                    scores[currentPlayer] += sevenBack.Value;
-                    currentMarble = sevenBack.Next ?? marbles.First;
-                    marbles.Remove(sevenBack);
+
+                    //rotate and add the score for that marble
+                    Enumerable.Range(0, 7).ForEach(x => currentMarble = currentMarble.Left);
+                    scores[currentPlayer] += currentMarble.Id;
+
+                    // Remove the marble 
+                    currentMarble.Left.Right = currentMarble.Right;
+                    currentMarble.Right.Left = currentMarble.Left;
+                    currentMarble = currentMarble.Right;
                 }
                 else
                 {
-                    marbles.AddAfter(FindNextMarble(currentMarble, 1), i);
-                    currentMarble = marbles.Find(i);
-                }
+                    currentMarble = currentMarble.Right;
+                    var next = new Marble { Id = i, Left = currentMarble, Right = currentMarble.Right};
 
+                    currentMarble.Right.Left = next;
+                    currentMarble.Right = next;
+
+                    currentMarble = next;
+                }
                 currentPlayer = (currentPlayer + 1) % players;
             }
-
             return scores.Max();
         }
+    }
+
+    public class Marble
+    {
+        public int Id { get; set; }
+        public Marble Left { get; set; }
+        public Marble Right { get; set; }
     }
 }
