@@ -136,11 +136,7 @@ namespace Advent2018.Tests
             //50 billion is too many to brute force - is there a sequence in the answers?
 
             _day12.ParseRules(rules);
-            //Assert.AreEqual(123, _day12.CountPlantsBasedOnPattern(500));
+            Assert.AreEqual(4050000000798, _day12.CountPlantsBasedOnPattern(50000000000));
         }
-
-
-
-
     }
 }

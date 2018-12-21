@@ -19,14 +19,14 @@ namespace Advent2018.Solutions
         public PlantGeneration SolveForGenerations(int generations)
         {
             var result = new PlantGeneration {PlantPots = InitialState};
-
+            
             return Enumerable.Range(0, generations).Aggregate(result, (current, generation) => EvolveGeneration(current));
         }
 
-        public long CountPlantsBasedOnPattern(int generations)
+        public long CountPlantsBasedOnPattern(long generations)
         {
             if (generations <= 100)
-                return CountPlants(SolveForGenerations(generations));
+                return CountPlants(SolveForGenerations(Convert.ToInt32(generations)));
 
             var hundred = CountPlants(SolveForGenerations(100));
 
@@ -65,7 +65,7 @@ namespace Advent2018.Solutions
             return result;
         }
 
-        public int CountPlants(PlantGeneration generation)
+        public long CountPlants(PlantGeneration generation)
         {
             return Enumerable.Range(0, generation.PlantPots.Length)
                 .Sum(x => generation.PlantPots[x] == '#' ? x + generation.Offset : 0);
