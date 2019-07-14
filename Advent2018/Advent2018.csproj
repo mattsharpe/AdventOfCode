@@ -6,16 +6,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="TestData\day01.txt" />
+    <None Remove="TestData\day02.txt" />
+    <None Remove="TestData\day03.txt" />
+    <None Remove="TestData\day04.txt" />
+    <None Remove="TestData\day05.txt" />
+    <None Remove="TestData\day06.txt" />
+    <None Remove="TestData\day07.txt" />
+    <None Remove="TestData\day08.txt" />
     <None Remove="TestData\day10.txt" />
     <None Remove="TestData\day12.txt" />
-    <None Remove="TestData\Day1Input.txt" />
-    <None Remove="TestData\Day2Input.txt" />
-    <None Remove="TestData\Day3.txt" />
-    <None Remove="TestData\day4.txt" />
-    <None Remove="TestData\day5.txt" />
-    <None Remove="TestData\day6.txt" />
-    <None Remove="TestData\day7.txt" />
-    <None Remove="TestData\day8.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,14 +24,14 @@
 
   <ItemGroup>
     <EmbeddedResource Include="TestData\day10.txt" />
-    <EmbeddedResource Include="TestData\Day1Input.txt" />
-    <EmbeddedResource Include="TestData\Day2Input.txt" />
-    <EmbeddedResource Include="TestData\day4.txt" />
-    <EmbeddedResource Include="TestData\day3.txt" />
-    <EmbeddedResource Include="TestData\day5.txt" />
-    <EmbeddedResource Include="TestData\day8.txt" />
-    <EmbeddedResource Include="TestData\day7.txt" />
-    <EmbeddedResource Include="TestData\day6.txt" />
+    <EmbeddedResource Include="TestData\day01.txt" />
+    <EmbeddedResource Include="TestData\day02.txt" />
+    <EmbeddedResource Include="TestData\day04.txt" />
+    <EmbeddedResource Include="TestData\day03.txt" />
+    <EmbeddedResource Include="TestData\day05.txt" />
+    <EmbeddedResource Include="TestData\day08.txt" />
+    <EmbeddedResource Include="TestData\day07.txt" />
+    <EmbeddedResource Include="TestData\day06.txt" />
   </ItemGroup>
 
   <ItemGroup>

@@ -5,7 +5,7 @@ using Advent2018.Utilities;
 
 namespace Advent2018.Solutions
 {
-    public class Day6
+    public class Day06
     {
 
         public List<Location> Parse(string[] input)

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Advent2018.Utilities;
 
 namespace Advent2018.Solutions
 {
-    class Day8
+    class Day08
     {
         public TreeNode ParseTree(string input)
         {

@@ -5,9 +5,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Advent2018.Tests
 {
     [TestClass]
-    public class Day7Tests
+    public class Day07Tests
     {
-        private Day7 _day7;
+        private Day07 _day07;
         private readonly string[] _input =
         {
             "Step C must be finished before step A can begin.",
@@ -22,7 +22,7 @@ namespace Advent2018.Tests
         [TestInitialize]
         public void Setup()
         {
-            _day7 = new Day7();
+            _day07 = new Day07();
         }
 
         [TestMethod]
@@ -30,30 +30,30 @@ namespace Advent2018.Tests
         {
             
 
-            string result = _day7.CalculatePath(_input);
+            string result = _day07.CalculatePath(_input);
             Assert.AreEqual("CABDFE", result);
         }
 
         [TestMethod]
         public void CalculateBuildOrderPart1()
         {
-            var input = FileReader.ReadFile("day7.txt");
+            var input = FileReader.ReadFile("day07.txt");
 
-            string result = _day7.CalculatePath(input);
+            string result = _day07.CalculatePath(input);
             Assert.AreEqual("JNOIKSYABEQRUVWXGTZFDMHLPC", result);
         }
 
         [TestMethod]
         public void CalculateTimeTaken()
         {
-            var result = _day7.CalculateTimeTaken(_input, 2, false);
+            var result = _day07.CalculateTimeTaken(_input, 2, false);
             Assert.AreEqual(15, result);
         }
         
         [TestMethod]
         public void CalculateTimeTakenWithRealData()
         {
-            var result = _day7.CalculateTimeTaken(FileReader.ReadFile("day7.txt"));
+            var result = _day07.CalculateTimeTaken(FileReader.ReadFile("day07.txt"));
             Assert.AreEqual(1099, result);
         }
     }

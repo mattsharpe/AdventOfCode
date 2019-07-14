@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Advent2018.Utilities;
 
 namespace Advent2018.Solutions
 {
-    class Day5
+    class Day05
     {
         public string ProcessPolymerReaction(string input)
         {

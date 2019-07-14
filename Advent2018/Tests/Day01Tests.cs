@@ -6,14 +6,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Advent2018.Tests
 {
     [TestClass]
-    public class Day1Tests
+    public class Day01Tests
     {
-        private Day1 _calibrator;
+        private Day01 _calibrator;
 
         [TestInitialize]
         public void Setup()
         {
-            _calibrator = new Day1 { CurrentFrequency = 0 };
+            _calibrator = new Day01 { CurrentFrequency = 0 };
         }
 
         [TestMethod]
@@ -40,7 +40,7 @@ namespace Advent2018.Tests
         [TestMethod]
         public void Process()
         {
-            var input = FileReader.ReadFile("Day1Input.txt");
+            var input = FileReader.ReadFile("day01.txt");
 
             Assert.AreEqual(425, _calibrator.ProcessInstructions(input));
         }
@@ -76,7 +76,7 @@ namespace Advent2018.Tests
         [TestMethod]
         public void ProcessPart2()
         {
-            var input = FileReader.ReadFile("Day1Input.txt");
+            var input = FileReader.ReadFile("day01.txt");
             Console.WriteLine(_calibrator.FindFirstVisited(input));
         }
     }

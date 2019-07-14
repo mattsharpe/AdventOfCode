@@ -4,15 +4,15 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Advent2018.Tests
 {
     [TestClass]
-    public class Day9Tests
+    public class Day09Tests
     {
-        private readonly Day9 _day9 = new Day9();
+        private readonly Day09 _day09 = new Day09();
         
         //9 players; last marble is worth 23 points: high score is 32
         [TestMethod]
         public void SampleData()
         {
-            Assert.AreEqual(32, _day9.PlayMarbles(9, 25));
+            Assert.AreEqual(32, _day09.PlayMarbles(9, 25));
         }
 
         [DataTestMethod]
@@ -23,21 +23,21 @@ namespace Advent2018.Tests
         [DataRow(30, 5807, 37305)]
         public void SampleDataSet(int players, int lastMarble, int score)
         {
-            Assert.AreEqual(score, _day9.PlayMarbles(players, lastMarble));
+            Assert.AreEqual(score, _day09.PlayMarbles(players, lastMarble));
         }
 
         [TestMethod]
         public void PlayingMarbles()
         {
             //416 players; last marble is worth 71617 points
-            Assert.AreEqual(436720, _day9.PlayMarbles(416, 71617));
+            Assert.AreEqual(436720, _day09.PlayMarbles(416, 71617));
         }
 
         [TestMethod]
         public void PlayingMarblesPart2()
         {
             //416 players; last marble is worth 71617 points
-            Assert.AreEqual(3527845091, _day9.PlayMarbles(416, 7161700));
+            Assert.AreEqual(3527845091, _day09.PlayMarbles(416, 7161700));
         }
     }
 }

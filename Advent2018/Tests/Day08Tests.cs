@@ -7,21 +7,21 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Advent2018.Tests
 {
     [TestClass]
-    public class Day8Tests
+    public class Day08Tests
     {
-        private Day8 _day8;
+        private Day08 _day08;
 
         [TestInitialize]
         public void Setup()
         {
-            _day8 = new Day8();
+            _day08 = new Day08();
         }
 
         [TestMethod]
         public void BuildTree()
         {
             string input = "2 3 0 3 10 11 12 1 1 0 1 99 2 1 1 2";
-            TreeNode tree = _day8.ParseTree(input);
+            TreeNode tree = _day08.ParseTree(input);
             ValidateSampleTree(tree);
         }
 
@@ -73,32 +73,32 @@ namespace Advent2018.Tests
         public void CalculateMetaDataSumOfSampleData()
         {
             const string input = "2 3 0 3 10 11 12 1 1 0 1 99 2 1 1 2";
-            var tree = _day8.ParseTree(input);
-            Assert.AreEqual(138, _day8.SumMetaData(tree));
+            var tree = _day08.ParseTree(input);
+            Assert.AreEqual(138, _day08.SumMetaData(tree));
         }
 
         [TestMethod]
         public void CalculateMetaDataSum()
         {
-            var input = FileReader.ReadFile("day8.txt").Single();
-            var tree = _day8.ParseTree(input);
-            Assert.AreEqual(37905, _day8.SumMetaData(tree));
+            var input = FileReader.ReadFile("day08.txt").Single();
+            var tree = _day08.ParseTree(input);
+            Assert.AreEqual(37905, _day08.SumMetaData(tree));
         }
 
         [TestMethod]
         public void ValueOfRootNodeSample()
         {
             const string input = "2 3 0 3 10 11 12 1 1 0 1 99 2 1 1 2";
-            var tree = _day8.ParseTree(input);
-            Assert.AreEqual(66, _day8.ValueOfRootNode(tree));
+            var tree = _day08.ParseTree(input);
+            Assert.AreEqual(66, _day08.ValueOfRootNode(tree));
         }
 
         [TestMethod]
         public void ValueOfRootNode()
         {
-            var input = FileReader.ReadFile("day8.txt").Single();
-            var tree = _day8.ParseTree(input);
-            Assert.AreEqual(33891, _day8.ValueOfRootNode(tree));
+            var input = FileReader.ReadFile("day08.txt").Single();
+            var tree = _day08.ParseTree(input);
+            Assert.AreEqual(33891, _day08.ValueOfRootNode(tree));
         }
     }
 }

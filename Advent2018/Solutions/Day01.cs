@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Advent2018.Solutions
 {
-    public class Day1
+    public class Day01
     {
         public int CurrentFrequency { get; set; }
         public HashSet<int> VisitedFrequencies = new HashSet<int>();

@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Advent2018.Utilities;
 
 namespace Advent2018.Solutions
 {
-    public class Day9
+    public class Day09
     {
         public long PlayMarbles(int players, int lastMarble)
         {

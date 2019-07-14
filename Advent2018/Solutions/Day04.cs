@@ -6,7 +6,7 @@ using Advent2018.Utilities;
 
 namespace Advent2018.Solutions
 {
-    public class Day4
+    public class Day04
     {
         private Dictionary<int, int[]> _guards = new Dictionary<int, int[]>();
 

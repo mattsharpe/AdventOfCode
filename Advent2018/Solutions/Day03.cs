@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Advent2018.Solutions
 {
-    public class Day3
+    public class Day03
     {
         private int[,] _fabric = new int[1000,1000];
         private IEnumerable<Claim> _claims = new List<Claim>();

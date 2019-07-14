@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Advent2018.Solutions;
 using Advent2018.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

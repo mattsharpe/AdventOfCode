@@ -1,10 +1,9 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Text;
 
 namespace Advent2018.Solutions
 {
-    public class Day2
+    public class Day02
     {
         public int DoubleLetters{ get; set; }
         public int TripleLetters{ get;set; }

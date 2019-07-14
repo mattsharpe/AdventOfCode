@@ -5,14 +5,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Advent2018.Tests
 {
     [TestClass]
-    public class Day6Tests
+    public class Day06Tests
     {
-        private Day6 _day6;
+        private Day06 _day06;
 
         [TestInitialize]
         public void Setup()
         {
-            _day6 = new Day6();
+            _day06 = new Day06();
         }
 
         [TestMethod]
@@ -27,21 +27,21 @@ namespace Advent2018.Tests
                 "8, 9",
             };
 
-            Assert.AreEqual(17, _day6.CalculateLargestNonInfiniteArea(input));
+            Assert.AreEqual(17, _day06.CalculateLargestNonInfiniteArea(input));
         }
 
         [TestMethod]
         public void LargestAreaPart1()
         {
-            var input = FileReader.ReadFile("day6.txt");
-            Assert.AreEqual(4060,  _day6.CalculateLargestNonInfiniteArea(input));
+            var input = FileReader.ReadFile("day06.txt");
+            Assert.AreEqual(4060,  _day06.CalculateLargestNonInfiniteArea(input));
         }
 
         [TestMethod]
         public void SizeOfRegionWithAllLocations()
         {
-            var input = FileReader.ReadFile("day6.txt");
-            Assert.AreEqual(36136, _day6.Part2(input));
+            var input = FileReader.ReadFile("day06.txt");
+            Assert.AreEqual(36136, _day06.Part2(input));
         }
     }
 }

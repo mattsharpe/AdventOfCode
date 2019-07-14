@@ -6,7 +6,7 @@ using Advent2018.Utilities;
 
 namespace Advent2018.Solutions
 {
-    class Day7
+    class Day07
     {
         private readonly Dictionary<char, Node> _graph = new Dictionary<char, Node>();
 

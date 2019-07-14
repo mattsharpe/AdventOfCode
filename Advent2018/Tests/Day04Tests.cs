@@ -5,9 +5,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Advent2018.Tests
 {
     [TestClass]
-    public class Day4Tests
+    public class Day04Tests
     {
-        private Day4 _day4;
+        private Day04 _day04;
         private string[] _input = {"[1518-11-01 00:00] Guard #10 begins shift",
             "[1518-11-01 00:05] falls asleep",
             "[1518-11-01 00:25] wakes up",
@@ -29,14 +29,14 @@ namespace Advent2018.Tests
         [TestInitialize]
         public void Setup()
         {
-            _day4 = new Day4();
+            _day04 = new Day04();
         }
 
         [TestMethod]
         public void CreateLogEntry()
         {
             string input = "[1518-11-01 23:59] Guard #10 begins shift";
-            var result = _day4.ParseLine(input);
+            var result = _day04.ParseLine(input);
 
             Assert.AreEqual(result.Time.Year, 1518);
             Assert.AreEqual(result.Time.Month, 11);
@@ -53,37 +53,37 @@ namespace Advent2018.Tests
         [TestMethod]
         public void ProcessLogs()
         {
-            var input = FileReader.ReadFile("day4.txt");
+            var input = FileReader.ReadFile("day04.txt");
 
-            _day4.ParseInDateOrder(input);
+            _day04.ParseInDateOrder(input);
         }
 
         [TestMethod]
         public void SampleData()
         {
-            _day4.ParseInDateOrder(_input);
-            Assert.AreEqual(240, _day4.GuardWithMostMinutesAsleep());
+            _day04.ParseInDateOrder(_input);
+            Assert.AreEqual(240, _day04.GuardWithMostMinutesAsleep());
         }
 
         [TestMethod]
         public void WhatIsTheIdOfTheSnooziestGuardMultipliedByTheirSnooziestMinute()
         {
-            _day4.ParseInDateOrder(FileReader.ReadFile("day4.txt"));
-            Assert.AreEqual(21083, _day4.GuardWithMostMinutesAsleep());
+            _day04.ParseInDateOrder(FileReader.ReadFile("day04.txt"));
+            Assert.AreEqual(21083, _day04.GuardWithMostMinutesAsleep());
         }
 
         [TestMethod]
         public void WhichGuardIsMostFrequentlyAsleepOnTheSameMinute_Sample()
         {
-            _day4.ParseInDateOrder(_input);
-            Assert.AreEqual(4455, _day4.WhichGuardIsMostFrequentlyAsleepOnTheSameMinute());
+            _day04.ParseInDateOrder(_input);
+            Assert.AreEqual(4455, _day04.WhichGuardIsMostFrequentlyAsleepOnTheSameMinute());
         }
 
         [TestMethod]
         public void WhichGuardIsMostFrequentlyAsleepOnTheSameMinute()
         {
-            _day4.ParseInDateOrder(FileReader.ReadFile("day4.txt"));
-            Assert.AreEqual(53024, _day4.WhichGuardIsMostFrequentlyAsleepOnTheSameMinute());
+            _day04.ParseInDateOrder(FileReader.ReadFile("day04.txt"));
+            Assert.AreEqual(53024, _day04.WhichGuardIsMostFrequentlyAsleepOnTheSameMinute());
         }
     }
 }
