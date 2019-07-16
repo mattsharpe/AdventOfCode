@@ -28,7 +28,7 @@ namespace Advent2018.Tests
         [TestMethod]
         public void Part1()
         {
-            Assert.AreEqual("1617111014", _day14.GetNext10(18));
+            Assert.AreEqual("1617111014", _day14.GetNext10(681901));
         }
 
         [TestMethod]
