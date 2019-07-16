@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Advent2018.Utilities;
 
 namespace Advent2018.Solutions
 {
@@ -10,7 +10,7 @@ namespace Advent2018.Solutions
         private int _elf1 = 0;
         private int _elf2 = 1;
         private List<int> _recipes = new List<int>{3, 7};
-        
+
         public string GetNext10(int input)
         {
             //loop until we generate enough recipes to get 10 more than our input
@@ -31,6 +31,46 @@ namespace Advent2018.Solutions
             }
 
             return string.Join("", _recipes.Skip(input).Take(10));
+        }
+
+        public int HowManyRecipes(string target)
+        {
+            var found = false;
+            var targetNumbers = target.Select(x=>Convert.ToInt32(x +"")).ToArray();
+            int positionInRecipes = 0; //most recently checked start of string (persists across loops)
+            int searchIndex = 0; //where in the string to compare digits (reset each loop)
+            while (!found)
+            {
+                var sum = _recipes[_elf1] + _recipes[_elf2];
+                if (sum > 9)
+                {
+                    _recipes.Add(1);
+                }
+                _recipes.Add(sum % 10);
+                
+                _elf1 = (_elf1 + _recipes[_elf1] + 1) % _recipes.Count;
+                _elf2 = (_elf2 + _recipes[_elf2] + 1) % _recipes.Count;
+                
+                while (positionInRecipes + searchIndex < _recipes.Count)
+                {
+                    if (targetNumbers[searchIndex] != _recipes[positionInRecipes + searchIndex])
+                    {
+                        //start checking the next character
+                        searchIndex = 0;
+                        positionInRecipes++;
+                    }
+                    else
+                    {
+                        if (searchIndex == targetNumbers.Length - 1)
+                        {
+                            found = true;
+                            break;
+                        }
+                        searchIndex++;
+                    }
+                }
+            }
+            return string.Join("", _recipes).IndexOf(target, StringComparison.Ordinal);
         }
     }
 }
