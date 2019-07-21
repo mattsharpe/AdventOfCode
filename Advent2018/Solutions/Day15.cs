@@ -1,8 +1,6 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Advent2018.Solutions
@@ -10,12 +8,12 @@ namespace Advent2018.Solutions
     class Day15
     {
         private char[,] _map;
-        private List<Unit> _units = new List<Unit>();
+        private Dictionary<(int,int),Unit> _units = new Dictionary<(int,int),Unit>();
         public int Rounds { get; set; } = 0;
 
         public int TotalHitPoints
         {
-            get { return _units.Sum(x => x.HitPoints); }
+            get { return _units.Sum(x => x.Value.HitPoints); }
         }
 
         public int Outcome => Rounds * TotalHitPoints;
@@ -43,7 +41,7 @@ namespace Advent2018.Solutions
                     _map[x, y] = line[x];
                     if (line[x] == 'E' || line[x] == 'G')
                     {
-                        _units.Add(new Unit
+                        _units.Add((x,y),new Unit
                         {
                             Location = (x, y),
                             Type = line[x] == 'E' ? UnitType.Elf : UnitType.Goblin
@@ -56,7 +54,7 @@ namespace Advent2018.Solutions
 
         public void RunGameTurn()
         {
-            var playOrder = _units.Where(x => x.HitPoints > 0)
+            var playOrder = _units.Values.Where(x => x.HitPoints > 0)
                 .OrderBy(x => x.Location.y)
                 .ThenBy(x => x.Location.x);
 
@@ -70,7 +68,7 @@ namespace Advent2018.Solutions
         {
             //Console.WriteLine($"Processing turn for {unit} at {unit.Location.x},{unit.Location.y}");
             if (unit.HitPoints < 1) return;
-            var enemies = _units.Where(x => x.Type != unit.Type && x.HitPoints > 0).ToList();
+            var enemies = _units.Values.Where(x => x.Type != unit.Type && x.HitPoints > 0).ToList();
             
             if (!enemies.Any())
             {
@@ -94,7 +92,9 @@ namespace Advent2018.Solutions
                     .ToList();
                 if (!moves.Any()) return;
 
+                _units.Remove(unit.Location);
                 unit.Location = moves.First().First();
+                _units.Add(unit.Location, unit);
 
                 inRange = enemies.Where(enemy => AreInRange(enemy, unit)).ToList();
 
@@ -105,7 +105,6 @@ namespace Advent2018.Solutions
 
         public List<(int x,int y)> ShortestPath((int x, int y) start, (int x, int y) end)
         {
-            
             var path = new Dictionary<(int currentX, int currentY), (int previousX, int previousY)>();
 
             var toExplore = new Queue<(int,int)>();
@@ -147,7 +146,7 @@ namespace Advent2018.Solutions
 
             target.HitPoints -= attacker.Power;
             if (target.HitPoints < 1)
-                _units.Remove(target);
+                _units.Remove(target.Location);
         }
 
         /// <summary>
@@ -158,10 +157,9 @@ namespace Advent2018.Solutions
         private List<(int x, int y)> AdjacentOpenSquares((int x, int y) start)
         {
             var result = new List<(int x, int y)>();
-
             void CheckSquare((int x, int y) location)
             {
-                if (_map[location.x, location.y] == '.' && !_units.Any(unit => unit.Location.x == location.x && unit.Location.y == location.y))
+                if (_map[location.x, location.y] == '.' && !_units.ContainsKey(location))
                 {
                     result.Add(location);
                 }
@@ -180,10 +178,10 @@ namespace Advent2018.Solutions
             {
                 for (var x = 0; x < _map.GetLength(0); x++)
                 {
-                    var unit = _units.SingleOrDefault(cart => cart.Location.x == x && cart.Location.y == y);
-                    if (unit != null)
+                    
+                    if (_units.ContainsKey((x,y)))
                     {
-                        sb.Append(unit.Type == UnitType.Goblin ? 'G' : 'E');
+                        sb.Append(_units[(x,y)].Type == UnitType.Goblin ? 'G' : 'E');
                     }
                     else
                     {
@@ -191,7 +189,7 @@ namespace Advent2018.Solutions
                     }
                 }
 
-                sb.AppendLine("   " + string.Join(", ",_units.Where(unit => unit.Location.y == y)
+                sb.AppendLine("   " + string.Join(", ",_units.Values.Where(unit => unit.Location.y == y)
                     .OrderBy(unit => unit.Location.x)));
             }
             return sb.ToString();
