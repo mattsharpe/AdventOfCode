@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <IsPackable>false</IsPackable>
     <LangVersion>7.3</LangVersion>
+    <StartupObject></StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,9 +19,11 @@
     <None Remove="TestData\day10.txt" />
     <None Remove="TestData\day12.txt" />
     <None Remove="TestData\day13.txt" />
+    <None Remove="TestData\day15.txt" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="TestData\day15.txt" />
     <EmbeddedResource Include="TestData\day13.txt" />
     <EmbeddedResource Include="TestData\day12.txt" />
   </ItemGroup>
