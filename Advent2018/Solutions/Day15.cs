@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace Advent2018.Solutions
@@ -8,8 +9,10 @@ namespace Advent2018.Solutions
     class Day15
     {
         private char[,] _map;
-        private Dictionary<(int,int),Unit> _units = new Dictionary<(int,int),Unit>();
-        public int Rounds { get; set; } = 0;
+        private readonly Dictionary<(int,int),Unit> _units = new Dictionary<(int,int),Unit>();
+        public int Rounds { get; set; }
+        public bool ElvesFtw { get; set; }
+        public int ElfAttackPower { get; set; } = 3;
 
         public int TotalHitPoints
         {
@@ -17,7 +20,7 @@ namespace Advent2018.Solutions
         }
 
         public int Outcome => Rounds * TotalHitPoints;
-        public bool GameOver { get; set; } = false;
+        public bool GameOver { get; set; }
 
         private readonly List<(int x, int y)> _potentialMoves = new List<(int x, int y)>
         {
@@ -32,6 +35,7 @@ namespace Advent2018.Solutions
 
         public void ParseInput(string[] input)
         {
+            _units.Clear();
             _map = new char[input[0].Length, input.Length];
             for (var y = 0; y < input.Length; y++)
             {
@@ -44,7 +48,8 @@ namespace Advent2018.Solutions
                         _units.Add((x,y),new Unit
                         {
                             Location = (x, y),
-                            Type = line[x] == 'E' ? UnitType.Elf : UnitType.Goblin
+                            Type = line[x] == 'E' ? UnitType.Elf : UnitType.Goblin,
+                            Power = line[x] == 'E' ? ElfAttackPower : 3
                         });
                         _map[x, y] = '.';
                     }
@@ -85,10 +90,10 @@ namespace Advent2018.Solutions
                 var destinations = enemies.SelectMany(x => AdjacentOpenSquares(x.Location)).ToList();
 
                 var moves = destinations.Select(x => ShortestPath(unit.Location, x))
-                    .Where(x=>x.Any())
+                    .Where(x => x.Any())
                     .OrderBy(x => x.Count)
-                    .ThenBy(x=>x.First().y)
-                    .ThenBy(x=>x.First().x)
+                    .ThenBy(x=> x.Last().y)
+                    .ThenBy(x=> x.Last().x)
                     .ToList();
                 if (!moves.Any()) return;
 
@@ -146,7 +151,11 @@ namespace Advent2018.Solutions
 
             target.HitPoints -= attacker.Power;
             if (target.HitPoints < 1)
+            {
                 _units.Remove(target.Location);
+                if (target.Type == UnitType.Elf && ElvesFtw) GameOver = true;
+            }
+                
         }
 
         /// <summary>
@@ -195,14 +204,38 @@ namespace Advent2018.Solutions
             return sb.ToString();
         }
 
-        public void RunGameToCompletion()
+        public void RunGameToCompletion(bool debug = false)
         {
             while (!GameOver)
             {
                 RunGameTurn();
+               
                 if(!GameOver)
                     Rounds++;
+
+                if(debug)   
+                    Console.WriteLine(ToString());
             }
+        }
+        
+        public int FindMinAttackPower(string[] input)
+        {
+            ElvesFtw = true;
+            for (var i = 4; ; i++)
+            {
+                ElfAttackPower = i;
+                ParseInput(input);
+                GameOver = false;
+                Rounds = 0;
+                RunGameToCompletion();
+                if (_units.Values.ToList().TrueForAll(x => x.Type == UnitType.Elf))
+                {
+                    this.Rounds = Rounds;
+                    return i;
+                    
+                }
+            }
+            return 0;
         }
     }
 
