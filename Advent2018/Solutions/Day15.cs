@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace Advent2018.Solutions
@@ -21,6 +20,7 @@ namespace Advent2018.Solutions
 
         public int Outcome => Rounds * TotalHitPoints;
         public bool GameOver { get; set; }
+        private Dictionary<(int currentX, int currentY), (int previousX, int previousY)> _paths = new Dictionary<(int currentX, int currentY), (int previousX, int previousY)>();
 
         private readonly List<(int x, int y)> _potentialMoves = new List<(int x, int y)>
         {
@@ -86,6 +86,7 @@ namespace Advent2018.Solutions
                 ProcessAttack(unit, inRange);
             else
             {
+                _paths = new Dictionary<(int currentX, int currentY), (int previousX, int previousY)>();
                 //Console.WriteLine("Nothing in range - moving to target");
                 var destinations = enemies.SelectMany(x => AdjacentOpenSquares(x.Location)).ToList();
 
@@ -110,19 +111,17 @@ namespace Advent2018.Solutions
 
         public List<(int x,int y)> ShortestPath((int x, int y) start, (int x, int y) end)
         {
-            var path = new Dictionary<(int currentX, int currentY), (int previousX, int previousY)>();
-
             var toExplore = new Queue<(int,int)>();
             toExplore.Enqueue(start);
-            path.Add(start, (0,0));
+            _paths[start] = (0,0);
 
             while (toExplore.Any())
             {
                 var current = toExplore.Dequeue();
-                foreach (var next in AdjacentOpenSquares(current).Where(x => !path.ContainsKey(x)))
+                foreach (var next in AdjacentOpenSquares(current).Where(x => !_paths.ContainsKey(x)))
                 {
                     toExplore.Enqueue(next);
-                    path.Add(next, current);
+                    _paths.Add(next, current);
                 }
             }
 
@@ -130,12 +129,12 @@ namespace Advent2018.Solutions
             (int, int) pathStep = end;
             
             //if we're blocked and can't reach the target
-            if(!path.ContainsKey(end)) return new List<(int, int)>();
+            if(!_paths.ContainsKey(end)) return new List<(int, int)>();
 
             while (pathStep != start)
             {
                 stack.Push(pathStep);
-                pathStep = path[pathStep];
+                pathStep = _paths[pathStep];
             }
 
             return stack.ToList();
@@ -187,7 +186,6 @@ namespace Advent2018.Solutions
             {
                 for (var x = 0; x < _map.GetLength(0); x++)
                 {
-                    
                     if (_units.ContainsKey((x,y)))
                     {
                         sb.Append(_units[(x,y)].Type == UnitType.Goblin ? 'G' : 'E');
@@ -230,12 +228,9 @@ namespace Advent2018.Solutions
                 RunGameToCompletion();
                 if (_units.Values.ToList().TrueForAll(x => x.Type == UnitType.Elf))
                 {
-                    this.Rounds = Rounds;
                     return i;
-                    
                 }
             }
-            return 0;
         }
     }
 
