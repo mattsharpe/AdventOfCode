@@ -41,5 +41,6 @@ steps:
   displayName: 'Run SonarCloud Code Analysis'
 
 - task: SonarCloudPublish@1
+  displayName: 'Publish Quality Gate Result'
   inputs:
     pollingTimeoutSec: '300'
