@@ -7,7 +7,6 @@ namespace Advent2015.Solutions
     {
         public string LookAndSay(string input)
         {
-            
             var output = new StringBuilder();
             var character = input.First();
             var count = 0;
@@ -24,8 +23,8 @@ namespace Advent2015.Solutions
                 {
                     count++;
                 }
-                
             }
+
             return output.ToString();
         }
 
