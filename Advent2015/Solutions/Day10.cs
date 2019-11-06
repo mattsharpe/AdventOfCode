@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Advent2015.Solutions
 {
-    class Day10
+    internal class Day10
     {
         public string LookAndSay(string input)
         {
