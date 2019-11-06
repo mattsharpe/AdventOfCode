@@ -1,5 +1,4 @@
-﻿using System;
-using Advent2015.Solutions;
+﻿using Advent2015.Solutions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2015.Tests
@@ -33,8 +32,15 @@ namespace Advent2015.Tests
         [TestMethod]
         public void Part1()
         {
-            var result = _day10.Part1("1321131112");
+            var result = _day10.Solve("1321131112");
             Assert.AreEqual(492982, result);
+        }
+
+        [TestMethod]
+        public void Part2()
+        {
+            var result = _day10.Solve("1321131112", 50);
+            Assert.AreEqual(6989950, result);
         }
 
     }

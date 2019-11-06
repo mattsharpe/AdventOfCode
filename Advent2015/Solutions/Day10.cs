@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using System.Text;
 
@@ -30,9 +29,9 @@ namespace Advent2015.Solutions
             return output.ToString();
         }
 
-        public int Part1(string input)
+        public int Solve(string input, int iterations = 40)
         {
-            input = Enumerable.Range(0, 40).Aggregate(input, (current, x) => LookAndSay(current));
+            input = Enumerable.Range(0, iterations).Aggregate(input, (current, x) => LookAndSay(current));
 
             return input.Length;
         }

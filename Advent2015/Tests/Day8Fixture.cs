@@ -1,6 +1,4 @@
-﻿using System;
-using System.Xml.Schema;
-using Advent2015.Solutions;
+﻿using Advent2015.Solutions;
 using Advent2015.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
