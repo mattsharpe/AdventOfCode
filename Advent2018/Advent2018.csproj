@@ -5,6 +5,7 @@
     <IsPackable>false</IsPackable>
     <LangVersion>7.3</LangVersion>
     <StartupObject></StartupObject>
+    <ProjectGuid>94F32CB7-BDDF-4C02-867C-E15B33CA9CAC</ProjectGuid>
   </PropertyGroup>
 
   <ItemGroup>
