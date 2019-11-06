@@ -15,6 +15,7 @@ variables:
 steps:
 
 - task: SonarCloudPrepare@1
+  displayName: 'Prepare SonarCloud Code Analysis'
   inputs:
     SonarCloud: 'SonarCloud'
     organization: 'mattsharpe-github'
@@ -23,18 +24,21 @@ steps:
     projectName: 'Advent Of Code'
 
 - task: DotNetCoreCLI@2
+  displayName: 'Build'
   inputs:
     command: 'build'
     projects: 'AdventOfCode.sln'
     arguments: '--configuration $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
+  displayName: 'Test'
   inputs:
     command: 'test'
     projects: '**/*.csproj'
     testRunTitle: 'Unit Tests'
 
 - task: SonarCloudAnalyze@1
+  displayName: 'Run SonarCloud Code Analysis'
 
 - task: SonarCloudPublish@1
   inputs:
