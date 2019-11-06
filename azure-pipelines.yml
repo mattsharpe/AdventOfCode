@@ -14,6 +14,14 @@ variables:
 
 steps:
 
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'SonarCloud'
+    organization: 'mattsharpe-github'
+    scannerMode: 'MSBuild'
+    projectKey: 'mattsharpe_AdventOfCode'
+    projectName: 'Advent Of Code'
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
@@ -25,3 +33,9 @@ steps:
     command: 'test'
     projects: '**/*.csproj'
     testRunTitle: 'Unit Tests'
+
+- task: SonarCloudAnalyze@1
+
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
