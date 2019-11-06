@@ -6,6 +6,7 @@
     <ApplicationIcon />
     <OutputType>Library</OutputType>
     <StartupObject />
+    <ProjectGuid>7A42AE9C-D88E-492D-A1CA-3695A87EC57D</ProjectGuid>
   </PropertyGroup>
 
   <ItemGroup>
