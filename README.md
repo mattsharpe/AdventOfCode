@@ -4,4 +4,4 @@ https://adventofcode.com
 
 Helping 🎅 save 🎄 one inefficient algorithm at a time.
 
-[![Build Status](https://mattsharpe.visualstudio.com/Advent%20of%20Code/_apis/build/status/Advent%20of%20Code-CI?branchName=master)](https://mattsharpe.visualstudio.com/Advent%20of%20Code/_build/latest?definitionId=4?branchName=master)
+[![Build Status](https://dev.azure.com/mattsharpe/Advent%20of%20Code/_apis/build/status/Advent%20Of%20Code%20YAML?branchName=master)](https://dev.azure.com/mattsharpe/Advent%20of%20Code/_build/latest?definitionId=7&branchName=master)
