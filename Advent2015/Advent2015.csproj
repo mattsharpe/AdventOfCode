@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -13,6 +13,7 @@
     <None Remove="TestData\day1.txt" />
     <None Remove="TestData\day12.txt" />
     <None Remove="TestData\day13.txt" />
+    <None Remove="TestData\day14.txt" />
     <None Remove="TestData\day2.txt" />
     <None Remove="TestData\day3.txt" />
     <None Remove="TestData\day5.txt" />
@@ -26,6 +27,7 @@
     <EmbeddedResource Include="TestData\day1.txt" />
     <EmbeddedResource Include="TestData\day13.txt" />
     <EmbeddedResource Include="TestData\day12.txt" />
+    <EmbeddedResource Include="TestData\day14.txt" />
     <EmbeddedResource Include="TestData\day2.txt" />
     <EmbeddedResource Include="TestData\day3.txt" />
     <EmbeddedResource Include="TestData\day5.txt" />
