@@ -54,7 +54,6 @@ namespace Advent2015.Tests
             }
 
             Assert.AreEqual(4, _day18.CountLit);
-            
         }
 
         [TestMethod]
@@ -68,6 +67,39 @@ namespace Advent2015.Tests
             }
 
             Assert.AreEqual(1061, _day18.CountLit);
+        }
+
+        
+        [TestMethod]
+        public void SimulateLightsSamplePart2()
+        {
+            _day18.FixedCorners = true;
+            _day18.ParseLights(_sample);
+            _day18.PrintLights();
+
+            foreach (var i in Enumerable.Range(0, 5))
+            {
+                _day18.Step();
+                Console.WriteLine();
+                _day18.PrintLights();
+            }
+
+            Assert.AreEqual(17, _day18.CountLit);
+        }
+
+        
+        [TestMethod]
+        public void SimulateLightsPartTwo()
+        {
+            _day18.FixedCorners = true;
+            _day18.ParseLights(FileReader.ReadFile("day18.txt"));
+
+            foreach (var i in Enumerable.Range(0,100))
+            {
+                _day18.Step();
+            }
+
+            Assert.AreEqual(1006, _day18.CountLit);
         }
     }
 }

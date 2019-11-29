@@ -9,6 +9,7 @@ namespace Advent2015.Solutions
         private int[,] _lights;
 
         public int CountLit => _lights.Cast<int>().Count(x=>x==1);
+        public bool FixedCorners { get; set; }
 
         public void PrintLights()
         {
@@ -36,6 +37,16 @@ namespace Advent2015.Solutions
                     _lights[j, i] = line[j] == '#' ? 1 : 0;
                 }
             }
+            if(FixedCorners)
+                TurnCornersOn();
+        }
+
+        public void TurnCornersOn()
+        {
+            _lights[0, 0] = 1;
+            _lights[0, _lights.GetUpperBound(1)] = 1;
+            _lights[_lights.GetUpperBound(0), 0] = 1;
+            _lights[_lights.GetUpperBound(0), _lights.GetUpperBound(1)] = 1;
         }
 
         public void Step()
@@ -48,8 +59,6 @@ namespace Advent2015.Solutions
                     var nearby = NumberOfOnNeighbours(x, y);
                     var current = _lights[x, y];
                     var lit = false;
-                    // A light which is on stays on when 2 or 3 neighbors are on, and turns off otherwise.
-                    // A light which is off turns on if exactly 3 neighbors are on, and stays off otherwise.
                     if (current == 1)
                     {
                         if (nearby == 2 || nearby == 3)
@@ -62,11 +71,15 @@ namespace Advent2015.Solutions
                         if (nearby == 3)
                             lit = true;
                     }
-
+                    
                     nextCycle[x, y] = lit ? 1 : 0;
                 }
             }
             _lights = nextCycle;
+            if (FixedCorners)
+            {
+                TurnCornersOn();
+            }
         }
 
         public int NumberOfOnNeighbours(int x, int y)
