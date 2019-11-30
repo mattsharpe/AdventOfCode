@@ -8,7 +8,7 @@ namespace Advent2015.Solutions
 
         private int[,] _lights;
 
-        public int CountLit => _lights.Cast<int>().Count(x=>x==1);
+        public int CountLit => _lights.Cast<int>().Count(x => x == 1);
         public bool FixedCorners { get; set; }
 
         public void PrintLights()
@@ -37,7 +37,7 @@ namespace Advent2015.Solutions
                     _lights[j, i] = line[j] == '#' ? 1 : 0;
                 }
             }
-            if(FixedCorners)
+            if (FixedCorners)
                 TurnCornersOn();
         }
 
@@ -71,7 +71,7 @@ namespace Advent2015.Solutions
                         if (nearby == 3)
                             lit = true;
                     }
-                    
+
                     nextCycle[x, y] = lit ? 1 : 0;
                 }
             }
@@ -84,18 +84,16 @@ namespace Advent2015.Solutions
 
         public int NumberOfOnNeighbours(int x, int y)
         {
-            var result = 0;
-
             int SafeGet(int a, int b)
             {
-                try
-                {
-                    return _lights[a, b];
-                }
-                catch (IndexOutOfRangeException)
+                if (a < 0 || b < 0 ||
+                    a > _lights.GetUpperBound(0) ||
+                    b > _lights.GetUpperBound(1))
                 {
                     return 0;
                 }
+
+                return _lights[a, b];
             }
 
             return
