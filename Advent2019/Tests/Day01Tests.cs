@@ -28,5 +28,22 @@ namespace Advent2019.Tests
         {
             Assert.AreEqual(expected, _day1.CalculateFuel(mass));
         }
+
+        [DataTestMethod]
+        [DataRow(14, 2)]
+        [DataRow(1969, 966)]
+        [DataRow(100756, 50346)]
+        public void FuelForModuleWithExtraFuel(int mass, int expected)
+        {
+            Assert.AreEqual(expected, _day1.CalculateFuelWithExtra(mass));
+        }
+
+        
+        [TestMethod]
+        public void TotalFuelRequirementWithAdditionalFuel()
+        {
+            var input = FileReader.ReadFile("day01.txt");
+            Assert.AreEqual(5056172, _day1.TotalFuelRequirementWithExtra(input));
+        }
     }
 }

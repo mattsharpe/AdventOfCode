@@ -14,5 +14,24 @@ namespace Advent2019.Solutions
         {
             return input.Sum(x => CalculateFuel(Convert.ToInt32(x)));
         }
+
+        public int CalculateFuelWithExtra(int mass)
+        {
+            var result = 0;
+            while (CalculateFuel(mass) > 0)
+            {
+                var next = CalculateFuel(mass);
+                result += next;
+                mass = next;
+            }
+
+            return result;
+        }
+
+        
+        public int TotalFuelRequirementWithExtra(string[] input)
+        {
+            return input.Sum(x => CalculateFuelWithExtra(Convert.ToInt32(x)));
+        }
     }
 }
