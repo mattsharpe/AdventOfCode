@@ -17,8 +17,8 @@ namespace Advent2019.Solutions
 
         public int FindMostCentralIntersection(string first, string second)
         {
-            var path = GetVisited(first.Split(","));
-            path.IntersectWith(GetVisited(second.Split(",")));
+            var path = GetVisited(first.Split(",")).Keys.Intersect(GetVisited(second.Split(",")).Keys)
+                    .ToHashSet();
             path.Remove((0, 0));
             return path.Min(loc => ManhattanDistance(0, loc.x, 0, loc.y));
         }
@@ -28,12 +28,12 @@ namespace Advent2019.Solutions
             return Math.Abs(x1 - x2) + Math.Abs(y1 - y2);
         }
 
-        public HashSet<(int x, int y)> GetVisited(string[] instructions)
+        public Dictionary<(int x, int y),int> GetVisited(string[] instructions)
         {
-            var result = new HashSet<(int x, int y)>();
+            var result = new Dictionary<(int x, int y), int>();
             (int x, int y) currentLocation = (0, 0);
-            
-            result.Add(currentLocation);
+            int steps = 1;
+            result.Add(currentLocation, 0);
 
             foreach (var instruction in instructions)
             {
@@ -45,11 +45,20 @@ namespace Advent2019.Solutions
                 {
                     currentLocation.x += x;
                     currentLocation.y += y;
-                    result.Add(currentLocation);
+                    result.TryAdd(currentLocation, steps++);
                 }
             }
             return result;
         }
 
+        public int CollisionDistance(string first, string second)
+        {
+            var firstPath = GetVisited(first.Split(","));
+            var secondPath = GetVisited(second.Split(","));
+            var intersections = firstPath.Keys.Intersect(secondPath.Keys).ToHashSet();
+            return intersections
+                .Where(x=> x!= (0,0))
+                .Min(x => firstPath[x] + secondPath[x]); 
+        }
     }
 }
