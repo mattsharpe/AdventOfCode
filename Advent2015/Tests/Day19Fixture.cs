@@ -55,7 +55,36 @@ namespace Advent2015.Tests
 
             _day19.ParseSubstitutionRules(rules);
             var results = _day19.GenerateReplacements(input);
-            Assert.AreEqual(510, results.Count);
+            Assert.AreEqual(509, results.Count);
+        }
+
+
+        [DataTestMethod]
+        [DataRow("HOH",3)]
+        [DataRow("HOHOHO",6)]
+        public void MoleculeGenerationHoHoHo(string target, int expected)
+        {
+            string[] rules =
+            {
+                "H => HO",
+                "H => OH",
+                "O => HH",
+                "e => H",
+                "e => O",
+            };
+            _day19.ParseSubstitutionRules(rules);
+            Assert.AreEqual(expected, _day19.ShortestPathToE(target));
+        }
+
+        [TestMethod]
+        public void MoleculeGeneration()
+        {
+            var puzzleInput = FileReader.ReadFile("day19.txt");
+            string[] rules = new List<string>(puzzleInput).Where(x => x.Contains("=>")).ToArray();
+            var input = puzzleInput.Last();
+
+            _day19.ParseSubstitutionRules(rules);
+            Assert.AreEqual(195, _day19.ShortestPathToE(input));
         }
 
     }
