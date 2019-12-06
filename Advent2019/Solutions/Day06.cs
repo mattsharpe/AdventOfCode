@@ -30,5 +30,16 @@ namespace Advent2019.Solutions
                 }
             }
         }
+
+        public int CalculateOrbitTransfersToReachSanta()
+        {
+            var me = GetParents("YOU").ToHashSet();
+            var santa = GetParents("SAN").ToHashSet();
+            
+            var result = me.Union(santa).Except(me.Intersect(santa));
+
+            return result.Count();
+
+        }
     }
 }

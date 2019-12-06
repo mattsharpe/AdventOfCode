@@ -10,7 +10,7 @@ namespace Advent2019.Tests
     public class Day06Tests
     {
         private Day06 _day6;
-        private string[] _sampleInput = new[]
+        private readonly string[] _sampleInput =
         {
             "COM)B",
             "B)C",
@@ -25,6 +25,23 @@ namespace Advent2019.Tests
             "K)L",
         };
 
+        private readonly string[] _sampleSantaInput =
+        {
+            "COM)B",
+            "B)C",
+            "C)D",
+            "D)E",
+            "E)F",
+            "B)G",
+            "G)H",
+            "D)I",
+            "E)J",
+            "J)K",
+            "K)L",
+            "K)YOU",
+            "I)SAN"
+        };
+
         [TestInitialize]
         public void Initialize() => _day6 = new Day06();
 
@@ -35,7 +52,7 @@ namespace Advent2019.Tests
         public void GetPathLength(string node, int length)
         {
             _day6.BuildGraph(_sampleInput);
-            var parents = _day6.GetParents(node);
+            var parents = _day6.GetParents(node).ToList();
             Console.WriteLine(string.Join(",",parents));
             Assert.AreEqual(length, parents.Count());
             
@@ -53,6 +70,20 @@ namespace Advent2019.Tests
         {
             _day6.BuildGraph(FileReader.ReadFile("day06.txt"));
             Assert.AreEqual(314702, _day6.Orbits());
+        }
+
+        [TestMethod]
+        public void MinimumOrbitTransfersRequiredSample()
+        {
+            _day6.BuildGraph(_sampleSantaInput);
+            Assert.AreEqual(4, _day6.CalculateOrbitTransfersToReachSanta());
+        }
+
+        [TestMethod]
+        public void MinimumOrbitTransfersRequired()
+        {
+            _day6.BuildGraph(FileReader.ReadFile("day06.txt"));
+            Assert.AreEqual(439, _day6.CalculateOrbitTransfersToReachSanta());
         }
     }
 }
