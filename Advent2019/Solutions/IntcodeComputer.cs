@@ -18,21 +18,18 @@ namespace Advent2019.Solutions
                 var opCode = (OpCode)(instruction % 100);
                 bool immediate1 = (instruction / 100) % 10  > 0;
                 bool immediate2 = (instruction / 1000) % 10 > 0;
-                bool immediate3 = (instruction / 10000) % 10 > 0;
 
                 switch (opCode)
                 {
                     case OpCode.Add:
                         var first = immediate1 ? Addresses[instructionPointer + 1] : Addresses[Addresses[instructionPointer + 1]];
                         var second = immediate2 ? Addresses[instructionPointer + 2] : Addresses[Addresses[instructionPointer + 2]];
-
                         Addresses[Addresses[instructionPointer + 3]] = first + second;
                         instructionPointer += 4;
                         break;
                     case OpCode.Multiply: 
                         first = immediate1 ? Addresses[instructionPointer + 1] : Addresses[Addresses[instructionPointer + 1]];
                         second = immediate2 ? Addresses[instructionPointer + 2] : Addresses[Addresses[instructionPointer + 2]];
-
                         Addresses[Addresses[instructionPointer + 3]] = first * second;
                         instructionPointer += 4;
                         break;
@@ -45,6 +42,29 @@ namespace Advent2019.Solutions
                         Outputs.Add(first);
                         instructionPointer += 2;
                         break;
+                    case OpCode.JumpIfTrue:
+                        first = immediate1 ? Addresses[instructionPointer + 1] : Addresses[Addresses[instructionPointer + 1]];
+                        second = immediate2 ? Addresses[instructionPointer + 2] : Addresses[Addresses[instructionPointer + 2]];
+                        instructionPointer = first != 0 ? second : instructionPointer + 3;
+                        break;
+                    case OpCode.JumpIfFalse:
+                        first = immediate1 ? Addresses[instructionPointer + 1] : Addresses[Addresses[instructionPointer + 1]];
+                        second = immediate2 ? Addresses[instructionPointer + 2] : Addresses[Addresses[instructionPointer + 2]];
+                        instructionPointer = first == 0 ? second : instructionPointer + 3;
+                        break;
+                    case OpCode.LessThan:
+                        first = immediate1 ? Addresses[instructionPointer + 1] : Addresses[Addresses[instructionPointer + 1]];
+                        second = immediate2 ? Addresses[instructionPointer + 2] : Addresses[Addresses[instructionPointer + 2]];
+                        Addresses[Addresses[instructionPointer + 3]] = first < second ? 1 : 0;
+                        instructionPointer += 4;
+                        break;
+                    case OpCode.Equals:
+                        first = immediate1 ? Addresses[instructionPointer + 1] : Addresses[Addresses[instructionPointer + 1]];
+                        second = immediate2 ? Addresses[instructionPointer + 2] : Addresses[Addresses[instructionPointer + 2]];
+                        Addresses[Addresses[instructionPointer + 3]] = first == second ? 1 : 0;
+                        instructionPointer += 4;
+                        break;
+
                     case OpCode.Halt:
                         return;
                     default:
@@ -67,6 +87,10 @@ namespace Advent2019.Solutions
         Multiply= 2,
         Input = 3,
         Output= 4, 
+        JumpIfTrue = 5,
+        JumpIfFalse = 6,
+        LessThan = 7,
+        Equals = 8,
         Halt = 99
     }
 }
