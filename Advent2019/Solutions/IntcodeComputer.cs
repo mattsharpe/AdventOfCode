@@ -16,21 +16,29 @@ namespace Advent2019.Solutions
             {
                 var instruction = Addresses[instructionPointer];
                 var opCode = (OpCode)(instruction % 100);
-                bool immediate1 = (instruction / 100) % 10  > 0;
-                bool immediate2 = (instruction / 1000) % 10 > 0;
 
+                int FirstValue()
+                {
+                    return (instruction / 100) % 10  > 0
+                        ? Addresses[instructionPointer + 1]
+                        : Addresses[Addresses[instructionPointer + 1]];
+                }
+
+                int SecondValue()
+                {
+                    return (instruction / 1000) % 10 > 0
+                        ? Addresses[instructionPointer + 2]
+                        : Addresses[Addresses[instructionPointer + 2]];
+                }
+                
                 switch (opCode)
                 {
                     case OpCode.Add:
-                        var first = immediate1 ? Addresses[instructionPointer + 1] : Addresses[Addresses[instructionPointer + 1]];
-                        var second = immediate2 ? Addresses[instructionPointer + 2] : Addresses[Addresses[instructionPointer + 2]];
-                        Addresses[Addresses[instructionPointer + 3]] = first + second;
+                        Addresses[Addresses[instructionPointer + 3]] = FirstValue() + SecondValue();
                         instructionPointer += 4;
                         break;
                     case OpCode.Multiply: 
-                        first = immediate1 ? Addresses[instructionPointer + 1] : Addresses[Addresses[instructionPointer + 1]];
-                        second = immediate2 ? Addresses[instructionPointer + 2] : Addresses[Addresses[instructionPointer + 2]];
-                        Addresses[Addresses[instructionPointer + 3]] = first * second;
+                        Addresses[Addresses[instructionPointer + 3]] = FirstValue() * SecondValue();
                         instructionPointer += 4;
                         break;
                     case OpCode.Input:
@@ -38,30 +46,21 @@ namespace Advent2019.Solutions
                         instructionPointer += 2;
                         break;
                     case OpCode.Output:
-                        first = immediate1 ? Addresses[instructionPointer + 1] : Addresses[Addresses[instructionPointer + 1]];
-                        Outputs.Add(first);
+                        Outputs.Add(FirstValue());
                         instructionPointer += 2;
                         break;
                     case OpCode.JumpIfTrue:
-                        first = immediate1 ? Addresses[instructionPointer + 1] : Addresses[Addresses[instructionPointer + 1]];
-                        second = immediate2 ? Addresses[instructionPointer + 2] : Addresses[Addresses[instructionPointer + 2]];
-                        instructionPointer = first != 0 ? second : instructionPointer + 3;
+                        instructionPointer = FirstValue() != 0 ? SecondValue() : instructionPointer + 3;
                         break;
                     case OpCode.JumpIfFalse:
-                        first = immediate1 ? Addresses[instructionPointer + 1] : Addresses[Addresses[instructionPointer + 1]];
-                        second = immediate2 ? Addresses[instructionPointer + 2] : Addresses[Addresses[instructionPointer + 2]];
-                        instructionPointer = first == 0 ? second : instructionPointer + 3;
+                        instructionPointer = FirstValue() == 0 ? SecondValue() : instructionPointer + 3;
                         break;
                     case OpCode.LessThan:
-                        first = immediate1 ? Addresses[instructionPointer + 1] : Addresses[Addresses[instructionPointer + 1]];
-                        second = immediate2 ? Addresses[instructionPointer + 2] : Addresses[Addresses[instructionPointer + 2]];
-                        Addresses[Addresses[instructionPointer + 3]] = first < second ? 1 : 0;
+                        Addresses[Addresses[instructionPointer + 3]] = FirstValue() < SecondValue() ? 1 : 0;
                         instructionPointer += 4;
                         break;
                     case OpCode.Equals:
-                        first = immediate1 ? Addresses[instructionPointer + 1] : Addresses[Addresses[instructionPointer + 1]];
-                        second = immediate2 ? Addresses[instructionPointer + 2] : Addresses[Addresses[instructionPointer + 2]];
-                        Addresses[Addresses[instructionPointer + 3]] = first == second ? 1 : 0;
+                        Addresses[Addresses[instructionPointer + 3]] = FirstValue() == SecondValue() ? 1 : 0;
                         instructionPointer += 4;
                         break;
 

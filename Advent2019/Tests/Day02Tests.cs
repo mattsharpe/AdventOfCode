@@ -8,17 +8,17 @@ namespace Advent2019.Tests
     [TestClass]
     public class Day02Tests
     {
-        private Day02 _day2;
+        private IntCodeComputer _day2;
 
         [TestInitialize] 
-        public void Initialize() => _day2 = new Day02();
+        public void Initialize() => _day2 = new IntCodeComputer();
 
         [TestMethod]
         public void SampleProgram()
         {
             var program = "1,9,10,3,2,3,11,0,99,30,40,50";
             _day2.InitializePositions(program);
-            _day2.RunIntCodeProgram();
+            _day2.RunProgram();
             Assert.AreEqual(3500, _day2.Addresses[0]);
         }
 
@@ -31,7 +31,7 @@ namespace Advent2019.Tests
         public void SamplePrograms(string program, int position, int expected)
         {
             _day2.InitializePositions(program);
-            _day2.RunIntCodeProgram();
+            _day2.RunProgram();
             
             Assert.AreEqual(expected, _day2.Addresses[position]);
         }
@@ -43,7 +43,7 @@ namespace Advent2019.Tests
             _day2.InitializePositions(program);
             _day2.Addresses[1] = 12;
             _day2.Addresses[2] = 2;
-            _day2.RunIntCodeProgram();
+            _day2.RunProgram();
             Assert.AreEqual(4023471, _day2.Addresses[0]);
         }
 
@@ -60,7 +60,7 @@ namespace Advent2019.Tests
                         _day2.InitializePositions(program);
                         _day2.Addresses[1] = x.noun;
                         _day2.Addresses[2] = x.verb;
-                        _day2.RunIntCodeProgram();
+                        _day2.RunProgram();
                         return _day2.Addresses[0] == 19690720;
                     });
             
