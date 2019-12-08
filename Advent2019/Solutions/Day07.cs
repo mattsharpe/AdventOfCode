@@ -28,7 +28,7 @@ namespace Advent2019.Solutions
 
             return GetPermutations(list, length - 1)
                 .SelectMany(t => list.Where(e => !t.Contains(e)),
-                    (t1, t2) => t1.Concat(new T[] { t2 }));
+                    (t1, t2) => t1.Concat(new [] { t2 }));
         }
 
         private List<IntCodeComputer> BuildAmplifiers(int[] phases, string program, bool loopback = false)
@@ -55,13 +55,8 @@ namespace Advent2019.Solutions
         {
             var amplifiers = BuildAmplifiers(phases, program, true);
 
-            var tasks = new List<Task>();
-            foreach(var amp in amplifiers)
-            {
-                var ampTask = Task.Run(() => amp.RunProgram());
-                tasks.Add(ampTask);
-            }
-
+            var tasks = amplifiers.Select(x => Task.Run(x.RunProgram)).ToList();
+            
             await Task.WhenAll(tasks);
 
             return amplifiers.Last().Outputs.First();
@@ -74,7 +69,6 @@ namespace Advent2019.Solutions
 
             var result = Task.WhenAll(tasks);
             return result.Result.Max();
-
         }
     }
 }
