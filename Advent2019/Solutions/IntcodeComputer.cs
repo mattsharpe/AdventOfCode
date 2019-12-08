@@ -1,27 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Advent2019.Solutions
 {
     class IntCodeComputer
     {
         public int[] Addresses { get; private set; }
-        public Queue<int> Inputs { get; } = new Queue<int>();
-        public List<int> Outputs { get; } = new List<int>();
+        public ConcurrentQueue<int> Inputs { get; set; } = new ConcurrentQueue<int>();
+        public ConcurrentQueue<int> Outputs { get; set; } = new ConcurrentQueue<int>();
 
         public IntCodeComputer()
         {
             
         }
 
-        public IntCodeComputer(string program, int input)
+        public IntCodeComputer(string program, int input, ConcurrentQueue<int> inputQueue = null)
         {
             InitializePositions(program);
+            Inputs = inputQueue ?? new ConcurrentQueue<int>();
             Inputs.Enqueue(input);
         }
-
-        public void RunProgram()
+        public Task RunProgram()
         {
             for (var instructionPointer = 0; instructionPointer < Addresses.Length;)
             {
@@ -53,11 +54,15 @@ namespace Advent2019.Solutions
                         instructionPointer += 4;
                         break;
                     case OpCode.Input:
-                        Addresses[Addresses[instructionPointer + 1]] = Inputs.Dequeue();
-                        instructionPointer += 2;
+                        if(Inputs.TryDequeue(out var next))
+                        {
+                            Addresses[Addresses[instructionPointer + 1]] = next;
+                            instructionPointer += 2;
+                        }
                         break;
                     case OpCode.Output:
-                        Outputs.Add(FirstValue());
+                        var nextValue = FirstValue();
+                        Outputs.Enqueue(nextValue);
                         instructionPointer += 2;
                         break;
                     case OpCode.JumpIfTrue:
@@ -76,11 +81,13 @@ namespace Advent2019.Solutions
                         break;
 
                     case OpCode.Halt:
-                        return;
+                        return Task.CompletedTask;
                     default:
                         throw new Exception($"Unrecognised Op Code {opCode}");
                 }
             }
+
+            return Task.CompletedTask;
         }
 
         public void InitializePositions(string program)

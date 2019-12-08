@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Advent2019.Solutions
 {
@@ -8,29 +8,10 @@ namespace Advent2019.Solutions
     {
         public int RunAmplifiers(int[] phases, string program)
         {
-            var amplifierA = new IntCodeComputer(program, phases[0]);
-            var amplifierB = new IntCodeComputer(program, phases[1]);
-            var amplifierC = new IntCodeComputer(program, phases[2]);
-            var amplifierD = new IntCodeComputer(program, phases[3]);
-            var amplifierE = new IntCodeComputer(program, phases[4]);
-            
-            amplifierA.Inputs.Enqueue(0);
-            amplifierA.RunProgram();
+            var amplifiers = BuildAmplifiers(phases, program);
+            amplifiers.ForEach(x => x.RunProgram());
 
-            amplifierB.Inputs.Enqueue(amplifierA.Outputs.Single());
-            amplifierB.RunProgram();
-
-            amplifierC.Inputs.Enqueue(amplifierB.Outputs.Single());
-            amplifierC.RunProgram();
-
-            amplifierD.Inputs.Enqueue(amplifierC.Outputs.Single());
-            amplifierD.RunProgram();
-
-            amplifierE.Inputs.Enqueue(amplifierD.Outputs.Single());
-            amplifierE.RunProgram();
-
-            return amplifierE.Outputs.Single();
-
+            return amplifiers.Last().Outputs.Single();
         }
 
         public int FindLargestSignal(string program)
@@ -43,12 +24,57 @@ namespace Advent2019.Solutions
 
         public IEnumerable<IEnumerable<T>> GetPermutations<T>(IEnumerable<T> list, int length)
         {
-            if (length == 1) return list.Select(t => new T[] { t });
+            if (length == 1) return list.Select(t => new [] { t });
 
             return GetPermutations(list, length - 1)
                 .SelectMany(t => list.Where(e => !t.Contains(e)),
                     (t1, t2) => t1.Concat(new T[] { t2 }));
         }
 
+        private List<IntCodeComputer> BuildAmplifiers(int[] phases, string program, bool loopback = false)
+        {
+            var amplifiers = new List<IntCodeComputer>();
+            for (var index = 0; index < phases.Length; index++)
+            {
+                var phase = phases[index];
+                amplifiers.Add(new IntCodeComputer(program, phase, 
+                    index > 0 ? amplifiers[index-1].Outputs : null));
+            }
+
+            if (loopback)
+            {
+                amplifiers.Last().Outputs = amplifiers.First().Inputs;
+            }
+
+            amplifiers.First().Inputs.Enqueue(0);
+            
+            return amplifiers;
+        }
+
+        public async Task<int> RunFeedbackLoopAsync(int[] phases, string program)
+        {
+            var amplifiers = BuildAmplifiers(phases, program, true);
+
+            var tasks = new List<Task>();
+            foreach(var amp in amplifiers)
+            {
+                var ampTask = Task.Run(() => amp.RunProgram());
+                tasks.Add(ampTask);
+            }
+
+            await Task.WhenAll(tasks);
+
+            return amplifiers.Last().Outputs.First();
+        }
+
+        public int FindLargestSignalWithFeedbackLoop(string program)
+        {
+            var tasks = GetPermutations(new[] {9, 8, 7, 6, 5}, 5)
+                .Select(async x => await RunFeedbackLoopAsync(x.ToArray(), program));
+
+            var result = Task.WhenAll(tasks);
+            return result.Result.Max();
+
+        }
     }
 }
