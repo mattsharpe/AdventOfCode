@@ -10,6 +10,17 @@ namespace Advent2019.Solutions
         public Queue<int> Inputs { get; } = new Queue<int>();
         public List<int> Outputs { get; } = new List<int>();
 
+        public IntCodeComputer()
+        {
+            
+        }
+
+        public IntCodeComputer(string program, int input)
+        {
+            InitializePositions(program);
+            Inputs.Enqueue(input);
+        }
+
         public void RunProgram()
         {
             for (var instructionPointer = 0; instructionPointer < Addresses.Length;)
