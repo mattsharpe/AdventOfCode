@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: ''
 
 variables:
   buildConfiguration: 'Release'
@@ -31,8 +31,18 @@ steps:
     projects: 'AdventOfCode.sln'
     arguments: '--configuration $(buildConfiguration)'
 
+- task: VSTest@2
+  inputs:
+    testSelector: 'testAssemblies'
+    testAssemblyVer2: |
+      **\Advent*.dll
+      !**\*TestAdapter.dll
+      !**\obj\**
+    searchFolder: '$(System.DefaultWorkingDirectory)'
+
 - task: DotNetCoreCLI@2
   displayName: 'Test'
+  enabled: false
   inputs:
     command: 'test'
     projects: '**/*.csproj'
