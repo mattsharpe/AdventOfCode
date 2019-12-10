@@ -37,8 +37,15 @@ namespace Advent2019.Solutions
             for (var index = 0; index < phases.Length; index++)
             {
                 var phase = phases[index];
-                amplifiers.Add(new IntCodeComputer(program, phase, 
-                    index > 0 ? amplifiers[index-1].Outputs : null));
+
+                var computer = new IntCodeComputer();
+                computer.InitializePositions(program);
+                if(index>0)
+                    computer.Inputs = amplifiers[index - 1].Outputs;
+
+                computer.Inputs.Enqueue(phase);
+                
+                amplifiers.Add(computer);
             }
 
             if (loopback)

@@ -11,19 +11,7 @@ namespace Advent2019.Solutions
         public ConcurrentQueue<long> Inputs { get; set; } = new ConcurrentQueue<long>();
         public ConcurrentQueue<long> Outputs { get; set; } = new ConcurrentQueue<long>();
         public long RelativeBase { get; set; }
-
-        public IntCodeComputer()
-        {
-            
-        }
-
-        public IntCodeComputer(string program, int input, ConcurrentQueue<long> inputQueue = null)
-        {
-            InitializePositions(program);
-            Inputs = inputQueue ?? new ConcurrentQueue<long>();
-            Inputs.Enqueue(input);
-        }
-
+        
         public Task RunProgram()
         {
             for (long instructionPointer = 0; instructionPointer < Addresses.Length;)
@@ -64,7 +52,7 @@ namespace Advent2019.Solutions
                     }
                 }
 
-                long value = 0;
+                long value;
                 switch (opCode)
                 {
                     case OpCode.Add:
