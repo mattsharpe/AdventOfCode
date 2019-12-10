@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2019.Tests
 {
-    [TestClass]
+    [TestClass, Explicit]
     public class Day07Tests
     {
         private Day07 _day7;
