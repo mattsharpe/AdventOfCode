@@ -6,7 +6,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2019.Tests
 {
-    [TestClass, Explicit]
+    [TestClass]
+    [TestCategory("IgnoreOnBuild")]
     public class Day07Tests
     {
         private Day07 _day7;
