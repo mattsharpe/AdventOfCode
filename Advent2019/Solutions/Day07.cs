@@ -6,7 +6,7 @@ namespace Advent2019.Solutions
 {
     class Day07
     {
-        public int RunAmplifiers(int[] phases, string program)
+        public long RunAmplifiers(int[] phases, string program)
         {
             var amplifiers = BuildAmplifiers(phases, program);
             amplifiers.ForEach(x => x.RunProgram());
@@ -14,7 +14,7 @@ namespace Advent2019.Solutions
             return amplifiers.Last().Outputs.Single();
         }
 
-        public int FindLargestSignal(string program)
+        public long FindLargestSignal(string program)
         {
             return GetPermutations(new[] {0, 1, 2, 3, 4}, 5)
                 .Select(x=> RunAmplifiers(x.ToArray(), program))
@@ -37,8 +37,15 @@ namespace Advent2019.Solutions
             for (var index = 0; index < phases.Length; index++)
             {
                 var phase = phases[index];
-                amplifiers.Add(new IntCodeComputer(program, phase, 
-                    index > 0 ? amplifiers[index-1].Outputs : null));
+
+                var computer = new IntCodeComputer();
+                computer.InitializePositions(program);
+                if(index>0)
+                    computer.Inputs = amplifiers[index - 1].Outputs;
+
+                computer.Inputs.Enqueue(phase);
+                
+                amplifiers.Add(computer);
             }
 
             if (loopback)
@@ -51,7 +58,7 @@ namespace Advent2019.Solutions
             return amplifiers;
         }
 
-        public async Task<int> RunFeedbackLoopAsync(int[] phases, string program)
+        public async Task<long> RunFeedbackLoopAsync(int[] phases, string program)
         {
             var amplifiers = BuildAmplifiers(phases, program, true);
 
@@ -62,7 +69,7 @@ namespace Advent2019.Solutions
             return amplifiers.Last().Outputs.First();
         }
 
-        public int FindLargestSignalWithFeedbackLoop(string program)
+        public long FindLargestSignalWithFeedbackLoop(string program)
         {
             var tasks = GetPermutations(new[] {9, 8, 7, 6, 5}, 5)
                 .Select(async x => await RunFeedbackLoopAsync(x.ToArray(), program));
