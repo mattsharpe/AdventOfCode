@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
 namespace Advent2019.Solutions
@@ -63,35 +62,48 @@ namespace Advent2019.Solutions
             );
         }
 
+        public long NumberOfStepsUntilRepeatedState()
+        {
+            var xPeriod = -1;
+            var yPeriod = -1;
+            var zPeriod = -1;
+
+            int count =0;
+            while (xPeriod == -1 || yPeriod == -1 || zPeriod == -1)
+            {
+                Step();
+                count++;
+
+                if (xPeriod == -1 && Moons.All(moon => moon.Velocity.x == 0))
+                    xPeriod = count;
+                
+                if (yPeriod == -1 && Moons.All(moon => moon.Velocity.y == 0))
+                    yPeriod = count;
+                
+                if (zPeriod == -1 && Moons.All(moon => moon.Velocity.z == 0))
+                    zPeriod = count;
+
+            }
+
+            return LowestCommonMultiple(xPeriod, LowestCommonMultiple(yPeriod, zPeriod)) *2;
+        }
+
+        private long GreatestCommonDivisor(long a, long b)
+        {
+            if (a % b == 0) return b;
+            return GreatestCommonDivisor(b, a % b);
+        }
+
+        private long LowestCommonMultiple(long a, long b)
+        {
+            return a * b / GreatestCommonDivisor(a, b);
+        }
+
     }
 
     public class Moon
     {
         public (int x, int y, int z) Position { get; set; }
         public (int x, int y, int z) Velocity { get; set; }
-    }
-
-    public class Point3D
-    {
-        public Point3D()
-        {
-
-        }
-        public Point3D(int x, int y, int z)
-        {
-            X = x;
-            Y = y;
-            Z = z;
-        }
-
-        public int X { get; set; }
-        public int Y { get; set; }
-        public int Z { get; set; }
-
-        public override string ToString()
-        {
-            return $"({X},{Y},{Z})";
-        }
-
     }
 }

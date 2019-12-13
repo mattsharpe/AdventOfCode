@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Advent2019.Solutions;
 using Advent2019.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -9,7 +8,6 @@ namespace Advent2019.Tests
     [TestClass]
     public class Day12Tests
     {
-
         private Day12 _day12;
 
         [TestInitialize]
@@ -27,29 +25,19 @@ namespace Advent2019.Tests
             };
 
             _day12.ParseInput(input);
-            foreach (var moon in _day12.Moons)
-            {
-                Console.WriteLine(moon.Position + ", " + moon.Velocity);
-            }
 
             _day12.Step();
-            Console.WriteLine("*****");
 
-            foreach (var moon in _day12.Moons)
-            {
-                Console.WriteLine(moon.Position + ", " + moon.Velocity);
-            }
-
-            //Assert.AreEqual(_day12.Moons[0].Position, (2,-1,1));
+            Assert.AreEqual(_day12.Moons[0].Position, (2,-1,1));
             Assert.AreEqual(_day12.Moons[0].Velocity, (3,-1,-1));
 
-            //Assert.AreEqual(_day12.Moons[1].Position, (3, -7, -4));
+            Assert.AreEqual(_day12.Moons[1].Position, (3, -7, -4));
             Assert.AreEqual(_day12.Moons[1].Velocity, (1,3,3));
             
-            //Assert.AreEqual(_day12.Moons[2].Position, (1,-7,5));
+            Assert.AreEqual(_day12.Moons[2].Position, (1,-7,5));
             Assert.AreEqual(_day12.Moons[2].Velocity, (-3,1,-3));
             
-            //Assert.AreEqual(_day12.Moons[3].Position, (2,2,0));
+            Assert.AreEqual(_day12.Moons[3].Position, (2,2,0));
             Assert.AreEqual(_day12.Moons[3].Velocity, (-1,-3,1));
         }
 
@@ -65,20 +53,10 @@ namespace Advent2019.Tests
             };
 
             _day12.ParseInput(input);
-            foreach (var moon in _day12.Moons)
-            {
-                Console.WriteLine(moon.Position + ", " + moon.Velocity);
-            }
 
             foreach (var irrelevant in Enumerable.Range(1,10))
             {
-                
                 _day12.Step();
-                Console.WriteLine("********************");
-                foreach (var moon in _day12.Moons)
-                {
-                    Console.WriteLine(moon.Position + ", " + moon.Velocity);
-                }
             }
             
             Assert.AreEqual(_day12.Moons[0].Position, (2,1,-3));
@@ -153,5 +131,50 @@ namespace Advent2019.Tests
 
         }
 
+        [TestMethod]
+        public void HowLongUntilRepetition()
+        {
+            string[] input =
+            {
+                "<x=-1, y=0, z=2>",
+                "<x=2, y=-10, z=-7>",
+                "<x=4, y=-8, z=8>",
+                "<x=3, y=5, z=-1>"
+            };
+
+            _day12.ParseInput(input);
+
+            Assert.AreEqual(2772, _day12.NumberOfStepsUntilRepeatedState());
+
+        }
+
+
+        [TestMethod]
+        public void HowLongUntilRepetitionLarge()
+        {
+            string[] input =
+            {
+                "<x=-8, y=-10, z=0>",
+                "<x=5, y=5, z=10>",
+                "<x=2, y=-7, z=3>",
+                "<x=9, y=-8, z=-3>"
+            };
+            
+            _day12.ParseInput(input);
+
+            Assert.AreEqual(4686774924, _day12.NumberOfStepsUntilRepeatedState());
+        }
+
+        [TestMethod]
+        public void HowLongUntilRepetitionPart2()
+        {
+            string[] input = FileReader.ReadFile("day12.txt");
+            
+            _day12.ParseInput(input);
+
+            Assert.AreEqual(324618307124784, _day12.NumberOfStepsUntilRepeatedState());
+        }
+
     }
+
 }
