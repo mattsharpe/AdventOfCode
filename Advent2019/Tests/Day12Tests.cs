@@ -149,7 +149,7 @@ namespace Advent2019.Tests
                 _day12.Step();
             }
 
-            Assert.AreEqual(1940, _day12.CalculateTotalEnergy());
+            Assert.AreEqual(7013, _day12.CalculateTotalEnergy());
 
         }
 
