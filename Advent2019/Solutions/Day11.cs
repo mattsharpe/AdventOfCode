@@ -31,7 +31,7 @@ namespace Advent2019.Solutions
 
         public void DrawRegistration()
         {
-            var task = Task.Run(() => _brain.RunProgram());
+            var task = Task.Run(_brain.RunProgram);
             while (!task.IsCompleted)
             {
                 if (_currentAction == RobotAction.Paint &&_brain.Outputs.TryDequeue(out var paint))

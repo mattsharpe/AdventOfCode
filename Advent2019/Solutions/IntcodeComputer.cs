@@ -11,7 +11,7 @@ namespace Advent2019.Solutions
         public ConcurrentQueue<long> Inputs { get; set; } = new ConcurrentQueue<long>();
         public ConcurrentQueue<long> Outputs { get; set; } = new ConcurrentQueue<long>();
         public long RelativeBase { get; set; }
-        
+
         public Task RunProgram()
         {
             for (long instructionPointer = 0; instructionPointer < Addresses.Length;)
@@ -66,10 +66,14 @@ namespace Advent2019.Solutions
                         instructionPointer += 4;
                         break;
                     case OpCode.Input:
-                        if(Inputs.TryDequeue(out var next))
+                        if (Inputs.TryDequeue(out var next))
                         {
                             WriteToAddress(1, next, firstInstructionMode);
                             instructionPointer += 2;
+                        }
+                        else
+                        {
+                            WaitingForInput = true;
                         }
                         break;
                     case OpCode.Output:
@@ -106,6 +110,8 @@ namespace Advent2019.Solutions
 
             return Task.CompletedTask;
         }
+
+        public bool WaitingForInput { get; set; }
 
         public void InitializePositions(string program)
         {
