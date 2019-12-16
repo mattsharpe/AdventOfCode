@@ -6,15 +6,17 @@ namespace Advent2019.Solutions
 {
     class Day14
     {
-
-        public Dictionary<(string chemical, int quantity), List<(string chemical, int quantity)>> Parse(string[] input)
+        private Dictionary<string, long> _generated;
+        private Dictionary<(string chemical, long quantity), List<(string chemical, long quantity)>> _rules;
+        
+        public void Parse(string[] input)
         {
-            (string chemical, int quantity) Parse(string chemical)
+            (string chemical, long quantity) Parse(string chemical)
             {
-                return (chemical.Split(" ")[1], Convert.ToInt32(chemical.Split(" ")[0]));
+                return (chemical.Split(" ")[1], Convert.ToInt64(chemical.Split(" ")[0]));
             }
 
-            return input.Select(line =>
+            var chemicals = input.Select(line =>
             {
                 var split = line.Split(" => ");
                 var target = Parse(split[1]);
@@ -22,17 +24,16 @@ namespace Advent2019.Solutions
                 return (target, required);
             }).ToDictionary(x => x.target, x => x.required);
 
+            _generated = chemicals.ToDictionary(x => x.Key.chemical, x => 0L);
+            _rules = chemicals;
         }
-        public int CalculateAmountOfOreRequired(string[] input)
+        public long CalculateAmountOfOreRequired(long target = 1)
         {
-            var rules = Parse(input);
-
             //keep track of what we've generated, we can generate more than we need and then use later.
-            var generated = rules.ToDictionary(x => x.Key.chemical, x => 0);
-            var shoppingList = new Queue<(string chemical, int quantity)>();
-            shoppingList.Enqueue(("FUEL", 1));
+            var shoppingList = new Queue<(string chemical, long quantity)>();
+            shoppingList.Enqueue(("FUEL", target));
 
-            int ore = 0;
+            long ore = 0;
             while (shoppingList.Any())
             {
                 var (chemical, quantity) = shoppingList.Dequeue();
@@ -43,26 +44,19 @@ namespace Advent2019.Solutions
                 }
                 else
                 {
-                    Console.WriteLine($"Need to get {quantity} {chemical}");
-                    var rule = rules.Single(x => x.Key.chemical == chemical);
+                    var rule = _rules.Single(x => x.Key.chemical == chemical);
                     //do we have any in stock already?
-                    if (generated[chemical] > 0)
+                    if (_generated[chemical] > 0)
                     {
-                        Console.WriteLine(
-                            $"I've got {generated[chemical]} {chemical} in stock so can supply the {quantity} needed");
-                        var amount = Math.Min(quantity, generated[chemical]);
-                        generated[chemical] -= amount;
+                        var amount = Math.Min(quantity, _generated[chemical]);
+                        _generated[chemical] -= amount;
                         quantity -= amount;
                     }
 
                     if (quantity > 0)
                     {
-                        //how many times do we need to make the recipe to fulfill the ask here?
-                        Console.WriteLine($"I need {quantity} {chemical}, recipe will make {rule.Key.quantity}");
-                        var batchesToCook = (int) Math.Ceiling((decimal) quantity / rule.Key.quantity);
-                        Console.WriteLine($"Going to cook {batchesToCook} batches");
-
-                        generated[chemical] += (int) Math.Max(0, batchesToCook * rule.Key.quantity - quantity);
+                        var batchesToCook = (long) Math.Ceiling((decimal) quantity / rule.Key.quantity);
+                        _generated[chemical] += (long) Math.Max(0, batchesToCook * rule.Key.quantity - quantity);
                         foreach (var ingredient in rule.Value)
                         {
                             shoppingList.Enqueue((ingredient.chemical, ingredient.quantity * batchesToCook));
@@ -71,6 +65,41 @@ namespace Advent2019.Solutions
                 }
             }
             return ore;
+        }
+
+        public long MaxFuelForOneTrillionOre(string[] input)
+        {
+            var target = 1000000000000;
+            Parse(input);
+
+            var costOfOneUnit = CalculateAmountOfOreRequired();
+            
+            var min = target / costOfOneUnit;
+            var max = Convert.ToInt64(min * 3);
+            
+            while (min < max)
+            {
+                Parse(input);
+                var mid = (min + max) / 2;
+                var next = CalculateAmountOfOreRequired(mid);
+                Console.WriteLine($"{mid} : {next}");
+                if (next > target)
+                { 
+                    max = mid;
+                }
+                else if (next < target)
+                {
+                    if (mid == min) break;
+                    min = mid;
+                }
+                else
+                {
+                    min = mid;
+                    break;
+                }
+            }
+
+            return min;
         }
     }
 }
