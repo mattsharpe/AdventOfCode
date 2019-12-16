@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Advent2019.Tests
 {
-    [TestClass]
+    [TestClass, TestCategory("IntCode")]
     public class Day05Tests
     {
         private IntCodeComputer _computer;
