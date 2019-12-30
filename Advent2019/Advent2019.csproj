@@ -4,6 +4,8 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
 
     <IsPackable>false</IsPackable>
+
+    <StartupObject>Advent2019.Utilities.AdventConsoleRunner</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,25 +22,24 @@
     <None Remove="TestData\day12.txt" />
     <None Remove="TestData\day13.txt" />
     <None Remove="TestData\day14.txt" />
+    <None Remove="TestData\Day15.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="TestData\day10.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="TestData\day05.txt" />
-    <EmbeddedResource Include="TestData\day03.txt" />
-    <EmbeddedResource Include="TestData\day02.txt" />
     <EmbeddedResource Include="TestData\day01.txt" />
+    <EmbeddedResource Include="TestData\day02.txt" />
+    <EmbeddedResource Include="TestData\day03.txt" />
+    <EmbeddedResource Include="TestData\day05.txt" />
     <EmbeddedResource Include="TestData\day06.txt" />
     <EmbeddedResource Include="TestData\day07.txt" />
     <EmbeddedResource Include="TestData\day08.txt" />
     <EmbeddedResource Include="TestData\day09.txt" />
+    <EmbeddedResource Include="TestData\day10.txt" />
     <EmbeddedResource Include="TestData\day11.txt" />
     <EmbeddedResource Include="TestData\day12.txt" />
     <EmbeddedResource Include="TestData\day13.txt" />
     <EmbeddedResource Include="TestData\day14.txt" />
+    <EmbeddedResource Include="TestData\day15.txt" />
   </ItemGroup>
 
   <ItemGroup>

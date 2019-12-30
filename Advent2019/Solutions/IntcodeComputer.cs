@@ -8,8 +8,8 @@ namespace Advent2019.Solutions
     class IntCodeComputer
     {
         public long[] Addresses { get; private set; }
-        public ConcurrentQueue<long> Inputs { get; set; } = new ConcurrentQueue<long>();
-        public ConcurrentQueue<long> Outputs { get; set; } = new ConcurrentQueue<long>();
+        public BlockingCollection<long> Inputs { get; set; } = new BlockingCollection<long>();
+        public BlockingCollection<long> Outputs { get; set; } = new BlockingCollection<long>();
         public long RelativeBase { get; set; }
 
         public Task RunProgram()
@@ -66,19 +66,15 @@ namespace Advent2019.Solutions
                         instructionPointer += 4;
                         break;
                     case OpCode.Input:
-                        if (Inputs.TryDequeue(out var next))
-                        {
-                            WriteToAddress(1, next, firstInstructionMode);
-                            instructionPointer += 2;
-                        }
-                        else
-                        {
-                            WaitingForInput = true;
-                        }
+                        long next;
+                        WaitingForInput = true;
+                        next = SupplyInputValue?.Invoke() ?? Inputs.Take();
+                        WriteToAddress(1, next, firstInstructionMode);
+                        instructionPointer += 2;
                         break;
                     case OpCode.Output:
                         var nextValue = GetValue(1, firstInstructionMode);
-                        Outputs.Enqueue(nextValue);
+                        Outputs.Add(nextValue);
                         instructionPointer += 2;
                         break;
                     case OpCode.JumpIfTrue:
@@ -112,6 +108,7 @@ namespace Advent2019.Solutions
         }
 
         public bool WaitingForInput { get; set; }
+        public Func<long> SupplyInputValue { get; set; }
 
         public void InitializePositions(string program)
         {
@@ -121,24 +118,4 @@ namespace Advent2019.Solutions
         }
     }
     
-    enum OpCode
-    {
-        Add = 1, 
-        Multiply= 2,
-        Input = 3,
-        Output= 4, 
-        JumpIfTrue = 5,
-        JumpIfFalse = 6,
-        LessThan = 7,
-        Equals = 8,
-        AdjustRelativeBase = 9,
-        Halt = 99,
-    }
-
-    enum InstructionMode : long
-    {
-        Position = 0,
-        Immediate = 1,
-        Relative = 2
-    }
 }

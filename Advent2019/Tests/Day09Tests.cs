@@ -46,7 +46,7 @@ namespace Advent2019.Tests
         {
             var program = FileReader.ReadFile("day09.txt").First();
             _computer.InitializePositions(program);
-            _computer.Inputs.Enqueue(1);
+            _computer.Inputs.Add(1);
             _computer.RunProgram();
             Assert.AreEqual(2204990589, _computer.Outputs.First());
         }
@@ -56,7 +56,7 @@ namespace Advent2019.Tests
         {
             var program = FileReader.ReadFile("day09.txt").First();
             _computer.InitializePositions(program);
-            _computer.Inputs.Enqueue(2);
+            _computer.Inputs.Add(2);
             _computer.RunProgram();
             Assert.AreEqual(50008, _computer.Outputs.First());
         }
