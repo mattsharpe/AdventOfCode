@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Advent2019.Solutions
 {
@@ -22,27 +20,14 @@ namespace Advent2019.Solutions
             return Grid.Count(x=> x.Value.Equals(2));
         }
 
-        public void MoveJoystick()
-        {
-            long joystickDirection = 0;
-            if (Ball.x < Paddle.x)
-            {
-                joystickDirection = -1;
-            } 
-            else if(Ball.x > Paddle.x)
-            {
-                joystickDirection = 1;
-            }
-            _computer.Inputs.Enqueue(joystickDirection);
-        }
 
         private void UpdateScreen()
         {
             while (_computer.Outputs.Count >= 3)
             {
-                _computer.Outputs.TryDequeue(out var x);
-                _computer.Outputs.TryDequeue(out var y);
-                _computer.Outputs.TryDequeue(out var cell);
+                var x = _computer.Outputs.Take();
+                var y = _computer.Outputs.Take();
+                var cell = _computer.Outputs.Take();
 
                 switch (cell)
                 {
@@ -65,7 +50,7 @@ namespace Advent2019.Solutions
                 {
                     Score = cell;
                 }
-            } 
+            }
         }
         
         public long PlayBreakout(string program)
@@ -73,22 +58,27 @@ namespace Advent2019.Solutions
             _computer.InitializePositions(program);
             //insert a quarter
             _computer.Addresses[0] = 2;
-            
-            var task = Task.Run(_computer.RunProgram);
-            
-            while (!task.IsCompleted && !Grid.Any(x=>Equals( x.Value == 2)))
+            _computer.SupplyInputValue = () =>
             {
-                if (_computer.WaitingForInput)
-                {
-                    UpdateScreen();
-                    MoveJoystick();
-                    //Yuck, one to revisit. Potential locking on the input Queue?
-                    //Whose idea was it to multithread this?
-                    Thread.Sleep(1);
-                }
-            }
+                UpdateScreen();
 
+                long joystickDirection = 0;
+                if (Ball.x < Paddle.x)
+                {
+                    joystickDirection = -1;
+                }
+                else if (Ball.x > Paddle.x)
+                {
+                    joystickDirection = 1;
+                }
+
+                return joystickDirection;
+            };
+
+            _computer.RunProgram();
+            //Run one last time after the program halts as there's still values on the output queue
             UpdateScreen();
+
             return Score;
         }
     }

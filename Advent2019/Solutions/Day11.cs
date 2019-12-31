@@ -34,7 +34,7 @@ namespace Advent2019.Solutions
             var task = Task.Run(_brain.RunProgram);
             while (!task.IsCompleted)
             {
-                if (_currentAction == RobotAction.Paint &&_brain.Outputs.TryDequeue(out var paint))
+                if (_currentAction == RobotAction.Paint &&_brain.Outputs.TryTake(out var paint))
                 {
                         _map[_currentLocation] = paint;
                         _currentAction = RobotAction.Move;
@@ -47,10 +47,10 @@ namespace Advent2019.Solutions
                         _map.Add(_currentLocation, input);
                     }
 
-                    _brain.Inputs.Enqueue(input);
+                    _brain.Inputs.Add(input);
                     _currentAction = RobotAction.Paint;
                 }
-                else if (_currentAction == RobotAction.Move && _brain.Outputs.TryDequeue(out var turn))
+                else if (_currentAction == RobotAction.Move && _brain.Outputs.TryTake(out var turn))
                 {
                         // 0 = left 90, 1 = right 90
                         _currentAction = RobotAction.Scan;
@@ -122,7 +122,7 @@ namespace Advent2019.Solutions
 
         public void AddInput(long input)
         {
-            _brain.Inputs.Enqueue(input);
+            _brain.Inputs.Add(input);
         }
     }
 

@@ -43,7 +43,7 @@ namespace Advent2019.Solutions
                 if(index>0)
                     computer.Inputs = amplifiers[index - 1].Outputs;
 
-                computer.Inputs.Enqueue(phase);
+                computer.Inputs.Add(phase);
                 
                 amplifiers.Add(computer);
             }
@@ -53,7 +53,7 @@ namespace Advent2019.Solutions
                 amplifiers.Last().Outputs = amplifiers.First().Inputs;
             }
 
-            amplifiers.First().Inputs.Enqueue(0);
+            amplifiers.First().Inputs.Add(0);
             
             return amplifiers;
         }
