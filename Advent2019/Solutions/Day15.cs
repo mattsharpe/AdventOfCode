@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Advent2019.Solutions
@@ -10,65 +9,20 @@ namespace Advent2019.Solutions
     {
         public bool InteractiveMode { get; set; }
         private IntCodeComputer _computer;
-        private readonly Dictionary<(long x, long y), long> _map = new Dictionary<(long, long), long>();
-        private readonly HashSet<(long x, long y)> _unexplored = new HashSet<(long x, long y)>();
-        private (long x, long y) _currentLocation = (0, 0);
+        private readonly Dictionary<(int x, int y), int> _map = new Dictionary<(int, int), int>();
         private RobotDirection _currentDirection = RobotDirection.North;
-        
+        private (int x, int y) _currentLocation;
+        private (int x, int y) _oxygenLocation;
 
-        private readonly Dictionary<RobotDirection, (int x, int y)> _displacement =
-            new Dictionary<RobotDirection, (int x, int y)>
+        private readonly Dictionary<RobotDirection, (int x, int y, RobotDirection reverse)> _displacement =
+            new Dictionary<RobotDirection, (int x, int y, RobotDirection reverse)>
             {
-                {RobotDirection.North, (0, -1)},
-                {RobotDirection.East, (1, 0)},
-                {RobotDirection.South, (0, 1)},
-                {RobotDirection.West, (-1, 0)}
+                {RobotDirection.North, (0, -1, RobotDirection.South)},
+                {RobotDirection.East, (1, 0, RobotDirection.West)},
+                {RobotDirection.South, (0, 1, RobotDirection.North)},
+                {RobotDirection.West, (-1, 0, RobotDirection.East)},
             };
 
-        private readonly Dictionary<RobotDirection, List<RobotDirection>> _moveSequence =
-            new Dictionary<RobotDirection, List<RobotDirection>>
-            {
-                {
-                    RobotDirection.North, new List<RobotDirection> {RobotDirection.East, RobotDirection.North, RobotDirection.West, RobotDirection.South}
-                },
-                {  
-                    RobotDirection.East, new List<RobotDirection> {RobotDirection.South, RobotDirection.East, RobotDirection.North, RobotDirection.West}
-                },
-                {   
-                    RobotDirection.South, new List<RobotDirection> {RobotDirection.West, RobotDirection.South, RobotDirection.East, RobotDirection.North}
-                },
-                {   
-                    RobotDirection.West, new List<RobotDirection> {RobotDirection.North, RobotDirection.West, RobotDirection.South, RobotDirection.East}
-                }
-            };
-
-        public void BuildMaze(string program)
-        {
-            _computer = new IntCodeComputer();
-            _computer.InitializePositions(program);
-            _map.Add(_currentLocation, 1);
-            _unexplored.UnionWith(UnexploredSquares().Select(val => (val.x, val.y)));
-
-            var task = Task.Run(_computer.RunProgram);
-            int count = 0;
-
-            while (!task.IsCompleted && _unexplored.Any())
-            {
-                MakeNextMove();
-                ReportOnCurrentSquare();
-
-                count++;
-                if (InteractiveMode)
-                {
-                    Thread.Sleep(30);
-                    PrintMap();
-                }
-            }
-
-            Console.WriteLine(count);
-
-            PrintMap();
-        }
 
         public void PrintMap()
         {
@@ -84,9 +38,9 @@ namespace Advent2019.Solutions
             var maxX = _map.Keys.Max(a => a.x);
             Console.WriteLine($"Map ranges from  {minX},{minY} to {maxX},{maxY}");
 
-            for (long y = minY; y <= maxY; y++)
+            for (int y = minY; y <= maxY; y++)
             {
-                for (long x = minX; x <= maxX; x++)
+                for (int x = minX; x <= maxX; x++)
                 {
                     if (_map.TryGetValue((x, y), out var value))
                     {
@@ -133,85 +87,94 @@ namespace Advent2019.Solutions
             //Console.Write(sb.ToString());
         }
 
-        private IEnumerable<(long x, long y)> UnexploredSquares()
+        public void BuildMaze(string input)
         {
-            foreach (var location in _displacement)
+            _computer = new IntCodeComputer();
+            _computer.InitializePositions(input);
+
+            Task.Run(_computer.RunProgram);
+
+            (int x, int y) startLocation = (0, 0);
+            _map.Add(startLocation, 1);
+            ExploreCell(startLocation);
+
+            PrintMap();
+        }
+
+        private int MoveRobot(RobotDirection direction)
+        {
+            _currentDirection = direction;
+            _computer.Inputs.Add((int) direction);
+            return (int) _computer.Outputs.Take();
+        }
+
+        private void ExploreCell((int x, int y) cell)
+        {
+            _currentLocation = cell;
+            if (InteractiveMode)
+                PrintMap();
+
+            foreach (var move in _displacement)
             {
-                var next = (_currentLocation.x + location.Value.x, _currentLocation.y + location.Value.y);
-                if (!_map.ContainsKey(next))
-                {
-                    yield return next;
-                }
+                var next = (cell.x + move.Value.x, cell.y + move.Value.y);
+                //if we've already explored here
+                if (_map.ContainsKey(next)) continue;
+
+                var moveResult = MoveRobot(move.Key);
+                _map.Add(next, moveResult);
+
+                //hit a wall so stop.
+                if (moveResult == 0) continue;
+
+                ExploreCell(next);
+                MoveRobot(move.Value.reverse);
+
+                //if we've not found O2, move on to the next square
+                if (moveResult != 2) continue;
+
+                _map[next] = 2;
+                _oxygenLocation = next;
             }
         }
 
-        private RobotDirection CalculateNextMove()
+        private Dictionary<(int x, int y), int> ShortestPaths((int x, int y) startPoint)
         {
-
-            if (UnexploredSquares().Any())
+            var toExplore = new Stack<(int x, int y)>();
+            var explored = new HashSet<(int x, int y)>();
+            toExplore.Push(startPoint);
+            var shortestPaths = new Dictionary<(int x, int y), int>
             {
-                return (from location in _displacement
-                        let next = (_currentLocation.x + location.Value.x, _currentLocation.y + location.Value.y)
-                        where !_map.ContainsKey(next)
-                        select location.Key).First();
-            }
+                {startPoint, 0}
+            };
 
-            bool CanIMove(RobotDirection direction)
+            while (toExplore.Count > 0)
             {
-                var move = _displacement[direction];
-                (long x, long y) nextLocation = (_currentLocation.x + move.x, _currentLocation.y + move.y);
-                if (_map.TryGetValue(nextLocation, out var next))
+                var current = toExplore.Pop();
+                var possiblePoints = _displacement.Select(move => (x: current.x + move.Value.x, y: current.y + move.Value.y));
+
+                foreach (var point in possiblePoints)
                 {
-                    if (next == 0)
-                    {
-                        return false;
-                    }
+                    if (_map[point] == 0 || explored.Contains(point)) continue;
+                    shortestPaths[point] = shortestPaths[current] + 1;
+                    toExplore.Push(point);
                 }
 
-                return true;
+                explored.Add(current);
             }
 
-            foreach (var move in _moveSequence[_currentDirection])
-            {
-                if (CanIMove(move))
-                {
-                    return move;
-                }
-            }
-
-            return RobotDirection.North;
+            return shortestPaths;
         }
 
-        private void MakeNextMove()
+
+        public int TimeToFillWithOxygen()
         {
-            var nextInstruction = CalculateNextMove();
-            _currentDirection = nextInstruction;
-
-            _computer.Inputs.Add((int) nextInstruction);
-        }
-
-        private void ReportOnCurrentSquare()
-        {
-            var result = _computer.Outputs.Take();
-            var (x, y) = _displacement[_currentDirection];
-            var location = (_currentLocation.x + x, _currentLocation.y + y);
-            _map[location] = result;
-            _unexplored.Remove(location);
-
-            if (result > 0)
-            {
-                _currentLocation = location;
-            }
-            
-            var unexplored = UnexploredSquares().ToArray();
-            _unexplored.UnionWith(unexplored);
+            return ShortestPaths(_oxygenLocation).Max(x=>x.Value);
         }
 
         public int FindPathToOxygen()
         {
-            var destination = _map.Single(x => x.Value == 2).Key;
-            Console.WriteLine(destination);
-            return 1;
+            var result = ShortestPaths((0, 0))[_oxygenLocation];
+            return result;
         }
     }
 

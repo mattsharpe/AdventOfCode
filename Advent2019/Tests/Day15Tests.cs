@@ -17,7 +17,6 @@ namespace Advent2019.Tests
         public void BuildMaze()
         {
             var input = FileReader.ReadFile("day15.txt").First();
-            //475 is too high
             _day15.BuildMaze(input);
         }
 
@@ -26,7 +25,15 @@ namespace Advent2019.Tests
         {
             var input = FileReader.ReadFile("day15.txt").First();
             _day15.BuildMaze(input);
-            Assert.AreEqual(1, _day15.FindPathToOxygen());
+            Assert.AreEqual(404, _day15.FindPathToOxygen());
+        }
+
+        [TestMethod]
+        public void TimeForOxygenToFill()
+        {
+            var input = FileReader.ReadFile("day15.txt").First();
+            _day15.BuildMaze(input);
+            Assert.AreEqual(406, _day15.TimeToFillWithOxygen());
         }
     }
 }
