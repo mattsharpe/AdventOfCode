@@ -16,7 +16,7 @@ steps:
 
 - task: SonarCloudPrepare@1
   displayName: 'Prepare SonarCloud Code Analysis'
-  enabled: false
+  enabled: true
   inputs:
     SonarCloud: 'SonarCloud'
     organization: 'mattsharpe-github'
@@ -50,11 +50,11 @@ steps:
     testRunTitle: 'Unit Tests'
 
 - task: SonarCloudAnalyze@1
-  enabled: false
+  enabled: true
   displayName: 'Run SonarCloud Code Analysis'
 
 - task: SonarCloudPublish@1
   displayName: 'Publish Quality Gate Result'
-  enabled: false
+  enabled: true
   inputs:
     pollingTimeoutSec: '300'
