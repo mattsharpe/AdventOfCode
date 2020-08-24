@@ -14,6 +14,11 @@ variables:
 
 steps:
 
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'restore'
+    projects: 'AdventOfCode.sln'
+
 - task: SonarCloudPrepare@1
   displayName: 'Prepare SonarCloud Code Analysis'
   enabled: true
@@ -28,10 +33,11 @@ steps:
   displayName: 'Build'
   inputs:
     command: 'build'
-    projects: 'AdventOfCode.sln'
+    projects: '**\*.csproj'
     arguments: '--configuration $(buildConfiguration)'
 
 - task: VSTest@2
+  enabled: false
   inputs:
     testSelector: 'testAssemblies'
     testAssemblyVer2: |
@@ -43,7 +49,7 @@ steps:
 
 - task: DotNetCoreCLI@2
   displayName: 'Test'
-  enabled: false
+  enabled: true
   inputs:
     command: 'test'
     projects: '**/*.csproj'
