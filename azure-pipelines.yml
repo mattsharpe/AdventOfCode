@@ -33,7 +33,7 @@ steps:
   displayName: 'Build'
   inputs:
     command: 'build'
-    projects: 'AdventOfCode.sln'
+    projects: '**\*.csproj'
     arguments: '--configuration $(buildConfiguration)'
 
 - task: VSTest@2
