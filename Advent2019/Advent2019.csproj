@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
 
     <IsPackable>false</IsPackable>
-
+    <ProjectGuid>186BB157-039B-455F-9955-F10DC0C1BE70</ProjectGuid>
     <StartupObject>Advent2019.Utilities.AdventConsoleRunner</StartupObject>
   </PropertyGroup>
 
