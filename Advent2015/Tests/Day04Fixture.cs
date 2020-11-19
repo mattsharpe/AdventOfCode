@@ -4,9 +4,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Advent2015.Tests
 {
     [TestClass]
-    public class Day4Fixture
+    public class Day04Fixture
     {
-        private Day4 _day4 = new Day4();
+        private Day04 _day4 = new Day04();
 
         [TestMethod]
         public void Sample1()

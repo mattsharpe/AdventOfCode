@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Advent2015.Solutions
 {
-    class Day9
+    class Day09
     {
         public Dictionary<string, Dictionary<string, int>> AdjacencyMatrix = new Dictionary<string, Dictionary<string, int>>();
         public List<string> Cities = new List<string>();

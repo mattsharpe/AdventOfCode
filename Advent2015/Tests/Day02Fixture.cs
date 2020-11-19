@@ -5,9 +5,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Advent2015.Tests
 {
     [TestClass]
-    public class Day2Fixture
+    public class Day02Fixture
     {
-        private readonly Day2 _day2 = new Day2();
+        private readonly Day02 _day2 = new Day02();
 
         [TestMethod]
         public void SampleData()

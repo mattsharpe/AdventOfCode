@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace Advent2015.Solutions
 {
-    class Day8
+    class Day08
     {
 
         public int DecodedLength(string line)

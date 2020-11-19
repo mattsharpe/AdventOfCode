@@ -2,7 +2,7 @@
 
 namespace Advent2015.Solutions
 {
-    class Day1
+    class Day01
     {
         public int ParseInput(string input)
         {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Advent2015.Solutions
 {
-    class Day3
+    class Day03
     {
-        public Day3()
+        public Day03()
         {
             SantaX = 0;
             SantaY = 0;

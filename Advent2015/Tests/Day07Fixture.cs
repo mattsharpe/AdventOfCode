@@ -5,9 +5,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Advent2015.Tests
 {
     [TestClass]
-    public class Day7Fixture
+    public class Day07Fixture
     {
-        private Day7 _day7 = new Day7();
+        private Day07 _day7 = new Day07();
 
         private string[] _sample = {
             "123 -> x",
