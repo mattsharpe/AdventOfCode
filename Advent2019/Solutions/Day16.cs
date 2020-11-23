@@ -48,6 +48,52 @@ namespace Advent2019.Solutions
 
             return input.Substring(0,8);
         }
-        
+
+        public string Part2(string puzzleInput)
+        {
+            var index = 10000;
+            var input = puzzleInput.Select(x => (byte) (x - '0')).ToArray();
+            var adjustedArray = new byte[input.Length * index];
+
+            for (var i = 0; i < index; i++)
+            {
+                Buffer.BlockCopy(input, 0, adjustedArray, input.Length * i, input.Length);
+            }
+
+            var offset = int.Parse(string.Join("", input.Take(7)));
+
+            _working = new byte[adjustedArray.Length];
+            for (int i = 0; i < 100; i++)
+            {
+                Process(ref adjustedArray, offset);
+            }
+
+            return(string.Join("", adjustedArray.Skip(offset).Take(8)));
+        }
+
+        private static byte[] _working;
+
+        private static void Process(ref byte[] input, int from = 0)
+        {
+            var count = 0;
+
+            for (var i = from; i < input.Length; i++)
+            {
+                count += input[i];
+            }
+
+            for (var i = from; i < input.Length; i++)
+            {
+                _working[i] = Convert.ToByte(count % 10);
+                count -= input[i];
+            }
+
+            //swap the input and working
+            var tmp = input;
+            input = _working;
+            _working = tmp;
+        }
+
+
     }
 }
