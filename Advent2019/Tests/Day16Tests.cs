@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Advent2019.Solutions;
 using Advent2019.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -48,6 +49,13 @@ namespace Advent2019.Tests
         {
             var input = FileReader.ReadFile("day16.txt").First();
             Assert.AreEqual("96136976",_day16.RunPhases(input,100));
+        }
+
+        [TestMethod]
+        public void Part2()
+        {
+            var input = FileReader.ReadFile("day16.txt").First();
+            Assert.AreEqual("85600369",_day16.Part2(input));
         }
     }
 }
