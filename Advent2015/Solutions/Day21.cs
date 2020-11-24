@@ -42,13 +42,13 @@ namespace Advent2015.Solutions
             Armour = 1
         };
 
-        public IEnumerable<Player> GenerateCombinations()
+        public IEnumerable<Fighter> GenerateCombinations()
         {
             var results = from weapon in weapons
             from shirt in armour
             from ring1 in rings
             from ring2 in rings.Where(x => x != ring1)
-            select new Player
+            select new Fighter
             {
                 HitPoints = 100,
                 Damage = weapon.Damage + ring1.Damage + ring2.Damage,
@@ -60,10 +60,10 @@ namespace Advent2015.Solutions
             return results;
         }
 
-        public bool PlayerWins(Player player)
+        public bool PlayerWins(Fighter fighter)
         {
-            var bossDiesOnTurn = Math.Ceiling(Boss.HitPoints / (double) Math.Max(1, player.Damage - Boss.Armour));
-            var playerDiesOnTurn = Math.Ceiling(player.HitPoints / (double) Math.Max(1, Boss.Damage - player.Armour));
+            var bossDiesOnTurn = Math.Ceiling(Boss.HitPoints / (double) Math.Max(1, fighter.Damage - Boss.Armour));
+            var playerDiesOnTurn = Math.Ceiling(fighter.HitPoints / (double) Math.Max(1, Boss.Damage - fighter.Armour));
 
             return playerDiesOnTurn >= bossDiesOnTurn;
         }
@@ -79,7 +79,7 @@ namespace Advent2015.Solutions
         }
     }
 
-    class Player
+    class Fighter
     {
         public int HitPoints { get; set; }
         public int Damage { get; set; }
