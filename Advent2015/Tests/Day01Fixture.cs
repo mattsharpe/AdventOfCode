@@ -5,10 +5,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Advent2015.Tests
 {
     [TestClass]
-    public class Day1Fixture
+    public class Day01Fixture
     {
 
-        private readonly Day1 _day1 = new Day1();
+        private readonly Day01 _day1 = new Day01();
 
         [TestMethod]
         public void SampleDataFloor0()

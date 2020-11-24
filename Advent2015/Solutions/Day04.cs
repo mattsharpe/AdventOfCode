@@ -23,7 +23,7 @@ using Advent2015.Utilities;
 
 namespace Advent2015.Solutions
 {
-    public class Day4
+    public class Day04
     {
         private readonly Md5Hasher _hasher = new Md5Hasher();
 

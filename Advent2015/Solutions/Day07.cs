@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.CSharp;
 
 namespace Advent2015.Solutions
 {
-    class Day7
+    class Day07
     {
 
         public string Transpile(string instruction)

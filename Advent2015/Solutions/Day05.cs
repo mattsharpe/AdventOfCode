@@ -49,7 +49,7 @@ using System.Text.RegularExpressions;
 
 namespace Advent2015.Solutions
 {
-    public class Day5
+    public class Day05
     {
         private readonly Regex _threeVowels = new Regex("[aeiou]");
         private readonly Regex _doubleLetters = new Regex(@"(\w)\1");

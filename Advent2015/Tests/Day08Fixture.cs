@@ -5,9 +5,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Advent2015.Tests
 {
     [TestClass]
-    public class Day8Fixture
+    public class Day08Fixture
     {
-        private Day8 _day8 = new Day8();
+        private Day08 _day8 = new Day08();
         
         [DataRow("\"\"", 2, 0)]
         [DataRow("\"abc\"", 5, 3)]

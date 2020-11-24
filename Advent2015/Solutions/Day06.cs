@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace Advent2015.Solutions
 {
-    class Day6
+    class Day06
     {
         private int[,] _lights = new int[1000, 1000];
 

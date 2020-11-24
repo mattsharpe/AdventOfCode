@@ -6,9 +6,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Advent2015.Tests
 {
     [TestClass]
-    public class Day5Fixture
+    public class Day05Fixture
     {
-        private Day5 _day5 = new Day5();
+        private Day05 _day5 = new Day05();
 
         [TestMethod]
         public void Nice_ugknbfddgicrmopn()

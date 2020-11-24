@@ -35,7 +35,7 @@ using System.Linq;
 namespace Advent2015.Solutions
 {
     
-    class Day2
+    class Day02
     {
         
         public int AmountOfWrappingPaperRequired(string[] input)
