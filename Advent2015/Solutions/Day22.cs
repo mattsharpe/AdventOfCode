@@ -27,12 +27,6 @@ namespace Advent2015.Solutions
             while (explore.Count > 0)
             {
                 var currentState = explore.Dequeue();
-
-                if (currentState.ManaSpent > bestOption.ManaSpent)
-                {
-                    continue;
-                }
-
                 var spells = AvailableSpells(currentState);
                 foreach (var spell in spells)
                 {
