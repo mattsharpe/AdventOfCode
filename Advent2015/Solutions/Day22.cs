@@ -9,11 +9,11 @@ namespace Advent2015.Solutions
     {
         public ReadOnlyCollection<Spell> Grimoire = new List<Spell>
         {
-            new Spell ("Magic Missile", 53, damage: 4),
-            new Spell ("Drain", 73, damage: 2, heal: 2),
-            new Spell ("Shield", 113, armour: 7, duration: 6),
-            new Spell ("Poison", 173, damage: 3, duration: 6),
-            new Spell ("Recharge",229, mana: 101, duration: 5),
+            new Spell("Magic Missile", 53, damage: 4),
+            new Spell("Drain", 73, damage: 2, heal: 2),
+            new Spell("Shield", 113, armour: 7, duration: 6),
+            new Spell("Poison", 173, damage: 3, duration: 6),
+            new Spell("Recharge", 229, mana: 101, duration: 5),
         }.AsReadOnly();
 
 
@@ -21,8 +21,8 @@ namespace Advent2015.Solutions
         {
             var explore = new Queue<GameState>();
             explore.Enqueue(state);
-            
-            var bestOption = new GameState{ManaSpent = int.MaxValue};
+
+            var bestOption = new GameState {ManaSpent = int.MaxValue};
 
             while (explore.Count > 0)
             {
@@ -32,17 +32,16 @@ namespace Advent2015.Solutions
                 {
                     continue;
                 }
-                
+
                 var spells = AvailableSpells(currentState);
                 foreach (var spell in spells)
                 {
-                    var newGameState = (GameState)currentState.Clone();
+                    var newGameState = (GameState) currentState.Clone();
                     var result = newGameState.ProcessTurn(spell);
 
                     if (result == null && newGameState.ManaSpent < bestOption.ManaSpent)
                     {
                         explore.Enqueue(newGameState);
-                        
                     }
                     else if (result == true && newGameState.ManaSpent < bestOption.ManaSpent)
                     {
@@ -50,30 +49,27 @@ namespace Advent2015.Solutions
                         Console.WriteLine($"New best option {bestOption.ManaSpent}, left to explore {explore.Count}");
                         explore = new Queue<GameState>(explore.Where(x => x.ManaSpent < newGameState.ManaSpent));
                         Console.WriteLine($"Pruned states : {explore.Count}");
-                        
-                    } 
+                    }
                 }
             }
 
             return bestOption;
-
         }
 
         public IEnumerable<Spell> AvailableSpells(GameState state)
         {
-
             return Grimoire.Where(x =>
             {
-                return state.PlayerMana >= x.Cost && 
+                return state.PlayerMana >= x.Cost &&
                        state.ActiveSpells.Where(s => s.Value > 1).All(s => s.Key.Name != x.Name);
-
             });
         }
     }
 
     public class Spell
     {
-        public Spell(string name, int cost, int damage = 0, int heal = 0, int armour = 0, int mana = 0, int duration = 0)
+        public Spell(string name, int cost, int damage = 0, int heal = 0, int armour = 0, int mana = 0,
+            int duration = 0)
         {
             Name = name;
             Cost = cost;
@@ -85,17 +81,16 @@ namespace Advent2015.Solutions
         }
 
         public string Name { get; }
-        public int Cost { get;  }
-        public int Damage { get;  }
-        public int Heal { get;  }
-        public int Armour { get;  }
-        public int Mana { get;  }
-        public int Duration { get;  }
+        public int Cost { get; }
+        public int Damage { get; }
+        public int Heal { get; }
+        public int Armour { get; }
+        public int Mana { get; }
+        public int Duration { get; }
     }
 
     public class GameState : ICloneable
     {
-        public int Round { get; set; }
         public int ManaSpent { get; set; }
         public int PlayerHitPoints { get; set; }
         public int PlayerMana { get; set; }
@@ -103,23 +98,24 @@ namespace Advent2015.Solutions
         public int BossDamage { get; set; }
         public bool Debug { get; set; }
         public Dictionary<Spell, int> ActiveSpells = new Dictionary<Spell, int>();
-        
+
         public List<Spell> SpellChain { get; set; } = new List<Spell>();
 
         private int PlayerArmour => ActiveSpells.Any(x => x.Key.Name == "Shield") ? 7 : 0;
+        public bool Hard { get; set; }
 
 
         public object Clone()
         {
             return new GameState
             {
-                Round = Round,
                 ManaSpent = ManaSpent,
                 PlayerHitPoints = PlayerHitPoints,
                 PlayerMana = PlayerMana,
                 BossDamage = BossDamage,
                 BossHitPoints = BossHitPoints,
                 Debug = Debug,
+                Hard = Hard,
                 ActiveSpells = new Dictionary<Spell, int>(ActiveSpells),
                 SpellChain = new List<Spell>(SpellChain),
             };
@@ -128,34 +124,39 @@ namespace Advent2015.Solutions
 
         public bool? ProcessTurn(Spell spell)
         {
-            ++Round;
             //Player Goes First
             Log("-- Player Turn --");
+            if (Hard)
+            {
+                PlayerHitPoints--;
+            }
+
             LogState();
-            
+
             ProcessActiveSpells();
             //if no HP or mana left player loses
             if (PlayerHitPoints <= 0 || PlayerMana < 53) return false;
-            
+
             CastSpell(spell);
             if (BossHitPoints <= 0)
             {
                 Log("This kills the boss, and the player wins");
                 return true;
             }
+
             Log("");
 
             //Boss Turn
             Log("-- Boss Turn --");
             LogState();
-            
+
             ProcessActiveSpells();
             if (BossHitPoints <= 0)
             {
                 Log("This kills the boss, and the player wins");
                 return true;
             }
-            
+
             BossAttack();
             if (PlayerHitPoints <= 0) return false;
             Log("");
@@ -186,8 +187,6 @@ namespace Advent2015.Solutions
                     ActiveSpells.Remove(spell);
                 }
             }
-            
-            
         }
 
         private void LogState()
@@ -239,7 +238,7 @@ namespace Advent2015.Solutions
             }
             else
             {
-                 ApplyEffects(spell);
+                ApplyEffects(spell);
                 if (!Debug) return;
                 switch (spell.Name)
                 {
@@ -247,10 +246,10 @@ namespace Advent2015.Solutions
                         Log($"Player casts Magic Missile, dealing {spell.Damage} damage.");
                         break;
                     case "Drain":
-                        Log($"Player casts {spell.Name}, dealing {spell.Damage} damage, and healing {spell.Heal} hit points");
+                        Log(
+                            $"Player casts {spell.Name}, dealing {spell.Damage} damage, and healing {spell.Heal} hit points");
                         break;
                 }
-               
             }
         }
     }

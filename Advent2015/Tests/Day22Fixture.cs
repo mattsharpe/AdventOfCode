@@ -135,5 +135,22 @@ namespace Advent2015.Tests
             Assert.AreEqual(1269, result.ManaSpent);
         }
 
+        [TestMethod]
+        public void WinningOnHardMode()
+        {
+            var state = new GameState
+            {
+                PlayerHitPoints = 50,
+                PlayerMana = 500,
+                BossHitPoints = 58,
+                BossDamage = 9,
+                Debug = false,
+                Hard = true
+            };
+
+            var result = _day22.LeastAmountOfManaToWin(state);
+            
+            Assert.AreEqual(1309, result.ManaSpent);
+        }
     }
 }
