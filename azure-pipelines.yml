@@ -54,7 +54,7 @@ steps:
 
 - task: DotNetCoreCLI@2
   displayName: 'Test'
-  enabled: false
+  enabled: true
   inputs:
     command: 'test'
     projects: '**/*.csproj'
