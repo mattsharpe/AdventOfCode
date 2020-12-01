@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		azure-pipelines.yml = azure-pipelines.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Advent2020", "Advent2020\Advent2020.csproj", "{F2199ECE-DEF9-484D-975D-318E0B9219A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{186BB157-039B-455F-9955-F10DC0C1BE70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{186BB157-039B-455F-9955-F10DC0C1BE70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{186BB157-039B-455F-9955-F10DC0C1BE70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2199ECE-DEF9-484D-975D-318E0B9219A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2199ECE-DEF9-484D-975D-318E0B9219A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2199ECE-DEF9-484D-975D-318E0B9219A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2199ECE-DEF9-484D-975D-318E0B9219A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
