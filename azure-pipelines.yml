@@ -14,11 +14,6 @@ variables:
 
 steps:
 
-- task: UseDotNet@2
-  inputs:
-    packageType: 'sdk'
-    version: '5.x'
-
 - task: DotNetCoreCLI@2
   inputs:
     command: 'restore'
@@ -40,17 +35,6 @@ steps:
     command: 'build'
     projects: '**\*.csproj'
     arguments: '--configuration $(buildConfiguration)'
-
-- task: VSTest@2
-  enabled: false
-  inputs:
-    testSelector: 'testAssemblies'
-    testAssemblyVer2: |
-      **\Advent*.dll
-      !**\*TestAdapter.dll
-      !**\obj\**
-    searchFolder: '$(System.DefaultWorkingDirectory)'
-    testFiltercriteria: 'TestCategory!=IgnoreOnBuild'
 
 - task: DotNetCoreCLI@2
   displayName: 'Test'
