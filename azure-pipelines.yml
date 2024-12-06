@@ -19,37 +19,16 @@ steps:
     command: 'restore'
     projects: 'AdventOfCode.sln'
 
-- task: SonarCloudPrepare@1
-  displayName: 'Prepare SonarCloud Code Analysis'
-  enabled: true
-  inputs:
-    SonarCloud: 'SonarCloud'
-    organization: 'mattsharpe-github'
-    scannerMode: 'MSBuild'
-    projectKey: 'mattsharpe_AdventOfCode'
-    projectName: 'Advent Of Code'
-
 - task: DotNetCoreCLI@2
   displayName: 'Build'
   inputs:
     command: 'build'
-    projects: '**\*.csproj'
+    projects: 'AdventOfCode.sln'
     arguments: '--configuration $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
   displayName: 'Test'
-  enabled: true
   inputs:
     command: 'test'
-    projects: '**/*.csproj'
+    projects: 'AdventOfCode.sln'
     testRunTitle: 'Unit Tests'
-
-- task: SonarCloudAnalyze@1
-  enabled: true
-  displayName: 'Run SonarCloud Code Analysis'
-
-- task: SonarCloudPublish@1
-  displayName: 'Publish Quality Gate Result'
-  enabled: true
-  inputs:
-    pollingTimeoutSec: '300'
