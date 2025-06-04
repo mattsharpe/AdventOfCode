@@ -139,9 +139,9 @@ namespace Advent2019.Solutions
 
         private Dictionary<(int x, int y), int> ShortestPaths((int x, int y) startPoint)
         {
-            var toExplore = new Stack<(int x, int y)>();
+            var toExplore = new Queue<(int x, int y)>();
             var explored = new HashSet<(int x, int y)>();
-            toExplore.Push(startPoint);
+            toExplore.Enqueue(startPoint);
             var shortestPaths = new Dictionary<(int x, int y), int>
             {
                 {startPoint, 0}
@@ -149,14 +149,14 @@ namespace Advent2019.Solutions
 
             while (toExplore.Count > 0)
             {
-                var current = toExplore.Pop();
+                var current = toExplore.Dequeue();
                 var possiblePoints = _displacement.Select(move => (x: current.x + move.Value.x, y: current.y + move.Value.y));
 
                 foreach (var point in possiblePoints)
                 {
                     if (_map[point] == 0 || explored.Contains(point)) continue;
                     shortestPaths[point] = shortestPaths[current] + 1;
-                    toExplore.Push(point);
+                    toExplore.Enqueue(point);
                 }
 
                 explored.Add(current);

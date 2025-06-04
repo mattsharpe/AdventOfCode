@@ -31,9 +31,9 @@ namespace Advent2015.Solutions
                     break;
                 case "jmp": //jmp +19
                     return Convert.ToInt32(split[1]);
-                case "jie": //jie a, +4
+                case "jie": //jio a, +4
                     return Registers[register] % 2 == 0 ? Convert.ToInt32(split[2]) : 0;
-                case "jio": //jie a, +4
+                case "jio": //jio a, +4
                     return Registers[register] == 1 ? Convert.ToInt32(split[2]) : 0;
                 default:
                     throw new ArgumentException($"Unrecognised command {command}");

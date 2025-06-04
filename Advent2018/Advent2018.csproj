@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <IsPackable>false</IsPackable>
     <StartupObject></StartupObject>
     <ProjectGuid>94F32CB7-BDDF-4C02-867C-E15B33CA9CAC</ProjectGuid>
