@@ -27,7 +27,7 @@ namespace Advent2017.Tests
         public void Part1()
         {
             var input = FileReader.ReadFile("day2.txt");
-            Console.WriteLine(_day2.Solve(input));
+            Assert.AreEqual(47136, _day2.Solve(input));
         }
 
         [TestMethod]
@@ -47,7 +47,7 @@ namespace Advent2017.Tests
         public void Part2()
         {
             var input = FileReader.ReadFile("day2.txt");
-            Console.WriteLine(_day2.Solve2(input));
+            Assert.AreEqual(250, _day2.Solve2(input));
         }
     }
 }
