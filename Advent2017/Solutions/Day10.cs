@@ -29,7 +29,7 @@ namespace Advent2017.Solutions
             {
                 //start a new list from the current position, wrapping around
                 List = List.Skip(_currentPosition).Concat(List.Take(_currentPosition)).ToList();
-                //reverse the sublist by teh amount of the input and concat the rest of the lsit.
+                //reverse the sublist by the amount of the input and concat the rest of the list.
                 List = List.Take(length).Reverse().Concat(List.Skip(length)).ToList();
                 //put the list back to the way it was before we meddled with it
                 List = List.Skip(List.Count - _currentPosition).Concat(List.Take(List.Count - _currentPosition)).ToList();
