@@ -51,14 +51,14 @@ namespace Advent2015.Tests
         [TestMethod]
         public void Part1()
         {
-            var result = _day7.BuildSolver(FileReader.ReadFile("day7.txt"),"a");
+            var result = _day7.BuildSolver(FileReader.ReadFile("day07.txt"),"a");
             Assert.AreEqual(16076,result);
         }
 
         [TestMethod]
         public void Part2()
         {
-            var input = FileReader.ReadFile("day7.txt");
+            var input = FileReader.ReadFile("day07.txt");
             input[54] = "16076 -> b";
             var result = _day7.BuildSolver(input,"a");
             Assert.AreEqual(2797, result);

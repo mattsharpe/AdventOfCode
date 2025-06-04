@@ -60,7 +60,7 @@ namespace Advent2016.Tests
         public void Part1()
         {
             _day21.Password = "abcdefgh";
-            _day21.Solve(FileReader.ReadFile("day 21.txt"));
+            _day21.Solve(FileReader.ReadFile("day21.txt"));
             Assert.AreEqual("cbeghdaf", _day21.Password);
         }
 
@@ -68,10 +68,10 @@ namespace Advent2016.Tests
         public void Part2()
         {
             _day21.Password = "fbgdceah";
-            _day21.Unscramble(FileReader.ReadFile("day 21.txt"));
+            _day21.Unscramble(FileReader.ReadFile("day21.txt"));
             Assert.AreEqual("bacdefgh", _day21.Password);
                 
-            _day21.Solve(FileReader.ReadFile("day 21.txt"));
+            _day21.Solve(FileReader.ReadFile("day21.txt"));
             Assert.AreEqual("fbgdceah", _day21.Password);
            
         }

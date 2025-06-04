@@ -30,7 +30,7 @@ namespace Advent2016.Tests
         [TestMethod]
         public void Part1()
         {
-            var input = FileReader.ReadFile("day 23.txt");
+            var input = FileReader.ReadFile("day23.txt");
 
             _day23.A = 7;
             _day23.ProcessInstructions(input);

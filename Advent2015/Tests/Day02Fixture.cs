@@ -33,7 +33,7 @@ namespace Advent2015.Tests
         [TestMethod]
         public void Part1()
         {
-            var result = _day2.AmountOfWrappingPaperRequired(FileReader.ReadFile("day2.txt"));
+            var result = _day2.AmountOfWrappingPaperRequired(FileReader.ReadFile("day02.txt"));
             Assert.AreEqual(1586300, result);
 
         }
@@ -55,7 +55,7 @@ namespace Advent2015.Tests
         [TestMethod]
         public void Part2()
         {
-            var result = _day2.AmountOfRibbonRequired(FileReader.ReadFile("day2.txt"));
+            var result = _day2.AmountOfRibbonRequired(FileReader.ReadFile("day02.txt"));
             Assert.AreEqual(3737498, result);
         }
     }

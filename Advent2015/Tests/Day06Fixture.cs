@@ -60,14 +60,14 @@ namespace Advent2015.Tests
         [TestMethod]
         public void Part1()
         {
-            _day6.ProcessInstructions(FileReader.ReadFile("day6.txt"));
+            _day6.ProcessInstructions(FileReader.ReadFile("day06.txt"));
             Assert.AreEqual(543903, _day6.CountLit());
         }
 
         [TestMethod]
         public void Part2()
         {
-            _day6.ProcessInstructions(FileReader.ReadFile("day6.txt"), true);
+            _day6.ProcessInstructions(FileReader.ReadFile("day06.txt"), true);
             Assert.AreEqual(14687245, _day6.SumLights());
         }
 

@@ -7,7 +7,7 @@ namespace Advent2016
     {
         public static void Main(string[] args)
         {
-            var day8 = new Day8();
+            var day8 = new Day08();
             day8.Bonus(true);
             Console.ReadKey(true);
         }
