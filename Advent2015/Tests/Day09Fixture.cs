@@ -54,7 +54,7 @@ namespace Advent2015.Tests
         [TestMethod]
         public void Part1()
         {
-            Assert.AreEqual(117, _day9.Part1(FileReader.ReadFile("day9.txt")));
+            Assert.AreEqual(117, _day9.Part1(FileReader.ReadFile("day09.txt")));
         }
 
         [TestMethod]
@@ -66,7 +66,7 @@ namespace Advent2015.Tests
         [TestMethod]
         public void Part2()
         {
-            Assert.AreEqual(909, _day9.Part2(FileReader.ReadFile("day9.txt")));
+            Assert.AreEqual(909, _day9.Part2(FileReader.ReadFile("day09.txt")));
         }
     }
 }

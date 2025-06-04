@@ -47,7 +47,7 @@ Based on your instructions, what is the number of the bot that is responsible fo
 
         public void Part1()
         {
-            var input = FileReader.ReadFile("day 10 instructions.txt");
+            var input = FileReader.ReadFile("day10 instructions.txt");
             ProcessInstructions(input);
         }
 

@@ -153,7 +153,7 @@ namespace Advent2016.Solutions
             //The data on node A(its Used) would fit on node B(its Avail).
             //How many viable pairs of nodes are there?
             if(input == null)
-                input = FileReader.ReadFile("day 22.txt").Skip(2).ToArray();
+                input = FileReader.ReadFile("day22.txt").Skip(2).ToArray();
             if(network == null)
                 network = BuildNetwork(input);
 
@@ -178,7 +178,7 @@ namespace Advent2016.Solutions
         public void DrawSpaceMap(string[] input)
         {
             if (input == null)
-                input = FileReader.ReadFile("day 22.txt").Skip(2).ToArray();
+                input = FileReader.ReadFile("day22.txt").Skip(2).ToArray();
 
             var network = BuildNetwork(input);
             var pairs = ViablePairs(null, network);

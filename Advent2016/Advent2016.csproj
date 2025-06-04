@@ -8,21 +8,21 @@
   </PropertyGroup>
 
    <ItemGroup>
-    <EmbeddedResource Include="TestData\day3 triangles.txt" />
-    <EmbeddedResource Include="TestData\day4 room codes.txt" />
-    <EmbeddedResource Include="TestData\day6 messages.txt" />
-    <EmbeddedResource Include="TestData\day7 ip addresses.txt" />
-    <EmbeddedResource Include="TestData\day8 instructions.txt" />
-    <EmbeddedResource Include="TestData\day9 compressed file.txt" />
-    <EmbeddedResource Include="TestData\day 10 instructions.txt" />
-    <EmbeddedResource Include="TestData\day 11 input.txt" />
+    <EmbeddedResource Include="TestData\day03 triangles.txt" />
+    <EmbeddedResource Include="TestData\day04 room codes.txt" />
+    <EmbeddedResource Include="TestData\day06 messages.txt" />
+    <EmbeddedResource Include="TestData\day07 ip addresses.txt" />
+    <EmbeddedResource Include="TestData\day08 instructions.txt" />
+    <EmbeddedResource Include="TestData\day09 compressed file.txt" />
+    <EmbeddedResource Include="TestData\day10 instructions.txt" />
+    <EmbeddedResource Include="TestData\day11 input.txt" />
     <EmbeddedResource Include="TestData\day12 assembunny.txt" />
-    <EmbeddedResource Include="TestData\day 20.txt" />
-    <EmbeddedResource Include="TestData\day 21.txt" />
-    <EmbeddedResource Include="TestData\day 22.txt" />
-    <EmbeddedResource Include="TestData\day 23.txt" />
-    <EmbeddedResource Include="TestData\day 24.txt" />
-    <EmbeddedResource Include="TestData\day 25.txt" />
+    <EmbeddedResource Include="TestData\day20.txt" />
+    <EmbeddedResource Include="TestData\day21.txt" />
+    <EmbeddedResource Include="TestData\day22.txt" />
+    <EmbeddedResource Include="TestData\day23.txt" />
+    <EmbeddedResource Include="TestData\day24.txt" />
+    <EmbeddedResource Include="TestData\day25.txt" />
     <EmbeddedResource Include="TestData\bonus.txt" />
     <EmbeddedResource Include="TestData\bonus2.txt" />
   </ItemGroup>

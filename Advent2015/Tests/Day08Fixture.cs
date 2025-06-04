@@ -23,7 +23,7 @@ namespace Advent2015.Tests
         [TestMethod]
         public void Part1()
         {
-            var input = FileReader.ReadFile("day8.txt");
+            var input = FileReader.ReadFile("day08.txt");
             Assert.AreEqual(1342, _day8.Part1(input));
         }
 
@@ -40,7 +40,7 @@ namespace Advent2015.Tests
         [TestMethod]
         public void Part2()
         {
-            var input = FileReader.ReadFile("day8.txt");
+            var input = FileReader.ReadFile("day08.txt");
             Assert.AreEqual(2074, _day8.Part2(input));
         }
     }

@@ -50,14 +50,14 @@ namespace Advent2015.Tests
         [TestMethod]
         public void Part1()
         {
-            var input = FileReader.ReadFile("day5.txt");
+            var input = FileReader.ReadFile("day05.txt");
             Assert.AreEqual(238, input.Count(x => _day5.IsNice(x)));
         }
 
         [TestMethod]
         public void Part2()
         {
-            var input = FileReader.ReadFile("day5.txt");
+            var input = FileReader.ReadFile("day05.txt");
             Assert.AreEqual(69, input.Count(x => _day5.IsNice2(x)));
         }
 

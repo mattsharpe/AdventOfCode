@@ -73,14 +73,14 @@ namespace Advent2016.Tests
         [TestMethod]
         public void Solve_Part1()
         {
-            var result = _day24.SolveForShortestPath(FileReader.ReadFile("day 24.txt"), 0);
+            var result = _day24.SolveForShortestPath(FileReader.ReadFile("day24.txt"), 0);
             Assert.AreEqual(428, result);
         }
 
         [TestMethod]
         public void Solve_Part2()
         {
-            var result = _day24.SolveForShortestPath(FileReader.ReadFile("day 24.txt"), 0, true);
+            var result = _day24.SolveForShortestPath(FileReader.ReadFile("day24.txt"), 0, true);
             Assert.AreEqual(680, result);
         }
 

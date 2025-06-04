@@ -45,7 +45,7 @@ namespace Advent2015.Tests
         [TestMethod]
         public void Part1()
         {
-            var input = FileReader.ReadFile("day3.txt")[0];
+            var input = FileReader.ReadFile("day03.txt")[0];
             _day3.ProcessInstructions(input);
 
             var visited = _day3.Visited.Count;
@@ -55,7 +55,7 @@ namespace Advent2015.Tests
         [TestMethod]
         public void Part2()
         {
-            var input = FileReader.ReadFile("day3.txt")[0];
+            var input = FileReader.ReadFile("day03.txt")[0];
             _day3.ProcessInstructions(input, true);
 
             var visited = _day3.Visited.Count;

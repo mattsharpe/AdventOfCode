@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="TestData\day1.txt" />
+    <None Remove="TestData\day01.txt" />
     <None Remove="TestData\day12.txt" />
     <None Remove="TestData\day13.txt" />
     <None Remove="TestData\day14.txt" />
@@ -18,15 +18,15 @@
     <None Remove="TestData\day17.txt" />
     <None Remove="TestData\day18.txt" />
     <None Remove="TestData\day19.txt" />
-    <None Remove="TestData\day2.txt" />
+    <None Remove="TestData\day02.txt" />
     <None Remove="TestData\day24.txt" />
     <None Remove="TestData\day23.txt" />
-    <None Remove="TestData\day3.txt" />
-    <None Remove="TestData\day5.txt" />
-    <None Remove="TestData\day6.txt" />
-    <None Remove="TestData\day7.txt" />
-    <None Remove="TestData\day8.txt" />
-    <None Remove="TestData\day9.txt" />
+    <None Remove="TestData\day03.txt" />
+    <None Remove="TestData\day05.txt" />
+    <None Remove="TestData\day06.txt" />
+    <None Remove="TestData\day07.txt" />
+    <None Remove="TestData\day08.txt" />
+    <None Remove="TestData\day09.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,7 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="TestData\day1.txt" />
+    <EmbeddedResource Include="TestData\day01.txt" />
     <EmbeddedResource Include="TestData\day13.txt" />
     <EmbeddedResource Include="TestData\day12.txt" />
     <EmbeddedResource Include="TestData\day14.txt" />
@@ -43,13 +43,13 @@
     <EmbeddedResource Include="TestData\day24.txt" />
     <EmbeddedResource Include="TestData\day23.txt" />
     <EmbeddedResource Include="TestData\day19.txt" />
-    <EmbeddedResource Include="TestData\day2.txt" />
-    <EmbeddedResource Include="TestData\day3.txt" />
-    <EmbeddedResource Include="TestData\day5.txt" />
-    <EmbeddedResource Include="TestData\day6.txt" />
-    <EmbeddedResource Include="TestData\day7.txt" />
-    <EmbeddedResource Include="TestData\day8.txt" />
-    <EmbeddedResource Include="TestData\day9.txt" />
+    <EmbeddedResource Include="TestData\day02.txt" />
+    <EmbeddedResource Include="TestData\day03.txt" />
+    <EmbeddedResource Include="TestData\day05.txt" />
+    <EmbeddedResource Include="TestData\day06.txt" />
+    <EmbeddedResource Include="TestData\day07.txt" />
+    <EmbeddedResource Include="TestData\day08.txt" />
+    <EmbeddedResource Include="TestData\day09.txt" />
   </ItemGroup>
 
   <ItemGroup>

@@ -23,7 +23,7 @@ namespace Advent2016.Tests
         [TestMethod]
         public void Part1()
         {
-            var instructions = FileReader.ReadFile("day 25.txt");
+            var instructions = FileReader.ReadFile("day25.txt");
             
             for (int i = 0; i < 250; i++)
             {

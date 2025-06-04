@@ -46,7 +46,7 @@ namespace Advent2016.Tests
         [TestMethod]
         public void BuildNetwork()
         {
-            var contents = FileReader.ReadFile("day 22.txt").Skip(2).ToArray();
+            var contents = FileReader.ReadFile("day22.txt").Skip(2).ToArray();
             var network = _day22.BuildNetwork(contents);
             Assert.AreEqual(925, network.Nodes.Count);
         }
@@ -70,19 +70,19 @@ namespace Advent2016.Tests
             "/dev/grid/node-x2-y2    9T    6T     3T   66%"
         };
 
-        private string[] _part2Data = FileReader.ReadFile("day 22.txt").Skip(2).ToArray();
+        private string[] _part2Data = FileReader.ReadFile("day22.txt").Skip(2).ToArray();
 
         [TestMethod]
         public void PrintMap()
         {
-            var grid = _day22.BuildNetwork(FileReader.ReadFile("day 22.txt").Skip(2).ToArray());
+            var grid = _day22.BuildNetwork(FileReader.ReadFile("day22.txt").Skip(2).ToArray());
             grid.Print();
         }
 
         [TestMethod]
         public void PrintSpaceMap()
         {
-            //_day22.DrawSpaceMap(FileReader.ReadFile("day 22.txt").Skip(2).ToArray());
+            //_day22.DrawSpaceMap(FileReader.ReadFile("day22.txt").Skip(2).ToArray());
             _day22.DrawSpaceMap(_part2Sample);
         }
 
