@@ -2,6 +2,9 @@ name: .NET CI
 
 on:
   pull_request:
+  push:
+    branches:
+      - master
 
 jobs:
   build:
@@ -17,4 +20,4 @@ jobs:
       - name: Build
         run: dotnet build AdventOfCode.sln --configuration Release --no-restore
       - name: Test
-        run: dotnet test AdventOfCode.sln --configuration Release --verbosity normal -maxcpucount:1
+        run: dotnet test AdventOfCode.sln --configuration Release --verbosity normal
