@@ -62,3 +62,4 @@ Advent2015/bin/
 /Advent2018/obj
 /Advent2018/bin/
 /.vscode
+.claude/settings.local.json
